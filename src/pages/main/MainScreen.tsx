@@ -1,10 +1,10 @@
 import React from "react";
 
 
-function Main() {
+function MainScreen() {
   return (
     <div>Основная страница</div>
   )
 }
 
-export default Main
+export default MainScreen

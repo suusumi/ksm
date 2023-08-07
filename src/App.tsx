@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
-import Main from "./pages/Main";
+import MainScreen from "./pages/main/MainScreen";
 import Container from '@mui/material/Container';
 import Header from "./components/header/Header";
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
@@ -14,7 +14,7 @@ function App() {
         <Header />
         <div style={{marginBottom: '180px'}}></div>
         <Routes>
-          <Route path="/" element={<Main />} />
+          <Route path="/" element={<MainScreen />} />
           {/* Add more Route elements for other pages */}
         </Routes>
       </Container>
