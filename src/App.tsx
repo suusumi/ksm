@@ -6,10 +6,13 @@ import Container from '@mui/material/Container';
 import Header from "./components/header/Header";
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import Footer from './components/footer/Footer';
+import ThemeProvider from '@mui/material/styles/ThemeProvider';
+import Theme from './assets/theme/Theme';
 
 function App() {
   return (
-    <BrowserRouter>
+    <ThemeProvider theme={Theme}>
+      <BrowserRouter>
       <Container>
         <Header />
         <div style={{marginBottom: '180px'}}></div>
@@ -20,6 +23,8 @@ function App() {
       </Container>
         <Footer/>
     </BrowserRouter>
+    </ThemeProvider>
+    
   );
 }
 
