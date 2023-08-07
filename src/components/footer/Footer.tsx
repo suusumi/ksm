@@ -15,13 +15,13 @@ const Footer: React.FC = () => {
     <Box component="footer" sx={{ backgroundColor: '#171717', width: '100%', paddingTop: 3, paddingBottom: 3 }}>
       <Container maxWidth='lg'>
         <Grid container spacing={5}>
-          <Grid item xs={12} sm={4} md={6}>
-            <Typography variant='h6' sx={{ color: 'white' }}>Клиника семейной медицины</Typography>
-            <Typography variant="body2" sx={{ color: '#525252', maxWidth: '370px' }}>
+          <Grid item xs={12} sm={4} md={7}>
+            <img src="/logos/footer_logo.svg" style={{maxWidth:'180px'}} alt="Клиника семейной медицины" />
+            <Typography variant="body2" sx={{ color: '#525252', maxWidth: '370px', paddingTop:'20px' }}>
               © 2023 Волгоградский государственный медицинский университет - Все права защищены
             </Typography>
           </Grid>
-          <Grid item xs={12} sm={4} md={4}>
+          <Grid item xs={12} sm={4} md={3}>
             <Typography variant="h6" sx={headerStyle} gutterBottom>
               Меню
             </Typography>
@@ -74,7 +74,7 @@ const Footer: React.FC = () => {
             </Typography>
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
-            <Typography sx={{ paddingTop: '30px', fontSize: '12px', color: '#525252' }}>
+            <Typography sx={{ paddingTop: '20px', fontSize: '12px', color: '#525252' }}>
               Информация и цены, представленные на сайте, являются справочными и не являются публичной офертой. Лекарственные средства, медицинские услуги, в том числе методы лечения, медицинская техника имеют противопоказания к их применению и использованию. Существует необходимость ознакомления с инструкцией по их применению и получения консультации специалистов.
             </Typography>
           </Grid>
