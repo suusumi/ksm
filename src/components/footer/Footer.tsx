@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
   const headerStyle = { fontFamily: 'PT-Sans-Bold, sans-serif', color: '#525252', textTransform: 'uppercase'};
 
   return (
-    <Box component="footer" sx={{ backgroundColor: '#171717', width: '100%', paddingTop: 3, paddingBottom: 3 }}>
+    <Box component="footer" sx={{ backgroundColor: '#171717', width: '100%', paddingTop: 9, paddingBottom: 9 }}>
       <Container maxWidth='lg'>
         <Grid container spacing={5}>
           <Grid item xs={12} sm={4} md={7}>
