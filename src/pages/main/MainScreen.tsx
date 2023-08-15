@@ -1,9 +1,11 @@
 import React from "react";
+import MainView from "./view/MainView";
 
 
 function MainScreen() {
   return (
-    <div>Основная страница</div>
+    <MainView></MainView>
+    // <div>Основная страница</div>
   )
 }
 
