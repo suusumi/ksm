@@ -15,3 +15,114 @@ model Infographics{
   value String
   description String
 }
+
+model Banners{
+  id Int @id @default(autoincrement())
+  title String
+  subtitle String
+  text_content String @db.Text
+  img_path String?
+}
+
+model Administrators{
+  id Int @id @default(autoincrement())
+  login String @unique
+  password_hash String
+  full_name String? @db.VarChar(255)
+}
+
+model Services{
+  id Int @id @default(autoincrement())
+  type ServiceType @default(AllergologyAndImmunology)
+  category CategoryType @default(ReceptionAndInspectionAndConsultation)
+  name String
+  description String?
+  price Int
+}
+
+model Specialists{
+  id Int @id @default(autoincrement())
+  photo_path String?
+  name String
+  post String?
+  speciality String?
+  degree String?
+}
+
+enum CategoryType{
+  ReceptionAndInspectionAndConsultation
+  BronchoprovocationTest
+  AllergyTests
+  DecisionOTheMedicalCommissionIVF
+  PreGravidalPreparation
+  Other
+  Dermatoscopy
+  Cryodestruction
+  Researches
+  InspectionOfDrivers
+  RegistrationOfSanatoriumAndResortCard
+  MedicalExaminationOfStudents
+  RegistrationOfCertificateSwimmingPoolSportsSection
+  SetOfExaminationsForAdmissionToPhysicalEducationClasses
+  ComprehensiveServices
+  AdaptationProgram
+  IntroductionOfBotulinumToxinAnemia
+  IntroductionOfMedicines
+  OtherProcedures
+  Biopsy
+  Blockade
+  Drainage
+  Inhalations
+  InstillationAndApplication
+  Insufflation
+  FunctionResearch
+  Catheterization
+  TherapeuticManeuver
+  LocalAnemia
+  MassageOfBackWallOfPharynx
+  Otomicroscopy
+  Puncture
+  Washing
+  VariousProcedures
+  Treatment
+  Injections
+  KinesiologicalTaping
+  PRPTherapy
+  SynovialFluidIntake
+  UltrasoundExamination
+  TreatmentAndTherapy
+  Vaccination
+  LaboratoryDiagnostics
+  TakingBlood
+  MedicalCareAtHome
+  MedicalExamination
+}
+
+enum ServiceType{
+  AllergologyAndImmunology
+  ObstetricsAndGynecology
+  ChildrensSpecialists
+  Gastroenterology
+  Dermatovenerology
+  InfectiousDiseases
+  Cardiology
+  MedicalAndPsychologicalCenter
+  MedicalExaminations
+  Neurology
+  Otorhinolaryngology
+  Ophthalmology
+  PsychiatryAndNarcology
+  Pulmonology
+  Rheumatology
+  CardiovascularSurgery
+  Therapy
+  TraumatologyAndOrthopedics
+  UltrasoundDiagnostics
+  PhysicalTherapy
+  Endocrinology
+  Vaccinoprophylaxis
+  LaboratoryDiagnostics
+  Manipulations
+  MedicalCareAtHome
+  MedicalExaminationOfForeignCitizens
+}
