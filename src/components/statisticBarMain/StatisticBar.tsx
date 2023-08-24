@@ -3,13 +3,13 @@ import Typography from '@mui/material/Typography';
 import React from 'react'
 
 function StatisticBar() {
-    const TitleText = {
-  color: '#288e81',
-  textDecoration: 'none',
-  fontSize: 65,
-  // TODO: шрифт Austin Normal, возможно Regular
-  fontFamily: 'Austin, sans-serif'
-};
+  const TitleText = {
+    color: '#288e81',
+    textDecoration: 'none',
+    fontSize: 65,
+    // TODO: шрифт Austin Normal, возможно Regular
+    fontFamily: 'AustinMedium, sans-serif'
+  };
 
   const StandartText = {
     color: 'black',
@@ -30,7 +30,7 @@ function StatisticBar() {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={4} md={4}>
-           <Typography sx={TitleText}>
+          <Typography sx={TitleText}>
             17 лет
           </Typography>
           <Typography sx={StandartText}>
@@ -38,13 +38,13 @@ function StatisticBar() {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={4} md={4}>
-           <Typography sx={TitleText}>
+          <Typography sx={TitleText}>
             18+
           </Typography>
           <Typography sx={StandartText}>
             Областей медицинской помощи
           </Typography>
-        </Grid> 
+        </Grid>
       </Grid>
     </div>
   )
