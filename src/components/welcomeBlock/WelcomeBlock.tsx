@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import WelcomePhraseButton from '../welcomePhraseButton/WelcomePhraseButton';
 
 interface WelcomeBlockData {
     title: string;
@@ -20,7 +21,9 @@ const WelcomeBlock: React.FC = () => {
 
 
     return (
-        <div>WelcomeBlock</div>
+        <div>
+            <WelcomePhraseButton slogan={data[0]?.slogan || ''} />
+        </div>
     )
 }
 
