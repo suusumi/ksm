@@ -1,4 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import WelcomePhraseButton from '../welcomePhraseButton/WelcomePhraseButton';
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import useMediaQuery from '@mui/material/useMediaQuery';
+import { ThemeProvider, useTheme } from '@mui/material/styles';
 
 interface WelcomeBlockData {
     title: string;
@@ -18,9 +23,38 @@ const WelcomeBlock: React.FC = () => {
         setData(welcomeBlockData);
     }, []);
 
+   const theme = useTheme();
+    const isXsScreen = useMediaQuery(theme.breakpoints.only('xs'));
+    
+    const TitleText = {
+        color: '#288e81',
+        fontSize: isXsScreen ? 30 : 70,
+        fontFamily: 'Austin, sans-serif',
+        textTransform: 'uppercase',
+        maxWidth: 500,
+        textAlign: isXsScreen ? 'center' : 'left',
 
+    }
+
+    const SubtitleText = {
+        fontSize: 22,
+        maxWidth: 500,
+    }
     return (
-        <div>WelcomeBlock</div>
+        <div>
+            
+            <Grid container spacing={5}>
+                <Grid item xs={12} sm={6} md={6}>
+                    {!isXsScreen && <WelcomePhraseButton slogan={data[0]?.slogan || ''} />}
+                    <Typography sx={TitleText}>{data[0]?.title || ''}</Typography>
+                    <Typography sx={SubtitleText}>{data[0]?.subtitle || ''}</Typography>
+                </Grid>
+                <Grid item xs={12} sm={6} md={6}>
+                    
+                </Grid>
+            </Grid>
+
+        </div>
     )
 }
 
