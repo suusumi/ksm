@@ -7,11 +7,11 @@ import Header from "./components/header/Header";
 import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import Footer from './components/footer/Footer';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
-import Theme from './assets/theme/Theme';
+import theme from './assets/theme/Theme';
 
 function App() {
   return (
-    <ThemeProvider theme={Theme}>
+    <ThemeProvider theme={theme}>
       <BrowserRouter>
       <Container>
         <Header />
