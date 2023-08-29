@@ -3,6 +3,7 @@ import Typography from '@mui/material/Typography';
 import React from 'react'
 import StatisticBar from '../../../components/statisticBarMain/StatisticBar';
 import WelcomeBlock from '../../../components/welcomeBlock/WelcomeBlock';
+import AboutUsBlock from '../../../components/aboutUsBlock/AboutUsBlock';
 
 function MainView() {
   const TitleText = {
@@ -25,6 +26,7 @@ function MainView() {
     <div>
       <WelcomeBlock></WelcomeBlock>
       <StatisticBar></StatisticBar>
+      <AboutUsBlock></AboutUsBlock>
     </div>
   )
 }
