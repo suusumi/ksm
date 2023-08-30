@@ -4,7 +4,7 @@ import logo from "../../../assets/content/adminLogin/logo.svg";
 import { OvalTextField } from "../../../components/OvalTextField/OvalTextField";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
-import { WarningParagraph } from "../../../components/ WarningParagraph/WarningParagraph";
+import { WarningParagraph } from "../../../components/WarningParagraph/WarningParagraph";
 import { LoginButton } from "../../../components/LoginButton/LoginButton";
 
 export interface IAdminLoginView {
