@@ -5,6 +5,7 @@ import StatisticBar from '../../../components/statisticBarMain/StatisticBar';
 import WelcomeBlock from '../../../components/welcomeBlock/WelcomeBlock';
 import AboutUsBlock from '../../../components/aboutUsBlock/AboutUsBlock';
 import CarouselBlock from '../../../components/carouselBlock/CarouselBlock';
+import Container from '@mui/material/Container';
 
 function MainView() {
   const TitleText = {
@@ -25,10 +26,14 @@ function MainView() {
 
   return (
     <div>
+      <Container>
       <WelcomeBlock></WelcomeBlock>
       <StatisticBar></StatisticBar>
+      </Container>
       <CarouselBlock></CarouselBlock>
+      <Container>
       <AboutUsBlock></AboutUsBlock>
+      </Container>
     </div>
   )
 }

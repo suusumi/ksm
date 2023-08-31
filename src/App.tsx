@@ -15,12 +15,13 @@ function App() {
       <BrowserRouter>
       <Container>
         <Header />
+      </Container>
         <div style={{marginBottom: '80px'}}></div>
         <Routes>
           <Route path="/" element={<MainScreen />} />
           {/* Add more Route elements for other pages */}
         </Routes>
-      </Container>
+      
         <Footer/>
     </BrowserRouter>
     </ThemeProvider>
