@@ -15,7 +15,7 @@ function App() {
       <BrowserRouter>
       <Container>
         <Header />
-        <div style={{marginBottom: '180px'}}></div>
+        <div style={{marginBottom: '80px'}}></div>
         <Routes>
           <Route path="/" element={<MainScreen />} />
           {/* Add more Route elements for other pages */}

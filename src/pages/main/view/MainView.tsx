@@ -4,6 +4,7 @@ import React from 'react'
 import StatisticBar from '../../../components/statisticBarMain/StatisticBar';
 import WelcomeBlock from '../../../components/welcomeBlock/WelcomeBlock';
 import AboutUsBlock from '../../../components/aboutUsBlock/AboutUsBlock';
+import CarouselBlock from '../../../components/carouselBlock/CarouselBlock';
 
 function MainView() {
   const TitleText = {
@@ -26,6 +27,7 @@ function MainView() {
     <div>
       <WelcomeBlock></WelcomeBlock>
       <StatisticBar></StatisticBar>
+      <CarouselBlock></CarouselBlock>
       <AboutUsBlock></AboutUsBlock>
     </div>
   )
