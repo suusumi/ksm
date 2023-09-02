@@ -1,5 +1,7 @@
 import Button from '@mui/material/Button';
 import React from 'react';
+import { useTheme } from '@mui/material/styles';
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 interface OutlineButtonProps {
   buttonText: string;
@@ -7,6 +9,9 @@ interface OutlineButtonProps {
 }
 
 const OutlineButton: React.FC<OutlineButtonProps> = ({ buttonText, buttonLink }) => {
+  const theme = useTheme();
+  const isXsScreen = useMediaQuery(theme.breakpoints.only('xs'));
+
   return (
     <Button
       sx={{
@@ -18,14 +23,14 @@ const OutlineButton: React.FC<OutlineButtonProps> = ({ buttonText, buttonLink })
         padding: '8px 36px',
         whiteSpace: 'nowrap',
         border: '2px solid #288e81',
-        margin: '0 15px 15px 0',
+        margin: isXsScreen ? '0 15px 15px 15px' : '0 15px 15px 0px',
         '&:hover': {
           backgroundColor: '#288e81',
           color: 'white',
         },
       }}
       href={buttonLink}
-      target="_blank" // Опционально, для открытия ссылки в новой вкладке
+      target="_blank"   // Опционально, для открытия ссылки в новой вкладке
     >
       {buttonText}
     </Button>
