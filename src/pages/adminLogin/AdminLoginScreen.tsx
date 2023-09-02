@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AdminLoginView } from "./view/AdminLoginView";
+import { routes } from "../../assets/routes/routes";
 
 export const AdminLoginScreen = () => {
     const [authInfo, setAuthInfo] = useState({login: '', password: ''});
@@ -20,7 +21,7 @@ export const AdminLoginScreen = () => {
             console.log("ERROR");
         } else {
             console.log('Login: ' + authInfo.login, 'Password: ' + authInfo.password);
-            navigate('/administrator')
+            navigate(routes.infographics);
         }
         
         // Пока стоит заглушка, после создания запроса, будет кусок кода ниже
