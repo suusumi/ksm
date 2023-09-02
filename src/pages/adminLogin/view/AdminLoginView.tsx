@@ -1,6 +1,6 @@
 import React, { FormEventHandler } from "react";
 import { Container, Grid, IconButton, InputAdornment } from "@mui/material";
-import logo from "../../../assets/content/adminLogin/logo.svg";
+import logo from "../../../assets/content/header-logo.svg";
 import { OvalTextField } from "../../../components/OvalTextField/OvalTextField";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
