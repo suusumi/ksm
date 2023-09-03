@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { MouseEventHandler, useEffect, useState } from "react";
 import { InfographicsView } from "./view/InfographicsView";
 import { InfographicsItem } from "./model/InfographicsModel";
 
@@ -25,15 +25,19 @@ export const InfographicsScreen = () => {
         setData(textInfographics);
     };
 
-    useEffect(() => {
-        console.log(data);
-    }, [data])
+    const handleSave:MouseEventHandler<HTMLButtonElement> = () => {
+        const saveData = data; 
+        console.log(saveData);
+        console.log("Сохранено");
+        
+    }
 
     return (
         <InfographicsView
             data={data}
             handleNumberInfographicsChange={handleNumberInfographicsChange}
             handleTextInfographicsChange={handleTextInfographicsChange}
+            handleSave={handleSave}
         />
     );
 }

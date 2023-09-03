@@ -1,4 +1,4 @@
-import { Grid, TextField, Typography } from "@mui/material";
+import { Button, Grid, TextField, Typography } from "@mui/material";
 import React from "react";
 import theme from "../../../assets/theme/Theme";
 import { IInfographicsView } from "../model/InfographicsModel";
@@ -92,7 +92,7 @@ export const InfographicsView: React.FC<IInfographicsView> = (props) => {
                                     fullWidth
                                     variant="outlined"
                                     label="Третья цифровая инфографика"
-                                    value={props.data[2]?.description}
+                                    value={props.data[2]?.title}
                                     onChange={(event) => props.handleNumberInfographicsChange(event, props.data[2].id)}
                                 />
                             </Grid>
@@ -112,13 +112,29 @@ export const InfographicsView: React.FC<IInfographicsView> = (props) => {
                 </Grid>
             </Grid>
 
+            <Grid item xs={2}>
+                <Grid container direction={"row-reverse"}>
+                    <Grid item>
+                        <Button onClick={props.handleSave} sx={{
+                            color: 'white',
+                            backgroundColor: theme.palette.primary.main,
+                            fonstSize: '14px',
+                            borderRadius: '30px',
+                            textTransform: 'none',
+                            padding: '8px 26px',
+                            whiteSpace: 'nowrap'
+                        }}>Сохранить</Button>
+                    </Grid>
+                </Grid>
+            </Grid>
+
             <Grid item xs={1}>
                 <Typography style={{ font: 'Roboto', fontWeight: '500', fontSize: '24px', color: theme.palette.primary.main, }}>
                     КАК БУДЕТ ВЫГЛЯДЕТЬ ИНФОГРАФИКА
                 </Typography>
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={4}>
                 <Grid container direction={'row'} spacing={3}>
                     <Grid item xs={4}>
                         <Typography style={styles.TitleText}>{props.data[0]?.title}</Typography>
