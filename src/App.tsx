@@ -8,11 +8,13 @@ import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
 import Footer from './components/footer/Footer';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import Theme from './assets/theme/Theme';
+import Preloader from './components/preloader/Preloader';
 
 function App() {
   return (
     <ThemeProvider theme={Theme}>
       <BrowserRouter>
+      <Preloader></Preloader>
       <Container>
         <Header />
       </Container>
