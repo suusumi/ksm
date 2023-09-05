@@ -1,30 +1,27 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import MainScreen from "./pages/main/MainScreen";
-import Container from '@mui/material/Container';
-import Header from "./components/header/Header";
-import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
-import Footer from './components/footer/Footer';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import theme from './assets/theme/Theme';
+import { AdminLoginScreen } from './pages/adminLogin/AdminLoginScreen';
+import { InfographicsScreen } from './pages/infographics/InfographicsScreen';
+import { routes } from './assets/routes/routes';
+import { AdminPanelContainer } from './containers/AdminPanelContainer';
+import { MainPanelContainer } from './containers/MainPanelContainer';
 
 function App() {
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>
-      <Container>
-        <Header />
-        <div style={{marginBottom: '180px'}}></div>
         <Routes>
-          <Route path="/" element={<MainScreen />} />
+          <Route path={routes.main} element={<MainPanelContainer children={<MainScreen />} />} />
+          <Route path={routes.authAdmin} element={<AdminLoginScreen />} />
+          <Route path={routes.infographics} element={<AdminPanelContainer children={<InfographicsScreen />} />} />
           {/* Add more Route elements for other pages */}
         </Routes>
-      </Container>
-        <Footer/>
-    </BrowserRouter>
+      </BrowserRouter>
     </ThemeProvider>
-    
   );
 }
 
