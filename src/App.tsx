@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import MainScreen from "./pages/main/MainScreen";
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import ThemeProvider from '@mui/material/styles/ThemeProvider';
 import theme from './assets/theme/Theme';
 import { AdminLoginScreen } from './pages/adminLogin/AdminLoginScreen';
@@ -18,6 +18,7 @@ function App() {
           <Route path={routes.main} element={<MainPanelContainer children={<MainScreen />} />} />
           <Route path={routes.authAdmin} element={<AdminLoginScreen />} />
           <Route path={routes.infographics} element={<AdminPanelContainer children={<InfographicsScreen />} />} />
+          <Route path='*' element={<Navigate to={'/'} />} />
           {/* Add more Route elements for other pages */}
         </Routes>
       </BrowserRouter>
