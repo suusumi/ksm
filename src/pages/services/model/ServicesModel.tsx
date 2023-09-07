@@ -21,6 +21,7 @@ export interface IServicesView {
     handleChangeTitle: Function,
     handleChangeCategory: Function,
     handleChangeService: Function,
+    handleCreate: Function,
 }
 
 export const data1 = [

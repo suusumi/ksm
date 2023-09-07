@@ -41,6 +41,22 @@ export const ServicesView: React.FC<IServicesView> = (props) => {
                             </Button>
                         </Grid>
                     })}
+
+                    <Grid item paddingTop={'14px'}>
+                        <Button
+                            variant="outlined"
+                            size='large'
+                            onClick={(event) => { props.handleCreate(
+                                event,
+                                -1,
+                                -1,
+                                -1,
+                                'title'
+                                ); }}
+                        >
+                            +
+                        </Button>
+                    </Grid>
                 </Grid>
             </Grid>
 
@@ -73,6 +89,19 @@ export const ServicesView: React.FC<IServicesView> = (props) => {
                                     idSubCategory={-1}
                                     idService={-1}
                                 />
+
+                                <Button
+                                    variant='outlined'
+                                    onClick={(event) => { props.handleCreate(
+                                        event,
+                                        indexService,
+                                        -1,
+                                        -1,
+                                        'category'
+                                    ); }}
+                                >
+                                    Создать подгруппу
+                                </Button>
                             </Grid>
 
                             <Grid item xs={10}>
@@ -106,6 +135,19 @@ export const ServicesView: React.FC<IServicesView> = (props) => {
                                                             idSubCategory={indexCategory}
                                                             idService={-1}
                                                         />
+
+                                                        <Button
+                                                            variant='outlined'
+                                                            onClick={(event) => { props.handleCreate(
+                                                                event,
+                                                                indexService,
+                                                                indexCategory,
+                                                                -1,
+                                                                'service'
+                                                            ); }}
+                                                        >
+                                                            Создать услугу 
+                                                        </Button>
                                                     </Grid>
                                                 </Grid>
                                                 <Divider />
@@ -138,7 +180,7 @@ export const ServicesView: React.FC<IServicesView> = (props) => {
                                                                             fullWidth
                                                                             value={ser.serviceText}
                                                                             onChange={(event) => props.handleChangeService(
-                                                                                event, 
+                                                                                event,
                                                                                 indexService,
                                                                                 indexCategory,
                                                                                 indexSer,
@@ -153,7 +195,7 @@ export const ServicesView: React.FC<IServicesView> = (props) => {
                                                                             fullWidth
                                                                             value={ser.price}
                                                                             onChange={(event) => props.handleChangeService(
-                                                                                event, 
+                                                                                event,
                                                                                 indexService,
                                                                                 indexCategory,
                                                                                 indexSer,
@@ -168,7 +210,7 @@ export const ServicesView: React.FC<IServicesView> = (props) => {
                                                                             fullWidth
                                                                             value={ser.serviceID}
                                                                             onChange={(event) => props.handleChangeService(
-                                                                                event, 
+                                                                                event,
                                                                                 indexService,
                                                                                 indexCategory,
                                                                                 indexSer,

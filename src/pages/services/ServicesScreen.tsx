@@ -32,6 +32,57 @@ export const ServicesScreen = () => {
         setServices(newServices);
     }
 
+    const handleCreate = (event: any, idTitle: number, idCategory: number, idService: number, type: string) => {
+        let newServices = [...services];
+        if (type === 'title') {
+            const createTitle = {
+                id: services.length,
+                categoryTitle: "Заголовок",
+                subcategories: [
+                    {
+                        subcategoryTitle: "Подзаголовок",
+                        services: [
+                            {
+                                serviceText: "Название услуги",
+                                serviceID: "КОД МКБ",
+                                price: "0",
+                            }
+                        ]
+                    },
+                ]
+            };
+
+            newServices.push(createTitle);
+            setIdButtonSelection(services.length)
+
+        } else if (type === 'category') {
+            const createCategory = {
+                subcategoryTitle: "Подзаголовок",
+                services: [
+                    {
+                        serviceText: "Название услуги",
+                        serviceID: "КОД МКБ",
+                        price: "0",
+                    }
+                ]
+            };
+
+            newServices[idTitle].subcategories.push(createCategory);
+        } else if (type === 'service') {
+            const createService = {
+                serviceText: "Название услуги",
+                serviceID: "КОД МКБ",
+                price: "0",
+            }
+
+            newServices[idTitle].subcategories[idCategory].services.push(createService);
+        } else {
+            console.log('Что-то пошло не так!');
+        }
+
+        setServices(newServices);
+    }
+
     const handleChangeService = (event: any, idTitle: number, idCategory: number, idService: number, type: string) => {
         let newServices = [...services];
         if (type === 'title') {
@@ -45,11 +96,6 @@ export const ServicesScreen = () => {
         }
         setServices(newServices);
     }
-
-
-    useEffect(() => {
-        console.log(services);
-    }, [services]);
 
     const deleteService = (event: any, idTitle: number, idSubCategory: number, idService: number) => {
         let newServiceArray = [...services];
@@ -80,6 +126,7 @@ export const ServicesScreen = () => {
             handleChangeTitle={handleChangeTitle}
             handleChangeCategory={handleChangeCategory}
             handleChangeService={handleChangeService}
+            handleCreate={handleCreate}
         />
     )
 }
