@@ -13,8 +13,43 @@ export const ServicesScreen = () => {
     };
 
     const changingService = (event: any, changing: string) => {
-        setIsChanging(changing);
+        if (isChanging === changing) {
+            setIsChanging('');
+        } else {
+            setIsChanging(changing);
+        }
     }
+
+    const handleChangeTitle = (event: any, id: number) => {
+        let newServices = [...services];
+        newServices[id].categoryTitle = event.target.value;
+        setServices(newServices);
+    };
+
+    const handleChangeCategory = (event: any, idTitle: number, idCategory: number) => {
+        let newServices = [...services];
+        newServices[idTitle].subcategories[idCategory].subcategoryTitle = event.target.value;
+        setServices(newServices);
+    }
+
+    const handleChangeService = (event: any, idTitle: number, idCategory: number, idService: number, type: string) => {
+        let newServices = [...services];
+        if (type === 'title') {
+            newServices[idTitle].subcategories[idCategory].services[idService].serviceText = event.target.value;
+        } else if (type === 'price') {
+            newServices[idTitle].subcategories[idCategory].services[idService].price = event.target.value;
+        } else if (type === 'ID') {
+            newServices[idTitle].subcategories[idCategory].services[idService].serviceID = event.target.value;
+        } else {
+            console.log("Что-то пошло не так");
+        }
+        setServices(newServices);
+    }
+
+
+    useEffect(() => {
+        console.log(services);
+    }, [services]);
 
     const deleteService = (event: any, idTitle: number, idSubCategory: number, idService: number) => {
         let newServiceArray = [...services];
@@ -34,15 +69,6 @@ export const ServicesScreen = () => {
         setServices(newServiceArray);
     }
 
-    // useEffect(() => {
-    //     // console.log(services);
-    //     console.log(idButtonSelection, services[idButtonSelection]);
-    // }, [idButtonSelection])
-
-    useEffect(() => {
-        console.log(services);
-    }, [services])
-
     return (
         <ServicesView
             services={services}
@@ -51,6 +77,9 @@ export const ServicesScreen = () => {
             isChanging={isChanging}
             changingService={changingService}
             deleteService={deleteService}
+            handleChangeTitle={handleChangeTitle}
+            handleChangeCategory={handleChangeCategory}
+            handleChangeService={handleChangeService}
         />
     )
 }

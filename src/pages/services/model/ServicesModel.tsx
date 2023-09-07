@@ -18,7 +18,9 @@ export interface IServicesView {
     isChanging: string,
     changingService: Function,
     deleteService: Function,
-
+    handleChangeTitle: Function,
+    handleChangeCategory: Function,
+    handleChangeService: Function,
 }
 
 export const data1 = [
