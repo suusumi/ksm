@@ -3,6 +3,7 @@ import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import logo from "../../assets/content/header-logo.svg";
 import PrimaryButton from "../primaryButton/PrimaryButton";
 import theme from "../../assets/theme/Theme";
+import { routes } from "../../assets/routes/routes";
 
 const styles = {
     buttonExit: {
@@ -33,10 +34,10 @@ export const HeaderAdmin = () => {
                     </Typography>
 
                     <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
-                        <Button color="inherit" sx={styles.button}>Инфографика</Button>
+                        <Button href={routes.infographics} color="inherit" sx={styles.button}>Инфографика</Button>
                         <Button color="inherit" sx={styles.button}>Баннеры</Button>
                         <Button color="inherit" sx={styles.button}>Специалисты</Button>
-                        <Button color="inherit" sx={styles.button}>Услуги</Button>
+                        <Button href={routes.services} color="inherit" sx={styles.button}>Услуги</Button>
                     </Box>
 
                     <Button color="inherit" href="/" sx={styles.buttonExit}>ВЫЙТИ</Button>
