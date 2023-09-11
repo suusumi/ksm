@@ -1,10 +1,10 @@
 {
 	"info": {
-		"_postman_id": "ddc1b79f-3312-44e1-81dc-69610cc84096",
+		"_postman_id": "18d5fad5-8ad8-4aea-ada5-1f8b0d19aec7",
 		"name": "CLINICA_kukuha",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "21706083",
-		"_collection_link": "https://restless-firefly-458958.postman.co/workspace/serv~57ee0ddf-bde9-4822-9e44-92b2a52cb118/collection/21706083-ddc1b79f-3312-44e1-81dc-69610cc84096?action=share&source=collection_link&creator=21706083"
+		"_collection_link": "https://restless-firefly-458958.postman.co/workspace/serv~57ee0ddf-bde9-4822-9e44-92b2a52cb118/collection/21706083-18d5fad5-8ad8-4aea-ada5-1f8b0d19aec7?action=share&source=collection_link&creator=21706083"
 	},
 	"item": [
 		{
@@ -148,15 +148,37 @@
 					"name": "getOneBannerById",
 					"request": {
 						"method": "GET",
-						"header": []
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/banners/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners",
+								"2"
+							]
+						}
 					},
 					"response": []
 				},
 				{
 					"name": "deleteBannerById",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/banners/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners",
+								"2"
+							]
+						}
 					},
 					"response": []
 				},
@@ -191,8 +213,27 @@
 				{
 					"name": "createBanner",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ДАРОВА БАННЕРЫ33333\",\r\n    \"subtitle\": \"все таки гений баннера\",\r\n    \"text_content\": \"контент 2 контент\",\r\n    \"img_path\": \"картинОчка2\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/banners",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners"
+							]
+						}
 					},
 					"response": []
 				}
