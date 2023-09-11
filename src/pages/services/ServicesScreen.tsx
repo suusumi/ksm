@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ServicesView } from "./view/ServicesView";
 import { ServicesDto, data1 } from "./model/ServicesModel";
 
