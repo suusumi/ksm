@@ -57,7 +57,6 @@ export class SpecialistsService {
       return updatedSpecialist;
     } catch (error) {
       console.error(`Ошибка при обновлении специалиста с ID ${id}:`, error);
-      throw error;
     }
   }
 

@@ -1,26 +1,79 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBannerDto } from './dto/create-banner.dto';
 import { UpdateBannerDto } from './dto/update-banner.dto';
+import {DatabaseService} from "../database/database.service";
 
 @Injectable()
 export class BannersService {
-  create(createBannerDto: CreateBannerDto) {
-    return 'This action adds a new banner';
+  constructor(private readonly databaseService: DatabaseService) {
   }
 
-  findAll() {
-    return `This action returns all banners`;
+  async create(createBannerDto: CreateBannerDto) {
+    try {
+      return await this.databaseService.banners.create({
+        data: createBannerDto,
+      }); // Возврат созданного баннера
+    } catch (error) {
+      console.error("Ошибка при создании баннера:", error);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} banner`;
+  async findAll() {
+    try {
+      return await this.databaseService.banners.findMany();
+    } catch (error) {
+      console.error("Ошибка при получении списка баннеров:", error);
+    }
   }
 
-  update(id: number, updateBannerDto: UpdateBannerDto) {
-    return `This action updates a #${id} banner`;
+  async findOne(id: number) {
+    try {
+      const banner = await this.databaseService.banners.findUnique({
+        where: { id },
+      });
+
+      if (!banner) {
+        throw new Error(`Баннер с ID ${id} не найден`);
+      }
+
+      return banner;
+    } catch (error) {
+      console.error(`Ошибка при поиске баннера с ID ${id}:`, error);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} banner`;
+  async update(id: number, updateBannerDto: UpdateBannerDto) {
+    try {
+      const updatedBanner = await this.databaseService.banners.update({
+        where: { id },
+        data: updateBannerDto,
+      });
+
+      if (!updatedBanner) {
+        throw new Error(`Баннер с ID ${id} не найден`);
+      }
+
+      return updatedBanner;
+    } catch (error) {
+      console.error(`Ошибка при обновлении баннера с ID ${id}:`, error);
+    }
+  }
+
+  async remove(id: number) {
+    try {
+      const deletedBanner = await this.databaseService.banners.delete({
+        where: {
+          id: id
+        }
+      });
+
+      if (!deletedBanner) {
+        throw new Error(`Баннер с ID ${id} не найден`);
+      }
+
+      return deletedBanner;
+    } catch (error) {
+      console.error(`Ошибка при удалении баннера с ID ${id}:`, error);
+    }
   }
 }

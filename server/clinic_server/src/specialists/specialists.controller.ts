@@ -25,7 +25,7 @@ export class SpecialistsController {
   }
   @Get()
   async findAll() {
-    return this.specialistsService.findAll();
+    return await this.specialistsService.findAll();
   }
 
   @Get(':id')
@@ -33,13 +33,14 @@ export class SpecialistsController {
     return this.specialistsService.findOne(+id);
   }
 
+  @UsePipes(new ValidationPipe())
   @Patch(':id')
   async update(@Param('id', ParseIntPipe) id: number, @Body() updateSpecialistDto: UpdateSpecialistDto) {
-    return this.specialistsService.update(+id, updateSpecialistDto);
+    return await this.specialistsService.update(+id, updateSpecialistDto);
   }
 
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number) {
-    return this.specialistsService.remove(+id);
+    return await this.specialistsService.remove(+id);
   }
 }
