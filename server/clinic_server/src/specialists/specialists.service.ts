@@ -15,23 +15,33 @@ export class SpecialistsService {
       }); // Возврат созданного
     } catch (error) {
       console.error("Ошибка при создании специалиста:", error);
-      throw error;
     }
   }
 
   async findAll() {
-    const res = await this.databaseService.specialists.count();
-    return `This action returns all specialists number ` + res;
+    try {
+      return await this.databaseService.specialists.findMany();
+    } catch (error) {
+      console.error("Ошибка при получении списка специалистов:", error);
+    }
   }
 
   async findOne(id: number) {
-    const res = await this.databaseService.specialists.findMany({
-      where: {
-        id: id
+    try {
+      const specialist = await this.databaseService.specialists.findUnique({
+        where: { id },
+      });
+
+      if (!specialist) {
+        throw new Error(`Специалист с ID ${id} не найден`);
       }
-    })
-    return res;
+
+      return specialist;
+    } catch (error) {
+      console.error(`Ошибка при поиске специалиста с ID ${id}:`, error);
+    }
   }
+
 
   async update(id: number, updateSpecialistDto: UpdateSpecialistDto) {
     try {
@@ -46,7 +56,6 @@ export class SpecialistsService {
 
       return updatedSpecialist;
     } catch (error) {
-      // Обработка ошибок, если они возникнут
       console.error(`Ошибка при обновлении специалиста с ID ${id}:`, error);
       throw error;
     }
