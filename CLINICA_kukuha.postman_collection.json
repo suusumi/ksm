@@ -29,7 +29,7 @@
 					"response": []
 				},
 				{
-					"name": "getOneById",
+					"name": "getOneSpecialistById",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -48,7 +48,7 @@
 					"response": []
 				},
 				{
-					"name": "create",
+					"name": "createSpecialist",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -125,7 +125,78 @@
 		},
 		{
 			"name": "banners",
-			"item": []
+			"item": [
+				{
+					"name": "getAllBanners",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/banners",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOneBannerById",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBannerById",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "updateBannerById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subtitle\": \"все таки гений баннера\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/banners/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createBanner",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "administrators",
