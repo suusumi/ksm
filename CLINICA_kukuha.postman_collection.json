@@ -1,0 +1,156 @@
+{
+	"info": {
+		"_postman_id": "ddc1b79f-3312-44e1-81dc-69610cc84096",
+		"name": "CLINICA_kukuha",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21706083",
+		"_collection_link": "https://restless-firefly-458958.postman.co/workspace/serv~57ee0ddf-bde9-4822-9e44-92b2a52cb118/collection/21706083-ddc1b79f-3312-44e1-81dc-69610cc84096?action=share&source=collection_link&creator=21706083"
+	},
+	"item": [
+		{
+			"name": "speciallsts",
+			"item": [
+				{
+					"name": "getAllSpecialists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/specialists",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOneById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/specialists/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"photo_path\": \"/sdr/2\",\r\n    \"name\": \"Andrey Piskin\",\r\n    \"post\": \"also not boss\",\r\n    \"speciality\": \"not stated\",\r\n    \"degree\": \"VSTU\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/specialists",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSpecialistById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/specialists/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateSpecialistById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Andrey gopa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/specialists/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "banners",
+			"item": []
+		},
+		{
+			"name": "administrators",
+			"item": []
+		},
+		{
+			"name": "services",
+			"item": []
+		},
+		{
+			"name": "ENUM",
+			"item": [
+				{
+					"name": "CategoryType",
+					"item": []
+				},
+				{
+					"name": "ServiceType",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "infographics",
+			"item": []
+		}
+	]
+}
