@@ -12,11 +12,12 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const database_module_1 = require("./database/database.module");
 const specialists_module_1 = require("./specialists/specialists.module");
+const banners_module_1 = require("./banners/banners.module");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
-        imports: [database_module_1.DatabaseModule, specialists_module_1.SpecialistsModule],
+        imports: [database_module_1.DatabaseModule, specialists_module_1.SpecialistsModule, banners_module_1.BannersModule],
         controllers: [app_controller_1.AppController],
         providers: [app_service_1.AppService],
     })
