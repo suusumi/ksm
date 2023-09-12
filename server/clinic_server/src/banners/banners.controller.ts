@@ -39,9 +39,33 @@ export class BannersController {
   }
 
   @UsePipes(new ValidationPipe())
+  @UseInterceptors(FileInterceptor('image', {
+    storage: diskStorage({
+      destination: './public/uploads/banners', // Путь к папке для сохранения изображений
+      filename: (req, file, cb) => {
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+        return cb(null, `${randomName}${extname(file.originalname)}`);
+      },
+    }),
+  }))
   @Patch(':id')
   async update(@Param('id', ParseIntPipe) id: number, @Body() updateBannerDto: UpdateBannerDto) {
     return await this.bannersService.update(+id, updateBannerDto);
+  }
+
+
+  @Patch('updateimage/:id')
+  @UseInterceptors(FileInterceptor('image', {
+    storage: diskStorage({
+      destination: './public/uploads/banners', // Путь к папке для сохранения изображений
+      filename: (req, file, cb) => {
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+        return cb(null, `${randomName}${extname(file.originalname)}`);
+      },
+    }),
+  }))
+  async updateImage(@Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File) {
+    return await this.bannersService.updateImage(+id, file.path);
   }
 
   @Delete(':id')
