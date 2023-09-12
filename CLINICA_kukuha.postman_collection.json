@@ -274,6 +274,41 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "createBannerWithImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "bodyData",
+									"value": "{\n    \"title\": \"ДАРОВА БАННЕРЫ33333\",\n    \"subtitle\": \"все таки гений баннера\",\n    \"text_content\": \"контент 2 контент\",\n    \"img_path\": \"картинОчка2\"\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/arsen/Pictures/IMG_7893.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/banners/createwithimage",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners",
+								"createwithimage"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
