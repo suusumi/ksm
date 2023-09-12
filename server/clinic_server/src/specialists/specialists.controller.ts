@@ -33,6 +33,7 @@ export class SpecialistsController {
     return this.specialistsService.findOne(+id);
   }
 
+
   @UsePipes(new ValidationPipe())
   @Patch(':id')
   async update(@Param('id', ParseIntPipe) id: number, @Body() updateSpecialistDto: UpdateSpecialistDto) {
@@ -43,4 +44,5 @@ export class SpecialistsController {
   async remove(@Param('id', ParseIntPipe) id: number) {
     return await this.specialistsService.remove(+id);
   }
+
 }

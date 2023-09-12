@@ -1,4 +1,4 @@
-import {IsString} from "class-validator";
+import {IsOptional, IsString} from "class-validator";
 
 export class CreateBannerDto {
 
@@ -11,14 +11,7 @@ export class CreateBannerDto {
     @IsString()
     text_content: string;
 
+    @IsOptional()
     @IsString()
     img_path: string;
 }
-
-// model Banners{
-//     id Int @id @default(autoincrement())
-//     title String
-//     subtitle String
-//     text_content String @db.Text
-//     img_path String?
-// }
