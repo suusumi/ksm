@@ -60,6 +60,24 @@ export class SpecialistsService {
     }
   }
 
+  async updatePhoto(id: number, photoPath: string) {
+    try {
+      const updateSpecialistDto: UpdateSpecialistDto = {}
+      updateSpecialistDto.photo_path = photoPath;
+      const updatedSpecialist = await this.databaseService.specialists.update({
+        where: { id },
+        data: updateSpecialistDto,
+      });
+
+      if (!updatedSpecialist) {
+        throw new Error(`Специалист с ID ${id} не найден`);
+      }
+
+      return updatedSpecialist;
+    } catch (error) {
+      console.error(`Ошибка при обновлении фотографии специалиста с ID ${id}:`, error);
+    }
+  }
 
   async remove(id: number) {
     try {

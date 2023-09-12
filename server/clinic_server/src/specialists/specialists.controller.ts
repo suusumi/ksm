@@ -44,13 +44,27 @@ export class SpecialistsController {
     return await this.specialistsService.update(+id, updateSpecialistDto);
   }
 
+  @Patch('updatephoto/:id')
+  @UseInterceptors(FileInterceptor('photo', {
+    storage: diskStorage({
+      destination: './public/uploads/specialists', // Путь к папке для сохранения изображений
+      filename: (req, file, cb) => {
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+        return cb(null, `${randomName}${extname(file.originalname)}`);
+      },
+    }),
+  }))
+  async updatePhoto(@Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File) {
+    return await this.specialistsService.updatePhoto(+id, file.path);
+  }
+
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number) {
     return await this.specialistsService.remove(+id);
   }
 
   @Post('createwithphoto')
-  @UseInterceptors(FileInterceptor('image', {
+  @UseInterceptors(FileInterceptor('photo', {
     storage: diskStorage({
       destination: './public/uploads/specialists', // Путь к папке для сохранения изображений
       filename: (req, file, cb) => {
