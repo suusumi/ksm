@@ -97,13 +97,13 @@
 					"response": []
 				},
 				{
-					"name": "UpdateSpecialistById",
+					"name": "updateSpecialistDataById",
 					"request": {
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Andrey gopa\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Andrey NE gopa i NE Pisya\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -125,6 +125,36 @@
 					"response": []
 				},
 				{
+					"name": "updateSpecialistPhotoById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/arsen/Desktop/clinica/clinic_frontend/public/logo192.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/specialists/updatephoto/14",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists",
+								"updatephoto",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "createSpecWithPhoto",
 					"request": {
 						"method": "POST",
@@ -139,7 +169,7 @@
 									"type": "text"
 								},
 								{
-									"key": "image",
+									"key": "photo",
 									"type": "file",
 									"src": "/C:/Users/arsen/Pictures/1662506702_12-kartinkin-net-p-selfi-kota-s-sobakami-pinterest-12.jpg"
 								}
@@ -221,6 +251,36 @@
 					"response": []
 				},
 				{
+					"name": "updateBannerImageById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/arsen/Desktop/clinica/clinic_frontend/public/logo512.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/banners/updateimage/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners",
+								"updateimage",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "updateBannerById",
 					"request": {
 						"method": "PATCH",
@@ -255,7 +315,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"ДАРОВА БАННЕРЫ33333\",\r\n    \"subtitle\": \"все таки гений баннера\",\r\n    \"text_content\": \"контент 2 контент\",\r\n    \"img_path\": \"картинОчка2\"\r\n}",
+							"raw": "{\r\n    \"title\": \"ДАРОВА БАННЕРЫ33333\",\r\n    \"subtitle\": \"все таки гений баннера\",\r\n    \"text_content\": \"контент 2 контент\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
