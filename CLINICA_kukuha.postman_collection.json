@@ -49,12 +49,15 @@
 				},
 				{
 					"name": "createSpecialist",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"photo_path\": \"/sdr/2\",\r\n    \"name\": \"Andrey Piskin\",\r\n    \"post\": \"also not boss\",\r\n    \"speciality\": \"not stated\",\r\n    \"degree\": \"VSTU\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Andrey Piskin\",\r\n    \"post\": \"also not boss\",\r\n    \"speciality\": \"not stated\",\r\n    \"degree\": \"VSTU\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -80,14 +83,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/specialists/3",
+							"raw": "localhost:8080/specialists/10",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"specialists",
-								"3"
+								"10"
 							]
 						}
 					},
@@ -116,6 +119,41 @@
 							"path": [
 								"specialists",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createSpecWithPhoto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "bodyData",
+									"value": "{\n    \"name\": \"Andrey Piskin\",\n    \"post\": \"also not boss\",\n    \"speciality\": \"not stated\",\n    \"degree\": \"VSTU\"\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/arsen/Pictures/1662506702_12-kartinkin-net-p-selfi-kota-s-sobakami-pinterest-12.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/specialists/createwithphoto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists",
+								"createwithphoto"
 							]
 						}
 					},
