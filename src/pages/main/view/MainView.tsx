@@ -7,6 +7,7 @@ import AboutUsBlock from '../../../components/aboutUsBlock/AboutUsBlock';
 import CarouselBlock from '../../../components/carouselBlock/CarouselBlock';
 import Container from '@mui/material/Container';
 import OurContactsBlock from '../../../components/ourContactsBlock/OurContactsBlock';
+import ReviewsFromMapBlock from '../../../components/reviewsFromMapBlock/ReviewsFromMapBlock';
 
 function MainView() {
   const TitleText = {
@@ -35,6 +36,7 @@ function MainView() {
       <Container>
       <AboutUsBlock></AboutUsBlock>
       <OurContactsBlock></OurContactsBlock>
+      <ReviewsFromMapBlock></ReviewsFromMapBlock>
       </Container>
     </div>
   )
