@@ -49,12 +49,15 @@
 				},
 				{
 					"name": "createSpecialist",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"photo_path\": \"/sdr/2\",\r\n    \"name\": \"Andrey Piskin\",\r\n    \"post\": \"also not boss\",\r\n    \"speciality\": \"not stated\",\r\n    \"degree\": \"VSTU\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Andrey Piskin\",\r\n    \"post\": \"also not boss\",\r\n    \"speciality\": \"not stated\",\r\n    \"degree\": \"VSTU\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -80,27 +83,27 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/specialists/3",
+							"raw": "localhost:8080/specialists/10",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"specialists",
-								"3"
+								"10"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "UpdateSpecialistById",
+					"name": "updateSpecialistDataById",
 					"request": {
 						"method": "PATCH",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Andrey gopa\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Andrey NE gopa i NE Pisya\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -116,6 +119,71 @@
 							"path": [
 								"specialists",
 								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSpecialistPhotoById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/arsen/Desktop/clinica/clinic_frontend/public/logo192.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/specialists/updatephoto/14",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists",
+								"updatephoto",
+								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createSpecWithPhoto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "bodyData",
+									"value": "{\n    \"name\": \"Andrey Piskin\",\n    \"post\": \"also not boss\",\n    \"speciality\": \"not stated\",\n    \"degree\": \"VSTU\"\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/arsen/Pictures/1662506702_12-kartinkin-net-p-selfi-kota-s-sobakami-pinterest-12.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/specialists/createwithphoto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists",
+								"createwithphoto"
 							]
 						}
 					},
@@ -183,6 +251,36 @@
 					"response": []
 				},
 				{
+					"name": "updateBannerImageById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/arsen/Desktop/clinica/clinic_frontend/public/logo512.png"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/banners/updateimage/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners",
+								"updateimage",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "updateBannerById",
 					"request": {
 						"method": "PATCH",
@@ -217,7 +315,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"ДАРОВА БАННЕРЫ33333\",\r\n    \"subtitle\": \"все таки гений баннера\",\r\n    \"text_content\": \"контент 2 контент\",\r\n    \"img_path\": \"картинОчка2\"\r\n}",
+							"raw": "{\r\n    \"title\": \"ДАРОВА БАННЕРЫ33333\",\r\n    \"subtitle\": \"все таки гений баннера\",\r\n    \"text_content\": \"контент 2 контент\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -232,6 +330,41 @@
 							"port": "8080",
 							"path": [
 								"banners"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createBannerWithImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "bodyData",
+									"value": "{\n    \"title\": \"ДАРОВА БАННЕРЫ33333\",\n    \"subtitle\": \"все таки гений баннера\",\n    \"text_content\": \"контент 2 контент\",\n    \"img_path\": \"картинОчка2\"\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/arsen/Pictures/IMG_7893.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/banners/createwithimage",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners",
+								"createwithimage"
 							]
 						}
 					},

@@ -59,6 +59,25 @@ export class BannersService {
     }
   }
 
+  async updateImage(id: number, imgPath: string) {
+    try {
+      const updateBannerDto: UpdateBannerDto = {};
+      updateBannerDto.img_path = imgPath;
+      const updatedBanner = await this.databaseService.banners.update({
+        where: { id },
+        data: updateBannerDto,
+      });
+
+      if (!updatedBanner) {
+        throw new Error(`Баннер с ID ${id} не найден`);
+      }
+
+      return updatedBanner;
+    } catch (error) {
+      console.error(`Ошибка при обновлении пути к изображению для баннера с ID ${id}:`, error);
+    }
+  }
+
   async remove(id: number) {
     try {
       const deletedBanner = await this.databaseService.banners.delete({

@@ -8,8 +8,13 @@ import {
   Patch,
   Post,
   UsePipes,
-  ValidationPipe
+  ValidationPipe,
+  UploadedFile,
+  UseInterceptors
 } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { diskStorage } from 'multer';
+import { extname } from 'path';
 import {SpecialistsService} from './specialists.service';
 import {CreateSpecialistDto} from './dto/create-specialist.dto';
 import {UpdateSpecialistDto} from './dto/update-specialist.dto';
@@ -39,8 +44,52 @@ export class SpecialistsController {
     return await this.specialistsService.update(+id, updateSpecialistDto);
   }
 
+  @Patch('updatephoto/:id')
+  @UseInterceptors(FileInterceptor('photo', {
+    storage: diskStorage({
+      destination: './public/uploads/specialists', // Путь к папке для сохранения изображений
+      filename: (req, file, cb) => {
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+        return cb(null, `${randomName}${extname(file.originalname)}`);
+      },
+    }),
+  }))
+  async updatePhoto(@Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File) {
+    return await this.specialistsService.updatePhoto(+id, file.path);
+  }
+
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number) {
     return await this.specialistsService.remove(+id);
+  }
+
+  @Post('createwithphoto')
+  @UseInterceptors(FileInterceptor('photo', {
+    storage: diskStorage({
+      destination: './public/uploads/specialists', // Путь к папке для сохранения изображений
+      filename: (req, file, cb) => {
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+        return cb(null, `${randomName}${extname(file.originalname)}`);
+      },
+    }),
+  }))
+
+  //@UsePipes(new ValidationPipe())
+  async createSpecialistWithImage(
+      @UploadedFile() file: Express.Multer.File,
+      @Body() bodyData: CreateSpecialistDto
+  ) {
+    // Внимание, костыли!
+    // Преобразую то, что пришло, в строку
+    const jsonString = JSON.stringify(bodyData);
+    // Преобразую в JSON пришедшую строку
+    const parsedObject = JSON.parse(jsonString);
+    // Получаю строку с данными из объекта json
+    const bodyDataString = parsedObject.bodyData;
+    // Создаю DTO на основе строки с данными из объекта json
+    const createSpecialistDto: CreateSpecialistDto = JSON.parse(bodyDataString);
+    // Заменяю свойство photo_path на файл, который upload-им
+    createSpecialistDto.photo_path = file.path;
+    return await this.specialistsService.create(createSpecialistDto);
   }
 }
