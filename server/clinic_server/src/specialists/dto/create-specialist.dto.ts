@@ -7,7 +7,6 @@ export class CreateSpecialistDto {
     @IsString()
     photo_path: string;
 
-    @ApiProperty()
     @IsString()
     name: string;
 

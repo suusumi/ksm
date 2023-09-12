@@ -52,7 +52,7 @@ export class SpecialistsController {
   @Post('createwithphoto')
   @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
-      destination: './public/uploads', // Путь к папке для сохранения изображений
+      destination: './public/uploads/specialists', // Путь к папке для сохранения изображений
       filename: (req, file, cb) => {
         const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
         return cb(null, `${randomName}${extname(file.originalname)}`);
