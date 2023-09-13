@@ -53,14 +53,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/specialists/10",
+							"raw": "localhost:8080/specialists/19",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"specialists",
-								"10"
+								"19"
 							]
 						}
 					},
@@ -237,14 +237,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/banners/2",
+							"raw": "localhost:8080/banners/11",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"banners",
-								"2"
+								"11"
 							]
 						}
 					},
@@ -266,7 +266,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:8080/banners/updateimage/2",
+							"raw": "localhost:8080/banners/updateimage/11",
 							"host": [
 								"localhost"
 							],
@@ -274,7 +274,7 @@
 							"path": [
 								"banners",
 								"updateimage",
-								"2"
+								"11"
 							]
 						}
 					},
@@ -295,14 +295,14 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/banners/1",
+							"raw": "localhost:8080/banners/9",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"banners",
-								"1"
+								"9"
 							]
 						}
 					},
@@ -526,6 +526,36 @@
 					"item": []
 				}
 			]
+		},
+		{
+			"name": "getImage",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"image_path\": \"public\\\\uploads\\\\specialists\\\\b3b9bcc8e4e52b13756db896efc07897.jpg\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/images",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
