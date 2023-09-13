@@ -14,12 +14,13 @@ const database_module_1 = require("./database/database.module");
 const specialists_module_1 = require("./specialists/specialists.module");
 const banners_module_1 = require("./banners/banners.module");
 const inphographics_module_1 = require("./inphographics/inphographics.module");
+const images_controller_controller_1 = require("./images-controller/images-controller.controller");
 let AppModule = exports.AppModule = class AppModule {
 };
 exports.AppModule = AppModule = __decorate([
     (0, common_1.Module)({
         imports: [database_module_1.DatabaseModule, specialists_module_1.SpecialistsModule, banners_module_1.BannersModule, inphographics_module_1.InphographicsModule],
-        controllers: [app_controller_1.AppController],
+        controllers: [app_controller_1.AppController, images_controller_controller_1.ImagesControllerController],
         providers: [app_service_1.AppService],
     })
 ], AppModule);
