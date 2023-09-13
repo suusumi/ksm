@@ -26,7 +26,19 @@ export class InphographicsService {
   }
 
   async findOne(id: number) {
-    return `This action returns a #${id} inphographic`;
+    try {
+      const inphographics = await this.databaseService.infographics.findUnique({
+        where: { id },
+      });
+
+      if (!inphographics) {
+        throw new Error(`Инфографика с ID ${id} не найдена`);
+      }
+
+      return inphographics;
+    } catch (error) {
+      console.error(`Ошибка при поиске инфографики с ID ${id}:`, error);
+    }
   }
 
   async update(id: number, updateInphographicDto: UpdateInphographicDto) {
