@@ -1,4 +1,13 @@
-import {Controller, Get, Body, Res, NotFoundException, BadRequestException} from '@nestjs/common';
+import {
+    Controller,
+    Get,
+    Body,
+    Res,
+    NotFoundException,
+    BadRequestException,
+    UsePipes,
+    ValidationPipe
+} from '@nestjs/common';
 import { Response } from 'express';
 import { imageDTO } from './image.dto';
 import * as fs from 'fs';
@@ -6,6 +15,7 @@ import * as path from 'path';
 
 @Controller('images')
 export class ImagesControllerController {
+    @UsePipes(new ValidationPipe())
     @Get()
     async getImage(@Body() imagePath: imageDTO, @Res() res: Response) {
         console.log("Пытаемся отдать на клиента файл по пути: " + imagePath.image_path);
