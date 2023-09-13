@@ -48,36 +48,6 @@
 					"response": []
 				},
 				{
-					"name": "createSpecialist",
-					"protocolProfileBehavior": {
-						"disabledSystemHeaders": {}
-					},
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Andrey Piskin\",\r\n    \"post\": \"also not boss\",\r\n    \"speciality\": \"not stated\",\r\n    \"degree\": \"VSTU\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "localhost:8080/specialists",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"specialists"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "deleteSpecialistById",
 					"request": {
 						"method": "DELETE",
@@ -149,6 +119,36 @@
 								"specialists",
 								"updatephoto",
 								"14"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createSpecialist",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Andrey Piskin\",\r\n    \"post\": \"also not boss\",\r\n    \"speciality\": \"not stated\",\r\n    \"degree\": \"VSTU\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/specialists",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists"
 							]
 						}
 					},
@@ -373,6 +373,140 @@
 			]
 		},
 		{
+			"name": "infographics",
+			"item": [
+				{
+					"name": "getAllInphographics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/inphographics",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inphographics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getInphographicsById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/inphographics/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inphographics",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteInpographicsById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/inphographics/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inphographics",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAllInpographics",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/inphographics",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inphographics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateInphoraphicsById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Специалистов из ОФИСА\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/inphographics/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inphographics",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createNewIphographics",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": \"27+\",\r\n    \"description\": \"Специалистов из дома\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/inphographics",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inphographics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "administrators",
 			"item": []
 		},
@@ -392,10 +526,6 @@
 					"item": []
 				}
 			]
-		},
-		{
-			"name": "infographics",
-			"item": []
 		}
 	]
 }

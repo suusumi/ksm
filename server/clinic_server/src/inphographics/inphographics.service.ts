@@ -78,7 +78,7 @@ export class InphographicsService {
 
   async removeAll() {
     try {
-      const deletedInphographics = await this.databaseService.infographics.deleteMany({
+      const deletedInphographicsCount = await this.databaseService.infographics.deleteMany({
         where: {
           id: {
             gt: 0, // id > 0
@@ -86,11 +86,11 @@ export class InphographicsService {
         }
       });
 
-      if (!deletedInphographics) {
+      if (!deletedInphographicsCount) {
         throw new Error(`Инфографики не найдено`);
       }
 
-      return deletedInphographics;
+      return deletedInphographicsCount;
     } catch (error) {
       console.error(`Ошибка при удалении инфографики:`, error);
     }
