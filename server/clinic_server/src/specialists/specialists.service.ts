@@ -2,6 +2,7 @@ import {Injectable} from '@nestjs/common';
 import {CreateSpecialistDto} from './dto/create-specialist.dto';
 import {UpdateSpecialistDto} from './dto/update-specialist.dto';
 import {DatabaseService} from "../database/database.service";
+import * as fs from "fs";
 
 @Injectable()
 export class SpecialistsService {
@@ -64,6 +65,19 @@ export class SpecialistsService {
     try {
       const updateSpecialistDto: UpdateSpecialistDto = {}
       updateSpecialistDto.photo_path = photoPath;
+
+      const specialist = await this.databaseService.specialists.findUnique({
+        where: { id },
+      });
+
+      try {
+        // Удаление старой фотки
+        fs.unlinkSync(specialist.photo_path);
+        console.log('Файл перед апдейтом успешно удален:', specialist.photo_path);
+      } catch (err) {
+        console.error('Ошибка при удалении файла:', err);
+      }
+
       const updatedSpecialist = await this.databaseService.specialists.update({
         where: { id },
         data: updateSpecialistDto,
@@ -89,6 +103,14 @@ export class SpecialistsService {
 
       if (!deletedSpecialist) {
         throw new Error(`Специалист с ID ${id} не найден`);
+      }
+
+      try {
+        // Удаление файла
+        fs.unlinkSync(deletedSpecialist.photo_path);
+        console.log('Файл с фото специалиста при удалении специалиста успешно удален:', deletedSpecialist.photo_path);
+      } catch (err) {
+        console.error('Ошибка при удалении файла:', err);
       }
 
       return deletedSpecialist;
