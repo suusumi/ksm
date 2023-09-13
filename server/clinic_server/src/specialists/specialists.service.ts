@@ -73,7 +73,7 @@ export class SpecialistsService {
       try {
         // Удаление старой фотки
         fs.unlinkSync(specialist.photo_path);
-        console.log('Файл перед апдейтом успешно удален:', specialist.photo_path);
+        console.log('Старое фото перед апдейтом фото специалиста успешно удалено:', specialist.photo_path);
       } catch (err) {
         console.error('Ошибка при удалении файла:', err);
       }
