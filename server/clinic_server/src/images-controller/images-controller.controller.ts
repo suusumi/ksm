@@ -20,7 +20,7 @@ export class ImagesControllerController {
             const fileExtension = path.extname(imagePath.image_path).toLowerCase();
 
             // Список расширений изображений, которые мы считаем за изображения
-            const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif'];
+            const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.svg'];
 
             // Проверяем, что расширение файла соответствует изображению
             if (!imageExtensions.includes(fileExtension)) {
