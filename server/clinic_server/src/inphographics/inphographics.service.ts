@@ -59,10 +59,40 @@ export class InphographicsService {
   }
 
   async remove(id: number) {
-    return `This action removes a #${id} inphographic`;
+    try {
+      const deletedInphographics = await this.databaseService.infographics.delete({
+        where: {
+          id: id
+        }
+      });
+
+      if (!deletedInphographics) {
+        throw new Error(`Инфографика с ID ${id} не найдена`);
+      }
+
+      return deletedInphographics;
+    } catch (error) {
+      console.error(`Ошибка при удалении инфографики с ID ${id}:`, error);
+    }
   }
 
   async removeAll() {
-    return `This action removes all inphographics`;
+    try {
+      const deletedInphographics = await this.databaseService.infographics.deleteMany({
+        where: {
+          id: {
+            gt: 0, // id > 0
+          }
+        }
+      });
+
+      if (!deletedInphographics) {
+        throw new Error(`Инфографики не найдено`);
+      }
+
+      return deletedInphographics;
+    } catch (error) {
+      console.error(`Ошибка при удалении инфографики:`, error);
+    }
   }
 }
