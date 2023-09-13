@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateBannerDto } from './dto/create-banner.dto';
 import { UpdateBannerDto } from './dto/update-banner.dto';
 import {DatabaseService} from "../database/database.service";
-import fs from "fs";
+import * as fs from "fs";
 
 @Injectable()
 export class BannersService {
