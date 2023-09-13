@@ -42,7 +42,20 @@ export class InphographicsService {
   }
 
   async update(id: number, updateInphographicDto: UpdateInphographicDto) {
-    return `This action updates a #${id} inphographic`;
+    try {
+      const updatedInphographics = await this.databaseService.infographics.update({
+        where: { id },
+        data: updateInphographicDto,
+      });
+
+      if (!updatedInphographics) {
+        throw new Error(`Инфографика с ID ${id} не найдена`);
+      }
+
+      return updatedInphographics;
+    } catch (error) {
+      console.error(`Ошибка при обновлении инфографики с ID ${id}:`, error);
+    }
   }
 
   async remove(id: number) {
