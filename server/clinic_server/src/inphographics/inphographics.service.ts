@@ -18,7 +18,11 @@ export class InphographicsService {
   }
 
   async findAll() {
-    return `This action returns all inphographics`;
+    try {
+      return await this.databaseService.infographics.findMany();
+    } catch (error) {
+      console.error("Ошибка при получении списка инфографики в БД:", error);
+    }
   }
 
   async findOne(id: number) {
