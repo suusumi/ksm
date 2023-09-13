@@ -1,4 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UsePipes,
+  ValidationPipe,
+  ParseIntPipe
+} from '@nestjs/common';
 import { InphographicsService } from './inphographics.service';
 import { CreateInphographicDto } from './dto/create-inphographic.dto';
 import { UpdateInphographicDto } from './dto/update-inphographic.dto';
@@ -7,28 +18,35 @@ import { UpdateInphographicDto } from './dto/update-inphographic.dto';
 export class InphographicsController {
   constructor(private readonly inphographicsService: InphographicsService) {}
 
+  @UsePipes(new ValidationPipe())
   @Post()
-  create(@Body() createInphographicDto: CreateInphographicDto) {
-    return this.inphographicsService.create(createInphographicDto);
+  async create(@Body() createInphographicDto: CreateInphographicDto) {
+    return await this.inphographicsService.create(createInphographicDto);
   }
 
   @Get()
-  findAll() {
-    return this.inphographicsService.findAll();
+  async findAll() {
+    return await this.inphographicsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.inphographicsService.findOne(+id);
+  async findOne(@Param('id', ParseIntPipe) id: number) {
+    return await this.inphographicsService.findOne(+id);
   }
 
+  @UsePipes(new ValidationPipe())
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateInphographicDto: UpdateInphographicDto) {
-    return this.inphographicsService.update(+id, updateInphographicDto);
+  async update(@Param('id', ParseIntPipe) id: number, @Body() updateInphographicDto: UpdateInphographicDto) {
+    return await this.inphographicsService.update(+id, updateInphographicDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.inphographicsService.remove(+id);
+  async remove(@Param('id', ParseIntPipe) id: number) {
+    return await this.inphographicsService.remove(+id);
+  }
+
+  @Delete()
+  async removeAll() {
+    return await this.inphographicsService.removeAll();
   }
 }
