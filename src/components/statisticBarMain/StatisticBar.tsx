@@ -1,9 +1,10 @@
-import Grid from '@mui/material/Grid'
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useRef } from 'react';
 import { ThemeProvider, useTheme } from '@mui/material/styles';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import Box from '@mui/material/Box';
+import gsap from 'gsap';
 
 interface StatisticItem {
   title: string;
@@ -12,6 +13,8 @@ interface StatisticItem {
 
 function StatisticBar() {
   const [data, setData] = useState<StatisticItem[]>([]);
+  const titleRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const descriptionRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
     // Пример получения данных с сервера:
@@ -25,9 +28,20 @@ function StatisticBar() {
       { title: '17 лет', description: 'На страже вашего здоровья' },
       { title: '18+', description: 'Областей медицинской помощи' },
     ];
-
+  
     setData(statisticData);
+  
+    if (statisticData.length > 0) {
+      // Ваш код анимации
+      const tl = gsap.timeline({ defaults: { ease: 'power3.inOut' } });
+      statisticData.forEach((item, index) => {
+        tl.from(titleRefs.current[index], { opacity: 0, y: -10, duration: 1, delay: index * 0.2 });
+        tl.from(descriptionRefs.current[index], { opacity: 0, y: -10, duration: 1 }, `-=${0.7}`);
+      });
+      tl.totalDuration(statisticData.length * 0.4 + 1.7);
+    }
   }, []);
+  
 
   const theme = useTheme();
   const isXsScreen = useMediaQuery(theme.breakpoints.only('xs'));
@@ -50,8 +64,9 @@ function StatisticBar() {
     display: 'flex',
     textAlign: isXsScreen ? 'center' : 'left',
   };
+
   return (
-    <div style={{padding: '20px 0px'}}>
+    <div style={{ padding: '20px 0px' }}>
       <Grid container spacing={5}>
         {data.map((item, index) => (
           <Grid key={index} item xs={12} sm={4} md={4} style={{ marginBottom: '30px' }}>
@@ -59,17 +74,21 @@ function StatisticBar() {
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: isXsScreen ? 'center' : 'flex-start', // Центрирование по центру на xs, влево на остальных
+                alignItems: isXsScreen ? 'center' : 'flex-start',
               }}
             >
-              <Typography sx={TitleText}>{item.title}</Typography>
-              <Typography sx={StandartText}>{item.description}</Typography>
+              <Typography ref={el => (titleRefs.current[index] = el as HTMLSpanElement)} sx={TitleText}>
+                {item.title}
+              </Typography>
+              <Typography ref={el => (descriptionRefs.current[index] = el as HTMLSpanElement)} sx={StandartText}>
+                {item.description}
+              </Typography>
             </Box>
           </Grid>
         ))}
       </Grid>
     </div>
-  )
+  );
 }
 
-export default StatisticBar
+export default StatisticBar;
