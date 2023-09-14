@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateBannerDto } from './dto/create-banner.dto';
 import { UpdateBannerDto } from './dto/update-banner.dto';
 import {DatabaseService} from "../database/database.service";
+import * as fs from "fs";
 
 @Injectable()
 export class BannersService {
@@ -63,6 +64,19 @@ export class BannersService {
     try {
       const updateBannerDto: UpdateBannerDto = {};
       updateBannerDto.img_path = imgPath;
+
+      const banner = await this.databaseService.banners.findUnique({
+        where: { id },
+      });
+
+      try {
+        // Удаление старого изображения
+        fs.unlinkSync(banner.img_path);
+        console.log('Старое изображение перед апдейтом изображения баннера успешно удалено:', banner.img_path);
+      } catch (err) {
+        console.error('Ошибка при удалении файла:', err);
+      }
+
       const updatedBanner = await this.databaseService.banners.update({
         where: { id },
         data: updateBannerDto,
@@ -88,6 +102,14 @@ export class BannersService {
 
       if (!deletedBanner) {
         throw new Error(`Баннер с ID ${id} не найден`);
+      }
+
+      try {
+        // Удаление файла
+        fs.unlinkSync(deletedBanner.img_path);
+        console.log('Изображение баннера при удалении баннера успешно удалено:', deletedBanner.img_path);
+      } catch (err) {
+        console.error('Ошибка при удалении файла:', err);
       }
 
       return deletedBanner;
