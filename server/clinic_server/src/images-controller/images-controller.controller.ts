@@ -1,6 +1,6 @@
 import {
     Controller,
-    Get,
+    Post,
     Body,
     Res,
     NotFoundException,
@@ -16,7 +16,7 @@ import * as path from 'path';
 @Controller('images')
 export class ImagesControllerController {
     @UsePipes(new ValidationPipe())
-    @Get()
+    @Post()
     async getImage(@Body() imagePath: imageDTO, @Res() res: Response) {
         console.log("Пытаемся отдать на клиента файл по пути: " + imagePath.image_path);
         try {
