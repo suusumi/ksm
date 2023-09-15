@@ -59,6 +59,8 @@ export class SpecialistsController {
   async updatePhoto(@Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File) {
     if(file) {
       return await this.specialistsService.updatePhoto(+id, file.filename);
+    } else {
+      console.log("Всё сломалось при обновлении фото специалиста на сервере");
     }
   }
 
@@ -96,6 +98,8 @@ export class SpecialistsController {
     if(file){
       createSpecialistDto.photo_path = file.filename;
       return await this.specialistsService.create(createSpecialistDto);
+    } else {
+      console.log("Всё сломалось при загрузке фото специалиста на сервер");
     }
   }
 }

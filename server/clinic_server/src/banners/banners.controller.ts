@@ -39,15 +39,6 @@ export class BannersController {
   }
 
   @UsePipes(new ValidationPipe())
-  @UseInterceptors(FileInterceptor('image', {
-    storage: diskStorage({
-      destination: './public/uploads', // Путь к папке для сохранения изображений
-      filename: (req, file, cb) => {
-        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
-        return cb(null, `${randomName}${extname(file.originalname)}`);
-      },
-    }),
-  }))
   @Patch(':id')
   async update(@Param('id', ParseIntPipe) id: number, @Body() updateBannerDto: UpdateBannerDto) {
     return await this.bannersService.update(+id, updateBannerDto);
@@ -67,6 +58,8 @@ export class BannersController {
   async updateImage(@Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File) {
     if(file){
       return await this.bannersService.updateImage(+id, file.filename);
+    } else {
+      console.log("Всё сломалось при обновлении изображения баннера на сервере");
     }
   }
 
@@ -104,6 +97,8 @@ export class BannersController {
     if(file){
       createBannerDto.img_path = file.filename;
       return await this.bannersService.create(createBannerDto);
+    } else {
+      console.log("Всё сломалось при загрузке изображения баннера на сервер");
     }
   }
 }
