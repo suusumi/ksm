@@ -14,4 +14,4 @@ async function bootstrap() {
 
   app.enableShutdownHooks()
 }
-bootstrap();
+bootstrap(); // монтируем приложение
