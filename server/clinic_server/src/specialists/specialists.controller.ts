@@ -10,16 +10,16 @@ import {
   UsePipes,
   ValidationPipe,
   UploadedFile,
-  UseInterceptors
+  UseInterceptors, Res, BadRequestException
 } from '@nestjs/common';
+
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
 import {SpecialistsService} from './specialists.service';
 import {CreateSpecialistDto} from './dto/create-specialist.dto';
 import {UpdateSpecialistDto} from './dto/update-specialist.dto';
-import * as path from 'path';
-import * as fs from 'fs';
+import {Response} from "express";
 
 @Controller('specialists')
 export class SpecialistsController {
@@ -81,21 +81,27 @@ export class SpecialistsController {
   //@UsePipes(new ValidationPipe())
   async createSpecialistWithImage(
       @UploadedFile() file: Express.Multer.File,
-      @Body() bodyData: CreateSpecialistDto
-  ) {
-    // Внимание, костыли!
-    // Преобразую то, что пришло, в строку
-    const jsonString = JSON.stringify(bodyData);
-    // Преобразую в JSON пришедшую строку
-    const parsedObject = JSON.parse(jsonString);
-    // Получаю строку с данными из объекта json
-    const bodyDataString = parsedObject.bodyData;
-    // Создаю DTO на основе строки с данными из объекта json
-    const createSpecialistDto: CreateSpecialistDto = JSON.parse(bodyDataString);
-    // Заменяю свойство photo_path на файл, который upload-им
-    if(file){
+      @Body() bodyData: CreateSpecialistDto,
+      @Res() res: Response
+  ){
+    try{
+      if (!file) {
+        throw new BadRequestException('No file uploaded');
+      }
+      // Внимание, костыли!
+      // Преобразую то, что пришло, в строку
+      const jsonString = JSON.stringify(bodyData);
+      // Преобразую в JSON пришедшую строку
+      const parsedObject = JSON.parse(jsonString);
+      // Получаю строку с данными из объекта json
+      const bodyDataString = parsedObject.bodyData;
+      // Создаю DTO на основе строки с данными из объекта json
+      const createSpecialistDto: CreateSpecialistDto = JSON.parse(bodyDataString);
+      // Заменяю свойство photo_path на файл, который upload-им
       createSpecialistDto.photo_path = file.filename;
       return await this.specialistsService.create(createSpecialistDto);
+    } catch (error) {
+      res.status(400).send(error.message);
     }
   }
 }
