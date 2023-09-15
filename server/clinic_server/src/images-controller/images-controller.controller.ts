@@ -1,33 +1,32 @@
 import {
     Controller,
-    Post,
-    Body,
+    Get,
     Res,
     NotFoundException,
     BadRequestException,
-    UsePipes,
-    ValidationPipe
+    Param
 } from '@nestjs/common';
 import { Response } from 'express';
-import { imageDTO } from './image.dto';
 import * as fs from 'fs';
 import * as path from 'path';
 
 @Controller('images')
 export class ImagesControllerController {
-    @UsePipes(new ValidationPipe())
-    @Post()
-    async getImage(@Body() imagePath: imageDTO, @Res() res: Response) {
-        console.log("Пытаемся отдать на клиента файл по пути: " + imagePath.image_path);
+
+    @Get(':img_path')
+    async getImage(@Param('img_path') img_path: string, @Res() res: Response) {
+        //console.log("Пытаемся отдать на клиента файл по пути: " + img_path);
         try {
+            const filePath = path.join('public', 'uploads', img_path);
+            console.log("Пытаемся отдать на клиента файл по пути: " + filePath);
             // Проверяем существование файла по указанному пути
-            if (!fs.existsSync(imagePath.image_path)) {
+            if (!fs.existsSync(filePath)) {
                 // Если файл не найден, отправляем ошибку 404 Not Found
-                throw new NotFoundException('Image not found');
+                throw new NotFoundException('Image does NOT exist');
             }
 
             // Получаем расширение файла из имени файла
-            const fileExtension = path.extname(imagePath.image_path).toLowerCase();
+            const fileExtension = path.extname(filePath).toLowerCase();
 
             // Список расширений изображений, которые мы считаем за изображения
             const imageExtensions = ['.jpg', '.jpeg', '.png', '.gif', '.svg'];
@@ -39,7 +38,7 @@ export class ImagesControllerController {
             }
 
             // Читаем изображение из файла и отправляем его как ответ
-            const imageStream = fs.createReadStream(imagePath.image_path);
+            const imageStream = fs.createReadStream(filePath);
 
             imageStream.on('error', (error) => {
                 // Обработка ошибки чтения файла

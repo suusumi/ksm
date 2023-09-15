@@ -16,7 +16,7 @@ import { UpdateBannerDto } from './dto/update-banner.dto';
 import {FileInterceptor} from "@nestjs/platform-express";
 import {diskStorage} from "multer";
 import {extname} from "path";
-import {CreateSpecialistDto} from "../specialists/dto/create-specialist.dto";
+import * as fs from 'fs';
 
 @Controller('banners')
 export class BannersController {
@@ -41,7 +41,7 @@ export class BannersController {
   @UsePipes(new ValidationPipe())
   @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
-      destination: './public/uploads/banners', // Путь к папке для сохранения изображений
+      destination: './public/uploads', // Путь к папке для сохранения изображений
       filename: (req, file, cb) => {
         const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
         return cb(null, `${randomName}${extname(file.originalname)}`);
@@ -57,7 +57,7 @@ export class BannersController {
   @Patch('updateimage/:id')
   @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
-      destination: './public/uploads/banners', // Путь к папке для сохранения изображений
+      destination: './public/uploads', // Путь к папке для сохранения изображений
       filename: (req, file, cb) => {
         const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
         return cb(null, `${randomName}${extname(file.originalname)}`);
@@ -65,7 +65,9 @@ export class BannersController {
     }),
   }))
   async updateImage(@Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File) {
-    return await this.bannersService.updateImage(+id, file.path);
+    if(file){
+      return await this.bannersService.updateImage(+id, file.filename);
+    }
   }
 
   @Delete(':id')
@@ -76,7 +78,7 @@ export class BannersController {
   @Post('createwithimage')
   @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
-      destination: './public/uploads/banners', // Путь к папке для сохранения изображений
+      destination: './public/uploads', // Путь к папке для сохранения изображений
       filename: (req, file, cb) => {
         const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
         return cb(null, `${randomName}${extname(file.originalname)}`);
@@ -85,7 +87,7 @@ export class BannersController {
   }))
 
   //@UsePipes(new ValidationPipe())
-  async createSpecialistWithImage(
+  async createBannerWithImage(
       @UploadedFile() file: Express.Multer.File,
       @Body() bodyData: CreateBannerDto
   ) {
@@ -99,7 +101,9 @@ export class BannersController {
     // Создаю DTO на основе строки с данными из объекта json
     const createBannerDto: CreateBannerDto = JSON.parse(bodyDataString);
     // Заменяю свойство photo_path на файл, который upload-им
-    createBannerDto.img_path = file.path;
-    return await this.bannersService.create(createBannerDto);
+    if(file){
+      createBannerDto.img_path = file.filename;
+      return await this.bannersService.create(createBannerDto);
+    }
   }
 }
