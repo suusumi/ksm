@@ -134,7 +134,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Andrey Piskin\",\r\n    \"post\": \"also not boss\",\r\n    \"speciality\": \"not stated\",\r\n    \"degree\": \"VSTU\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Andrey Crossauchik\",\r\n    \"post\": \"also not boss\",\r\n    \"speciality\": \"not stated\",\r\n    \"degree\": \"VSTU\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -546,14 +546,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/images/fe0b26e8e03f6a33e6a4610d24d31a556.jpg",
+					"raw": "localhost:8080/images/1d6feb38bfca1a42f68ea9ef8103c8c89.jpg",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"images",
-						"fe0b26e8e03f6a33e6a4610d24d31a556.jpg"
+						"1d6feb38bfca1a42f68ea9ef8103c8c89.jpg"
 					]
 				}
 			},
