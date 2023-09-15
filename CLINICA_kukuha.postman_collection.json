@@ -53,14 +53,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/specialists/19",
+							"raw": "localhost:8080/specialists/16",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"specialists",
-								"19"
+								"16"
 							]
 						}
 					},
@@ -110,7 +110,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:8080/specialists/updatephoto/14",
+							"raw": "localhost:8080/specialists/updatephoto/22",
 							"host": [
 								"localhost"
 							],
@@ -118,7 +118,7 @@
 							"path": [
 								"specialists",
 								"updatephoto",
-								"14"
+								"22"
 							]
 						}
 					},
@@ -164,7 +164,7 @@
 							"formdata": [
 								{
 									"key": "bodyData",
-									"value": "{\n    \"name\": \"Andrey Piskin\",\n    \"post\": \"also not boss\",\n    \"speciality\": \"not stated\",\n    \"degree\": \"VSTU\"\n}",
+									"value": "{\n    \"name\": \"Andrey Umnichkin\",\n    \"post\": \"also not boss\",\n    \"speciality\": \"not stated\",\n    \"degree\": \"VSTU\"\n}",
 									"contentType": "application/json",
 									"type": "text"
 								},
@@ -351,8 +351,9 @@
 								},
 								{
 									"key": "image",
+									"contentType": "",
 									"type": "file",
-									"src": "/C:/Users/arsen/Pictures/IMG_7893.jpg"
+									"src": "/C:/Users/arsen/Pictures/1662506702_12-kartinkin-net-p-selfi-kota-s-sobakami-pinterest-12.jpg"
 								}
 							]
 						},
@@ -537,7 +538,35 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"image_path\": \"public\\\\uploads\\\\specialists\\\\b3b9bcc8e4e52b13756db896efc07897.jpg\"\r\n}\r\n",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/images/fe0b26e8e03f6a33e6a4610d24d31a556.jpg",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images",
+						"fe0b26e8e03f6a33e6a4610d24d31a556.jpg"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getImage By POST and body",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"image_path\": \"public/uploads/specialists/0cf10bcedfa7364117ba83b3585e4e15e.png\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
