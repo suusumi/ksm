@@ -21,4 +21,7 @@ export class CreateSpecialistDto {
     @IsString()
     degree: string;
 
+    @IsString()
+    filial: string;
+
 }
