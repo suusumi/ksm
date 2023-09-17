@@ -8,9 +8,7 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
-  ParseIntPipe,
-  UseInterceptors,
-  UploadedFile, BadRequestException, Res,
+  ParseIntPipe, UseInterceptors, UploadedFile
 } from '@nestjs/common';
 import { BannersService } from './banners.service';
 import { CreateBannerDto } from './dto/create-banner.dto';
@@ -19,7 +17,6 @@ import {FileInterceptor} from "@nestjs/platform-express";
 import {diskStorage} from "multer";
 import {extname} from "path";
 import * as fs from 'fs';
-import {Response} from "express";
 
 @Controller('banners')
 export class BannersController {
@@ -51,7 +48,7 @@ export class BannersController {
   @Patch('updateimage/:id')
   @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
-      destination: './public/uploads/photos', // Путь к папке для сохранения изображений
+      destination: './public/uploads', // Путь к папке для сохранения изображений
       filename: (req, file, cb) => {
         const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
         return cb(null, `${randomName}${extname(file.originalname)}`);
@@ -74,7 +71,7 @@ export class BannersController {
   @Post('createwithimage')
   @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
-      destination: './public/uploads/photos', // Путь к папке для сохранения изображений
+      destination: './public/uploads', // Путь к папке для сохранения изображений
       filename: (req, file, cb) => {
         const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
         return cb(null, `${randomName}${extname(file.originalname)}`);
@@ -104,6 +101,4 @@ export class BannersController {
       console.log("Всё сломалось при загрузке изображения баннера на сервер");
     }
   }
-}
-
 }
