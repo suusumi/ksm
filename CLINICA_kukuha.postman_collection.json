@@ -53,14 +53,14 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/specialists/16",
+							"raw": "localhost:8080/specialists/19",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"specialists",
-								"16"
+								"19"
 							]
 						}
 					},
@@ -110,7 +110,7 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:8080/specialists/updatephoto/22",
+							"raw": "localhost:8080/specialists/updatephoto/14",
 							"host": [
 								"localhost"
 							],
@@ -118,7 +118,7 @@
 							"path": [
 								"specialists",
 								"updatephoto",
-								"22"
+								"14"
 							]
 						}
 					},
@@ -537,7 +537,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "",
+					"raw": "{\r\n    \"image_path\": \"public\\\\uploads\\\\specialists\\\\b3b9bcc8e4e52b13756db896efc07897.jpg\"\r\n}\r\n",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -545,19 +545,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/images?img_path=p",
+					"raw": "localhost:8080/images",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"images"
-					],
-					"query": [
-						{
-							"key": "img_path",
-							"value": "p"
-						}
 					]
 				}
 			},
