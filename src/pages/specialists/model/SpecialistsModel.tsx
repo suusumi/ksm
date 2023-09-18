@@ -1,13 +1,14 @@
-import { CreateSpecialistDto, SpecialistDto } from "../../../api/specialists/dto";
+import { CreateSpecialistDto, SpecialistDto, UpdateSpecialistDto } from "../../../api/specialists/dto";
 
 export interface ISpecialistsView {
     specialists: SpecialistDto[] | undefined,
-    open: boolean,
-    handleClickOpen: any,
-    handleClose: any,
+    createOpen: boolean,
+    handleClickCreateOpen: any,
+    handleCreateClose: any,
     createSpecialist: CreateSpecialistDto,
-    handleChangeSpecialistForm: Function,
+    handleChangeNewSpecialistForm: Function,
     selectedImage: File | null,
     setSelectedImage: Function,
     handleCreateSpecialist: Function,
+    setValue: Function,
 }
