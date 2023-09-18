@@ -16,7 +16,7 @@ export const fetchAllSpecialists = async (): Promise<Response> => {
     }
 }
 
-export const creaetSpecialist = async (formData: FormData): Promise<Response> => {
+export const createSpecialist = async (formData: FormData): Promise<Response> => {
     try {
         const response = await HttpClient.post("specialists/createwithphoto", {
             body: formData
