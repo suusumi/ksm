@@ -10,7 +10,7 @@ import { IMAGE_URL } from "../../../utils/constants/url.constants";
 import { DialogCreateSpecialists } from "../../../components/dialogs/DialogCreateSpecialist";
 import { DialogUpdateSpecialists } from "../../../components/dialogs/DialogUpdateSpecialists";
 import { SpecialistDto, UpdateSpecialistDto } from "../../../api/specialists/dto";
-import { updateDataSpecialist, updatePhotoSpecialist } from "../../../api/specialists/request";
+import { deleteSpecialistById, updateDataSpecialist, updatePhotoSpecialist } from "../../../api/specialists/request";
 
 const styles = {
     TitleText: {
@@ -147,17 +147,26 @@ const SpecialistItem: React.FC<ISpecialistItem> = (props) => {
         }
     }
 
-    const handleUpdateSpecialist = () => {
-        updateDataSpecialist(props.doctor.id, updateSpecialist);
+    const handleUpdateSpecialist = async () => {
+        await updateDataSpecialist(props.doctor.id, updateSpecialist);
         if (props.selectedImage !== null) {
             const formData = new FormData;
             formData.append('photo', props.selectedImage);
-            updatePhotoSpecialist(props.doctor.id, formData);
+            await updatePhotoSpecialist(props.doctor.id, formData);
         } else {
             console.error('Фотогрфаии нет!');
         }
         props.setValue({});
         handleClose();
+    }
+
+    const handleDeleteSpecialist = async () => {
+        try {
+            await deleteSpecialistById(props.doctor.id);
+            props.setValue({});
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     return (<div className="card">
@@ -196,7 +205,9 @@ const SpecialistItem: React.FC<ISpecialistItem> = (props) => {
                     photo_path={props.doctor.photo_path}
                     id={props.doctor.id}
                 />
-                <Button>
+                <Button
+                    onClick={handleDeleteSpecialist}
+                >
                     Удалить
                 </Button>
             </div>
