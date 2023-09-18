@@ -18,8 +18,6 @@ import { extname } from 'path';
 import {SpecialistsService} from './specialists.service';
 import {CreateSpecialistDto} from './dto/create-specialist.dto';
 import {UpdateSpecialistDto} from './dto/update-specialist.dto';
-import * as path from 'path';
-import * as fs from 'fs';
 
 @Controller('specialists')
 export class SpecialistsController {
@@ -49,7 +47,7 @@ export class SpecialistsController {
   @Patch('updatephoto/:id')
   @UseInterceptors(FileInterceptor('photo', {
     storage: diskStorage({
-      destination: './public/uploads', // Путь к папке для сохранения изображений
+      destination: './public/uploads/specialists', // Путь к папке для сохранения изображений
       filename: (req, file, cb) => {
         const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
         return cb(null, `${randomName}${extname(file.originalname)}`);
@@ -57,9 +55,7 @@ export class SpecialistsController {
     }),
   }))
   async updatePhoto(@Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File) {
-    if(file) {
-      return await this.specialistsService.updatePhoto(+id, file.filename);
-    }
+    return await this.specialistsService.updatePhoto(+id, file.path);
   }
 
   @Delete(':id')
@@ -70,7 +66,7 @@ export class SpecialistsController {
   @Post('createwithphoto')
   @UseInterceptors(FileInterceptor('photo', {
     storage: diskStorage({
-      destination: './public/uploads', // Путь к папке для сохранения изображений
+      destination: './public/uploads/specialists', // Путь к папке для сохранения изображений
       filename: (req, file, cb) => {
         const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
         return cb(null, `${randomName}${extname(file.originalname)}`);
@@ -93,9 +89,7 @@ export class SpecialistsController {
     // Создаю DTO на основе строки с данными из объекта json
     const createSpecialistDto: CreateSpecialistDto = JSON.parse(bodyDataString);
     // Заменяю свойство photo_path на файл, который upload-им
-    if(file){
-      createSpecialistDto.photo_path = file.filename;
-      return await this.specialistsService.create(createSpecialistDto);
-    }
+    createSpecialistDto.photo_path = file.path;
+    return await this.specialistsService.create(createSpecialistDto);
   }
 }
