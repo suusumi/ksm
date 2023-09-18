@@ -34,7 +34,7 @@ export const createSpecialist = async (formData: FormData): Promise<Response> =>
 
 export const updateDataSpecialist = async (specialistId: number, dto: UpdateSpecialistDto): Promise<Response> => {
     try {
-        const response = await HttpClient.patch(`specialist/${specialistId}`, {json: dto});
+        const response = await HttpClient.patch(`specialists/${specialistId}`, {json: dto});
 
         if (response.ok) {
             return response;
@@ -48,7 +48,9 @@ export const updateDataSpecialist = async (specialistId: number, dto: UpdateSpec
 
 export const updatePhotoSpecialist = async (specialistId: number, formData: FormData): Promise<Response> => {
     try {
-        const responce = await HttpClient.patch(`specialists/updatephoto/${specialistId}`);
+        const responce = await HttpClient.patch(`specialists/updatephoto/${specialistId}`, {
+            body: formData
+        });
 
         if (responce.ok) {
             return responce;
