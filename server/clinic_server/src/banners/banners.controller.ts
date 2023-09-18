@@ -8,9 +8,7 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
-  ParseIntPipe,
-  UseInterceptors,
-  UploadedFile, BadRequestException, Res,
+  ParseIntPipe, UseInterceptors, UploadedFile
 } from '@nestjs/common';
 import { BannersService } from './banners.service';
 import { CreateBannerDto } from './dto/create-banner.dto';
@@ -19,7 +17,6 @@ import {FileInterceptor} from "@nestjs/platform-express";
 import {diskStorage} from "multer";
 import {extname} from "path";
 import * as fs from 'fs';
-import {Response} from "express";
 
 @Controller('banners')
 export class BannersController {
@@ -42,6 +39,15 @@ export class BannersController {
   }
 
   @UsePipes(new ValidationPipe())
+  @UseInterceptors(FileInterceptor('image', {
+    storage: diskStorage({
+      destination: './public/uploads', // Путь к папке для сохранения изображений
+      filename: (req, file, cb) => {
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+        return cb(null, `${randomName}${extname(file.originalname)}`);
+      },
+    }),
+  }))
   @Patch(':id')
   async update(@Param('id', ParseIntPipe) id: number, @Body() updateBannerDto: UpdateBannerDto) {
     return await this.bannersService.update(+id, updateBannerDto);
@@ -51,7 +57,7 @@ export class BannersController {
   @Patch('updateimage/:id')
   @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
-      destination: './public/uploads/photos', // Путь к папке для сохранения изображений
+      destination: './public/uploads', // Путь к папке для сохранения изображений
       filename: (req, file, cb) => {
         const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
         return cb(null, `${randomName}${extname(file.originalname)}`);
@@ -72,7 +78,7 @@ export class BannersController {
   @Post('createwithimage')
   @UseInterceptors(FileInterceptor('image', {
     storage: diskStorage({
-      destination: './public/uploads/photos', // Путь к папке для сохранения изображений
+      destination: './public/uploads', // Путь к папке для сохранения изображений
       filename: (req, file, cb) => {
         const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
         return cb(null, `${randomName}${extname(file.originalname)}`);
@@ -83,27 +89,21 @@ export class BannersController {
   //@UsePipes(new ValidationPipe())
   async createBannerWithImage(
       @UploadedFile() file: Express.Multer.File,
-      @Body() bodyData: CreateBannerDto,
-      @Res() res: Response
+      @Body() bodyData: CreateBannerDto
   ) {
-    try {
-      if (!file) {
-        throw new BadRequestException('No file uploaded');
-      }
-      // Внимание, костыли!
-      // Преобразую то, что пришло, в строку
-      const jsonString = JSON.stringify(bodyData);
-      // Преобразую в JSON пришедшую строку
-      const parsedObject = JSON.parse(jsonString);
-      // Получаю строку с данными из объекта json
-      const bodyDataString = parsedObject.bodyData;
-      // Создаю DTO на основе строки с данными из объекта json
-      const createBannerDto: CreateBannerDto = JSON.parse(bodyDataString);
-      // Заменяю свойство photo_path на файл, который upload-им
+    // Внимание, костыли!
+    // Преобразую то, что пришло, в строку
+    const jsonString = JSON.stringify(bodyData);
+    // Преобразую в JSON пришедшую строку
+    const parsedObject = JSON.parse(jsonString);
+    // Получаю строку с данными из объекта json
+    const bodyDataString = parsedObject.bodyData;
+    // Создаю DTO на основе строки с данными из объекта json
+    const createBannerDto: CreateBannerDto = JSON.parse(bodyDataString);
+    // Заменяю свойство photo_path на файл, который upload-им
+    if(file){
       createBannerDto.img_path = file.filename;
       return await this.bannersService.create(createBannerDto);
-    } catch (error) {
-      res.status(400).send(error.message);
     }
   }
 }

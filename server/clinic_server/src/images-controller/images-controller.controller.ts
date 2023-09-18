@@ -17,7 +17,7 @@ export class ImagesControllerController {
     async getImage(@Param('img_path') img_path: string, @Res() res: Response) {
         //console.log("Пытаемся отдать на клиента файл по пути: " + img_path);
         try {
-            const filePath = path.join('public', 'uploads', 'photos', img_path);
+            const filePath = path.join('public', 'uploads', img_path);
             console.log("Пытаемся отдать на клиента файл по пути: " + filePath);
             // Проверяем существование файла по указанному пути
             if (!fs.existsSync(filePath)) {
