@@ -2,6 +2,7 @@
 
 # dependencies
 /node_modules
+/server/clinic_server/dist
 /.pnp
 .pnp.js
 
