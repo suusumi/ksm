@@ -64,7 +64,7 @@ export const updatePhotoSpecialist = async (specialistId: number, formData: Form
 
 export const deleteSpecialistById = async (specialistId: number): Promise<Response> => {
     try {
-        const responce = await HttpClient.delete(`specialist/${specialistId}`);
+        const responce = await HttpClient.delete(`specialists/${specialistId}`);
 
         if (responce.ok) {
             return responce;
