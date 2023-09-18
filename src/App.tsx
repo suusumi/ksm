@@ -10,6 +10,7 @@ import { routes } from './assets/routes/routes';
 import { AdminPanelContainer } from './containers/AdminPanelContainer';
 import { MainPanelContainer } from './containers/MainPanelContainer';
 import { ServicesScreen } from './pages/services/ServicesScreen';
+import { SpecialistsScreen } from './pages/specialists/SpecialistsScreen';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
           <Route path={routes.authAdmin} element={<AdminLoginScreen />} />
           <Route path={routes.infographics} element={<AdminPanelContainer children={<InfographicsScreen />} />} />
           <Route path={routes.services} element={<AdminPanelContainer children={<ServicesScreen />} />} />
+          <Route path={routes.specialists} element={<AdminPanelContainer children={<SpecialistsScreen />} />} />
           <Route path='*' element={<Navigate to={'/'} />} />
           {/* Add more Route elements for other pages */}
         </Routes>

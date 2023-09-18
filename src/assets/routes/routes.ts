@@ -3,5 +3,5 @@ export const routes = {
     authAdmin: '/authadmin',
     infographics: '/infographics',
     services: '/services',
-    
+    specialists: '/specialists'
 }
