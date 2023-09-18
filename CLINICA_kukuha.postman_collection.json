@@ -545,14 +545,19 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/images/photo_name.jpg",
+					"raw": "localhost:8080/images?img_path=p",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"images",
-						"photo_name.jpg"
+						"images"
+					],
+					"query": [
+						{
+							"key": "img_path",
+							"value": "p"
+						}
 					]
 				}
 			},
