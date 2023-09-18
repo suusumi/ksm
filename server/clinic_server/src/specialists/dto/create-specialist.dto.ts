@@ -1,5 +1,6 @@
-import {IsString, IsOptional} from "class-validator";
-
+import {IsString, IsOptional, IsNumber} from "class-validator";
+import {DatabaseService} from "../../database/database.service";
+import {SpecFilial} from "@prisma/client";
 export class CreateSpecialistDto {
 
     @IsOptional()
@@ -21,7 +22,7 @@ export class CreateSpecialistDto {
     @IsString()
     degree: string;
 
+    @IsOptional()
     @IsString()
-    filial: string;
-
+    filial: SpecFilial;
 }

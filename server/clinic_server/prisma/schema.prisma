@@ -41,13 +41,13 @@ model Services {
 }
 
 model Specialists {
-  id         Int        @id @default(autoincrement())
+  id         Int         @id @default(autoincrement())
   photo_path String?
   name       String
   post       String?
   speciality String?
   degree     String?
-  filial     SpecFilial @default(PlPavBortsov1)
+  filial     SpecFilial? @default(PlPavBortsov1)
 }
 
 enum CategoryType {
