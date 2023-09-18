@@ -12,34 +12,35 @@ export const SpecialistsScreen = () => {
         speciality: '',
         degree: ''
     });
+
     const [value, setValue] = useState({});
-    const [open, setOpen] = React.useState(false);
+    const [createOpen, setCreateOpen] = React.useState(false);
     const [selectedImage, setSelectedImage] = useState<File | null>(null);
-  
-    const handleClickOpen = () => {
-      setOpen(true);
-    };
-  
-    const handleClose = () => {
-      setOpen(false);
-      setSelectedImage(null);
-      setNewSpecialist({
-        name: '',
-        post: '',
-        speciality: '',
-        degree: ''
-      })
+
+    const handleClickCreateOpen = () => {
+        setCreateOpen(true);
     };
 
-    const handleChangeSpecialistForm = (event: any, type: string) => {
+    const handleCreateClose = () => {
+        setCreateOpen(false);
+        setSelectedImage(null);
+        setNewSpecialist({
+            name: '',
+            post: '',
+            speciality: '',
+            degree: ''
+        })
+    };
+
+    const handleChangeNewSpecialistForm = (event: any, type: string) => {
         if (type === 'name') {
-            setNewSpecialist({...newSpecialist, name: event.target.value});
+            setNewSpecialist({ ...newSpecialist, name: event.target.value });
         } else if (type === 'post') {
-            setNewSpecialist({...newSpecialist, post: event.target.value});
+            setNewSpecialist({ ...newSpecialist, post: event.target.value });
         } else if (type === 'speciality') {
-            setNewSpecialist({...newSpecialist, speciality: event.target.value});
+            setNewSpecialist({ ...newSpecialist, speciality: event.target.value });
         } else if (type === 'degree') {
-            setNewSpecialist({...newSpecialist, degree: event.target.value});
+            setNewSpecialist({ ...newSpecialist, degree: event.target.value });
         } else {
             console.error('Что-то пошло не так с сохранением данных о специалисте');
         }
@@ -56,7 +57,7 @@ export const SpecialistsScreen = () => {
 
         createSpecialist(formData);
         setValue({});
-        handleClose();
+        handleCreateClose();
     }
 
     useEffect(() => {
@@ -73,14 +74,15 @@ export const SpecialistsScreen = () => {
     return (
         <SpecialistsView
             specialists={specialists}
-            open={open}
-            handleClickOpen={handleClickOpen}
-            handleClose={handleClose}
+            createOpen={createOpen}
+            handleClickCreateOpen={handleClickCreateOpen}
+            handleCreateClose={handleCreateClose}
             createSpecialist={newSpecialist}
-            handleChangeSpecialistForm={handleChangeSpecialistForm}
+            handleChangeNewSpecialistForm={handleChangeNewSpecialistForm}
             selectedImage={selectedImage}
             setSelectedImage={setSelectedImage}
             handleCreateSpecialist={handleCreateSpecialist}
+            setValue={setValue}
         />
     );
 }
