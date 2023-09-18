@@ -1,6 +1,6 @@
 export type SpecialistDto = {
     id: number,
-    photoPath: string,
+    photo_path: string,
     name: string,
     post: string,
     speciality: string,
