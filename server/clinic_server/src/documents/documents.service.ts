@@ -1,9 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateDocumentDto } from './dto/create-document.dto';
 import { UpdateDocumentDto } from './dto/update-document.dto';
+import { DatabaseService } from '../database/database.service';
 
 @Injectable()
 export class DocumentsService {
+  constructor(private readonly databaseService: DatabaseService) {}
+
   create(createDocumentDto: CreateDocumentDto) {
     return 'This action adds a new document';
   }
