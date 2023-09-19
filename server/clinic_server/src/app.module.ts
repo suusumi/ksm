@@ -7,9 +7,10 @@ import { BannersModule } from './banners/banners.module';
 import { InphographicsModule } from './inphographics/inphographics.module';
 import { ImagesControllerController } from './images-controller/images-controller.controller';
 import { AdminModule } from './admin/admin.module';
+import { DocumentsModule } from './documents/documents.module';
 
 @Module({
-  imports: [DatabaseModule, SpecialistsModule, BannersModule, InphographicsModule, AdminModule],
+  imports: [DatabaseModule, SpecialistsModule, BannersModule, InphographicsModule, AdminModule, DocumentsModule],
   controllers: [AppController, ImagesControllerController],
   providers: [AppService],
 })
