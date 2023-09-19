@@ -17,10 +17,10 @@ model Contacts {
   mail       String?
   street     String?
   city       String  @default("Волгоград")
-  vk_link    String
-  tg_link    String
-  wa_link    String
-  email_link String
+  vk_link    String?
+  tg_link    String?
+  wa_link    String?
+  email_link String?
 }
 
 model Infographics {
