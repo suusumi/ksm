@@ -9,9 +9,10 @@ import { ImagesControllerController } from './images-controller/images-controlle
 import { AdminModule } from './admin/admin.module';
 import { DocumentsModule } from './documents/documents.module';
 import { ContactsModule } from './contacts/contacts.module';
+import { ServicesModule } from './services/services.module';
 
 @Module({
-  imports: [DatabaseModule, SpecialistsModule, BannersModule, InphographicsModule, AdminModule, DocumentsModule, ContactsModule],
+  imports: [DatabaseModule, SpecialistsModule, BannersModule, InphographicsModule, AdminModule, DocumentsModule, ContactsModule, ServicesModule],
   controllers: [AppController, ImagesControllerController],
   providers: [AppService],
 })
