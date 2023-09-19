@@ -8,9 +8,10 @@ import { InphographicsModule } from './inphographics/inphographics.module';
 import { ImagesControllerController } from './images-controller/images-controller.controller';
 import { AdminModule } from './admin/admin.module';
 import { DocumentsModule } from './documents/documents.module';
+import { ContactsModule } from './contacts/contacts.module';
 
 @Module({
-  imports: [DatabaseModule, SpecialistsModule, BannersModule, InphographicsModule, AdminModule, DocumentsModule],
+  imports: [DatabaseModule, SpecialistsModule, BannersModule, InphographicsModule, AdminModule, DocumentsModule, ContactsModule],
   controllers: [AppController, ImagesControllerController],
   providers: [AppService],
 })
