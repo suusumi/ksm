@@ -1,7 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { Typography, useTheme, useMediaQuery } from "@mui/material";
-import Box from "@mui/material/Box";
-import OutlinedButton from "@mui/material/Button";
+import {
+  Typography,
+  useTheme,
+  useMediaQuery,
+  Box,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
+  FormControl,
+  Select,
+  MenuItem,
+  Button,
+} from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 interface Service {
   serviceText: string;
@@ -26,47 +37,17 @@ const Price: React.FC = () => {
   const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+  const [selectedSubcategory, setSelectedSubcategory] = useState<string>("");
+
   const [priceData, setPriceData] = useState<Category[]>([]);
+  const [activeCategory, setActiveCategory] = useState<string>("");
 
   useEffect(() => {
     const fetchData = async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
+      // Замените это начальное значение данными из вашего API
       const initialData: Category[] = [
-        {
-          categoryTitle: "Гастроэнтерология",
-          subcategories: [
-            {
-              subcategoryTitle: "Прием (осмотр, консультация)",
-              services: [
-                {
-                  serviceText:
-                    "Прием (осмотр, консультация) врача-гастроэнтеролога, доцента кафедра педиатрии и неонатологии ИНМФО, кмн",
-                  serviceID: "КСМ 1200",
-                  price: "2000",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-                {
-                  serviceText:
-                    "Прием (осмотр, консультация) врача-гастроэнтеролога первичный",
-                  serviceID: "КСМ 1201",
-                  price: "1200",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-                {
-                  serviceText:
-                    "Прием (осмотр, консультация) врача-гастроэнтеролога повторный",
-                  serviceID: "КСМ 1202",
-                  price: "1000",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-              ],
-            },
-          ],
-        },
         {
           categoryTitle: "Инфекционные болезни",
           subcategories: [
@@ -101,6 +82,96 @@ const Price: React.FC = () => {
             },
           ],
         },
+        {
+          categoryTitle: "Дерматовенерология",
+          subcategories: [
+            {
+              subcategoryTitle: "Прием (осмотр, консультация)",
+              services: [
+                {
+                  serviceText:
+                    "Прием (осмотр, консультация) врача-дерматолога, заведующего кафедрой дерматовенерологии, кмн",
+                  serviceID: "КСМ 1400",
+                  price: "1800",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+                {
+                  serviceText:
+                    "Прием (осмотр, консультация) врача-дерматовенеролога первичный без дерматоскопии",
+                  serviceID: "КСМ 1401",
+                  price: "1200",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+                {
+                  serviceText:
+                    "Прием (осмотр, консультация) врача-дерматовенеролога повторный без дерматоскопии",
+                  serviceID: "КСМ 1402",
+                  price: "1000",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+              ],
+            },
+            {
+              subcategoryTitle: "Дерматоскопия",
+              services: [
+                {
+                  serviceText: "Дерматоскопия (1 элемент)",
+                  serviceID: "КСМ 1403",
+                  price: "450",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+                {
+                  serviceText: "Дерматоскопия за 1 элемент (2-10 элементов)",
+                  serviceID: "КСМ 1404",
+                  price: "400",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+                {
+                  serviceText:
+                    "Дерматоскопия за 1 элемент (более 10 элементов)",
+                  serviceID: "КСМ 1405",
+                  price: "350",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+              ],
+            },
+            {
+              subcategoryTitle: "Криодеструкция",
+              services: [
+                {
+                  serviceText:
+                    "Криодеструкция доброкачественных образований: папиллом, кератом, плоских вульгарных и подошвенных бородавок, кондиллом и элементов контагиозного моллюска до 0,5 см 1 элемент",
+                  serviceID: "КСМ 1406",
+                  price: "500",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+                {
+                  serviceText:
+                    "Криодеструкция доброкачественных образований: папиллом, кератом, плоских вульгарных и подошвенных бородавок, кондиллом и элементов контагиозного моллюска 0,5 - 1.0 см. 1 элемент",
+                  serviceID: "КСМ 1407",
+                  price: "1000",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+                {
+                  serviceText:
+                    "Криодеструкция доброкачественных образований: папиллом, кератом, плоских вульгарных и подошвенных бородавок, кондиллом и элементов контагиозного моллюска более 1.0 см. 1 элемент",
+                  serviceID: "КСМ 1408",
+                  price: "1500",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+              ],
+            },
+          ],
+        },
       ];
 
       setPriceData(initialData);
@@ -110,7 +181,13 @@ const Price: React.FC = () => {
   }, []);
 
   const handleCategoryChange = (category: string) => {
+    setActiveCategory(category);
     setSelectedCategory(category);
+    setSelectedSubcategory("");
+  };
+
+  const handleSubcategoryChange = (subcategory: string) => {
+    setSelectedSubcategory(subcategory);
   };
 
   return (
@@ -130,41 +207,67 @@ const Price: React.FC = () => {
         Услуги
       </Typography>
       <Box>
-        {priceData.map((category) => (
-          <OutlinedButton
-            key={category.categoryTitle}
-            onClick={() => handleCategoryChange(category.categoryTitle)}
-            sx={{
-              color:
-                selectedCategory === category.categoryTitle ? "white" : "black",
-              backgroundColor:
-                selectedCategory === category.categoryTitle
-                  ? "#288e81"
-                  : "transparent",
-              borderColor: "#288e81",
-              borderWidth: "2px",
-              marginRight: "10px",
-              marginBottom: "10px",
-              "&:hover": {
-                backgroundColor: "#288e81",
-                color: "white",
-              },
-            }}
-          >
-            {category.categoryTitle}
-          </OutlinedButton>
-        ))}
+        {/* Кнопки для выбора категории */}
+        <Box>
+          {priceData.map((category) => (
+            <Button
+              key={category.categoryTitle}
+              sx={{
+                backgroundColor: "transparent",
+                border: "2px solid #288e81",
+                color:
+                  activeCategory === category.categoryTitle
+                    ? "#ffffff"
+                    : "#288e81",
+                "&.active": {
+                  backgroundColor: "#288e81",
+                  color: "#ffffff",
+                },
+                margin: "0px 15px 15px 0",
+              }}
+              className={
+                activeCategory === category.categoryTitle ? "active" : ""
+              }
+              onClick={() => handleCategoryChange(category.categoryTitle)}
+            >
+              {category.categoryTitle}
+            </Button>
+          ))}
+        </Box>
       </Box>
       {selectedCategory && (
         <Box>
-          {priceData
-            .find((category) => category.categoryTitle === selectedCategory)
-            ?.subcategories[0]?.services.map((service) => (
-              <div key={service.serviceID}>
-                <Typography variant="h4">{service.serviceText}</Typography>
-                <Typography variant="body1">{service.price}</Typography>
-              </div>
-            ))}
+          <Box>
+            {/* Кнопки для выбора подкатегории */}
+            <Box>
+              {priceData
+                .find((category) => category.categoryTitle === selectedCategory)
+                ?.subcategories.map((subcategory) => (
+                  <Accordion key={subcategory.subcategoryTitle}>
+                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                      <Typography>{subcategory.subcategoryTitle}</Typography>
+                    </AccordionSummary>
+                    <AccordionDetails>
+                      {subcategory.services.map((service) => (
+                        <Box key={service.serviceID}>
+                          <Typography variant="h6">
+                            {service.serviceText}
+                          </Typography>
+                          <Typography variant="body1">
+                            Цена: {service.price}
+                          </Typography>
+                          <Typography variant="body1">
+                            <a href={service.AppointmentLink}>
+                              {service.AppointmentText}
+                            </a>
+                          </Typography>
+                        </Box>
+                      ))}
+                    </AccordionDetails>
+                  </Accordion>
+                ))}
+            </Box>
+          </Box>
         </Box>
       )}
     </Box>
