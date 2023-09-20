@@ -46,7 +46,6 @@ const Price: React.FC = () => {
     const fetchData = async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      // Замените это начальное значение данными из вашего API
       const initialData: Category[] = [
         {
           categoryTitle: "Инфекционные болезни",
@@ -207,34 +206,54 @@ const Price: React.FC = () => {
         Услуги
       </Typography>
       <Box>
-        {/* Кнопки для выбора категории */}
-        <Box>
-          {priceData.map((category) => (
-            <Button
-              key={category.categoryTitle}
-              sx={{
-                backgroundColor: "transparent",
-                border: "2px solid #288e81",
-                color:
-                  activeCategory === category.categoryTitle
-                    ? "#ffffff"
-                    : "#288e81",
-                "&.active": {
-                  backgroundColor: "#288e81",
-                  color: "#ffffff",
-                },
-                margin: "0px 15px 15px 0",
-              }}
-              className={
-                activeCategory === category.categoryTitle ? "active" : ""
-              }
-              onClick={() => handleCategoryChange(category.categoryTitle)}
+        {isXsScreen ? (
+          <FormControl fullWidth>
+            <Select
+              value={selectedCategory}
+              onChange={(e) => handleCategoryChange(e.target.value as string)}
+              sx={{ marginBottom: "35px" }}
             >
-              {category.categoryTitle}
-            </Button>
-          ))}
-        </Box>
+              <MenuItem value="">Выберите категорию</MenuItem>
+              {priceData.map((category) => (
+                <MenuItem
+                  key={category.categoryTitle}
+                  value={category.categoryTitle}
+                >
+                  {category.categoryTitle}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+        ) : (
+          <Box>
+            {priceData.map((category) => (
+              <Button
+                key={category.categoryTitle}
+                sx={{
+                  backgroundColor: "transparent",
+                  border: "2px solid #288e81",
+                  color:
+                    activeCategory === category.categoryTitle
+                      ? "#ffffff"
+                      : "#288e81",
+                  "&.active": {
+                    backgroundColor: "#288e81",
+                    color: "#ffffff",
+                  },
+                  margin: "0px 15px 15px 0",
+                }}
+                className={
+                  activeCategory === category.categoryTitle ? "active" : ""
+                }
+                onClick={() => handleCategoryChange(category.categoryTitle)}
+              >
+                {category.categoryTitle}
+              </Button>
+            ))}
+          </Box>
+        )}
       </Box>
+
       {selectedCategory && (
         <Box>
           <Box>
