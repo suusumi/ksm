@@ -3,56 +3,111 @@ import { Typography, useTheme, useMediaQuery } from "@mui/material";
 import Box from "@mui/material/Box";
 import OutlinedButton from "@mui/material/Button";
 
-interface Product {
-  name: string;
+interface Service {
+  serviceText: string;
+  serviceID: string;
   price: string;
+  AppointmentLink: string;
+  AppointmentText: string;
 }
 
-interface PriceProps {}
+interface Subcategory {
+  subcategoryTitle: string;
+  services: Service[];
+}
 
-const Price: React.FC<PriceProps> = () => {
+interface Category {
+  categoryTitle: string;
+  subcategories: Subcategory[];
+}
+
+const Price: React.FC = () => {
   const theme = useTheme();
   const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
 
   const [selectedCategory, setSelectedCategory] = useState<string>("");
-  const [priceData, setPriceData] = useState<{ [category: string]: Product[] }>(
-    {},
-  );
+  const [priceData, setPriceData] = useState<Category[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
       await new Promise((resolve) => setTimeout(resolve, 1000));
 
-      const data: { [category: string]: Product[] } = {
-        category1: [
-          { name: "Product 1", price: "$10" },
-          { name: "Product 2", price: "$20" },
-        ],
-        category2: [
-          { name: "Product 3", price: "$30" },
-          { name: "Product 4", price: "$40" },
-        ],
-        category3: [
-          {
-            name: "fsodifj",
-            price: "12$",
-          },
-        ],
-      };
+      const initialData: Category[] = [
+        {
+          categoryTitle: "Гастроэнтерология",
+          subcategories: [
+            {
+              subcategoryTitle: "Прием (осмотр, консультация)",
+              services: [
+                {
+                  serviceText:
+                    "Прием (осмотр, консультация) врача-гастроэнтеролога, доцента кафедра педиатрии и неонатологии ИНМФО, кмн",
+                  serviceID: "КСМ 1200",
+                  price: "2000",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+                {
+                  serviceText:
+                    "Прием (осмотр, консультация) врача-гастроэнтеролога первичный",
+                  serviceID: "КСМ 1201",
+                  price: "1200",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+                {
+                  serviceText:
+                    "Прием (осмотр, консультация) врача-гастроэнтеролога повторный",
+                  serviceID: "КСМ 1202",
+                  price: "1000",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+              ],
+            },
+          ],
+        },
+        {
+          categoryTitle: "Инфекционные болезни",
+          subcategories: [
+            {
+              subcategoryTitle: "Прием (осмотр, консультация)",
+              services: [
+                {
+                  serviceText:
+                    "Прием (осмотр, консультация) врача-инфекциониста, заведующего кафедрой инфекционных болезней с эпидемиологией, тропической медициной, кмн",
+                  serviceID: "КСМ 1500",
+                  price: "1800",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+                {
+                  serviceText:
+                    "Прием (осмотр, консультация) врача-инфекциониста, доцента кафедры инфекционных болезней с эпидемиологией, тропической медициной, кмн",
+                  serviceID: "КСМ 1501",
+                  price: "1600",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+                {
+                  serviceText:
+                    "Прием (осмотр, консультация) врача-инфекциониста",
+                  serviceID: "КСМ 1502",
+                  price: "1200",
+                  AppointmentLink: "/appointment.html",
+                  AppointmentText: "Записаться",
+                },
+              ],
+            },
+          ],
+        },
+      ];
 
-      setPriceData(data);
+      setPriceData(initialData);
     };
 
     fetchData();
   }, []);
-
-  const categoryNames: { [category: string]: string } = {
-    category1: "Аллергология и иммунология",
-    category2: "Акушерство и гинекология",
-    category3: "Детские специалисты",
-  };
-
-  const categories: string[] = Object.keys(priceData);
 
   const handleCategoryChange = (category: string) => {
     setSelectedCategory(category);
@@ -75,14 +130,17 @@ const Price: React.FC<PriceProps> = () => {
         Услуги
       </Typography>
       <Box>
-        {categories.map((category) => (
+        {priceData.map((category) => (
           <OutlinedButton
-            key={category}
-            onClick={() => handleCategoryChange(category)}
+            key={category.categoryTitle}
+            onClick={() => handleCategoryChange(category.categoryTitle)}
             sx={{
-              color: selectedCategory === category ? "white" : "black",
+              color:
+                selectedCategory === category.categoryTitle ? "white" : "black",
               backgroundColor:
-                selectedCategory === category ? "#288e81" : "transparent",
+                selectedCategory === category.categoryTitle
+                  ? "#288e81"
+                  : "transparent",
               borderColor: "#288e81",
               borderWidth: "2px",
               marginRight: "10px",
@@ -93,18 +151,20 @@ const Price: React.FC<PriceProps> = () => {
               },
             }}
           >
-            {categoryNames[category]}
+            {category.categoryTitle}
           </OutlinedButton>
         ))}
       </Box>
       {selectedCategory && (
         <Box>
-          {priceData[selectedCategory]?.map((product) => (
-            <div key={product.name}>
-              <Typography variant="h4">{product.name}</Typography>
-              <Typography variant="body1">{product.price}</Typography>
-            </div>
-          ))}
+          {priceData
+            .find((category) => category.categoryTitle === selectedCategory)
+            ?.subcategories[0]?.services.map((service) => (
+              <div key={service.serviceID}>
+                <Typography variant="h4">{service.serviceText}</Typography>
+                <Typography variant="body1">{service.price}</Typography>
+              </div>
+            ))}
         </Box>
       )}
     </Box>
