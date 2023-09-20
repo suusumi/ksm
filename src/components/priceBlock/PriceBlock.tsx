@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import {
   Typography,
   useTheme,
@@ -11,6 +11,7 @@ import {
   Select,
   MenuItem,
   Button,
+  TextField,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
@@ -41,6 +42,10 @@ const Price: React.FC = () => {
 
   const [priceData, setPriceData] = useState<Category[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("");
+
+  const [searchText, setSearchText] = useState<string>("");
+
+  const [searchResults, setSearchResults] = useState<Service[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -253,6 +258,41 @@ const Price: React.FC = () => {
           </Box>
         )}
       </Box>
+      <FormControl fullWidth sx={{ marginBottom: "15px" }}>
+        <TextField
+          label="Поиск по услугам"
+          value={searchText}
+          onChange={(e: ChangeEvent<HTMLInputElement>) => {
+            const searchText = e.target.value.toLowerCase();
+            setSearchText(searchText);
+            // Фильтруем услуги на основе текста поиска
+            const filteredServices = priceData.flatMap((category) =>
+              category.subcategories.flatMap((subcategory) =>
+                subcategory.services.filter((service) =>
+                  service.serviceText.toLowerCase().includes(searchText),
+                ),
+              ),
+            );
+            setSearchResults(filteredServices);
+          }}
+        />
+      </FormControl>
+      {searchResults.length > 0 ? (
+        <Box>
+          {searchText.length > 0 &&
+            searchResults.map((service) => (
+              <Box key={service.serviceID}>
+                <Typography variant="h6">{service.serviceText}</Typography>
+                <Typography variant="body1">Цена: {service.price}</Typography>
+                <Typography variant="body1">
+                  <a href={service.AppointmentLink}>
+                    {service.AppointmentText}
+                  </a>
+                </Typography>
+              </Box>
+            ))}
+        </Box>
+      ) : null}
 
       {selectedCategory && (
         <Box>
@@ -267,21 +307,27 @@ const Price: React.FC = () => {
                       <Typography>{subcategory.subcategoryTitle}</Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                      {subcategory.services.map((service) => (
-                        <Box key={service.serviceID}>
-                          <Typography variant="h6">
-                            {service.serviceText}
-                          </Typography>
-                          <Typography variant="body1">
-                            Цена: {service.price}
-                          </Typography>
-                          <Typography variant="body1">
-                            <a href={service.AppointmentLink}>
-                              {service.AppointmentText}
-                            </a>
-                          </Typography>
-                        </Box>
-                      ))}
+                      {subcategory.services
+                        .filter((service) =>
+                          service.serviceText
+                            .toLowerCase()
+                            .includes(searchText.toLowerCase()),
+                        )
+                        .map((service) => (
+                          <Box key={service.serviceID}>
+                            <Typography variant="h6">
+                              {service.serviceText}
+                            </Typography>
+                            <Typography variant="body1">
+                              Цена: {service.price}
+                            </Typography>
+                            <Typography variant="body1">
+                              <a href={service.AppointmentLink}>
+                                {service.AppointmentText}
+                              </a>
+                            </Typography>
+                          </Box>
+                        ))}
                     </AccordionDetails>
                   </Accordion>
                 ))}
