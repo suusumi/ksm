@@ -35,7 +35,7 @@ export const HeaderAdmin = () => {
 
                     <Box sx={{ display: { xs: 'none', sm: 'flex' }, alignItems: 'center' }}>
                         <Button href={routes.infographics} color="inherit" sx={styles.button}>Инфографика</Button>
-                        <Button color="inherit" sx={styles.button}>Баннеры</Button>
+                        <Button href={routes.banners} color="inherit" sx={styles.button}>Баннеры</Button>
                         <Button href={routes.specialists} color="inherit" sx={styles.button}>Специалисты</Button>
                         <Button href={routes.services} color="inherit" sx={styles.button}>Услуги</Button>
                     </Box>
