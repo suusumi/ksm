@@ -1,13 +1,12 @@
 import { Injectable } from '@nestjs/common';
 import { CreateBannerDto } from './dto/create-banner.dto';
 import { UpdateBannerDto } from './dto/update-banner.dto';
-import {DatabaseService} from "../database/database.service";
-import * as fs from "fs";
+import { DatabaseService } from '../database/database.service';
+import * as fs from 'fs';
 
 @Injectable()
 export class BannersService {
-  constructor(private readonly databaseService: DatabaseService) {
-  }
+  constructor(private readonly databaseService: DatabaseService) {}
 
   async create(createBannerDto: CreateBannerDto) {
     try {
@@ -15,7 +14,7 @@ export class BannersService {
         data: createBannerDto,
       }); // Возврат созданного баннера
     } catch (error) {
-      console.error("Ошибка при создании баннера:", error);
+      console.error('Ошибка при создании баннера:', error);
     }
   }
 
@@ -23,7 +22,7 @@ export class BannersService {
     try {
       return await this.databaseService.banners.findMany();
     } catch (error) {
-      console.error("Ошибка при получении списка баннеров:", error);
+      console.error('Ошибка при получении списка баннеров:', error);
     }
   }
 
@@ -71,8 +70,11 @@ export class BannersService {
 
       try {
         // Удаление старого изображения
-        fs.unlinkSync(banner.img_path);
-        console.log('Старое изображение перед апдейтом изображения баннера успешно удалено:', banner.img_path);
+        fs.unlinkSync('./public/uploads/' + banner.img_path);
+        console.log(
+          'Старое изображение перед апдейтом изображения баннера успешно удалено: ./public/uploads/',
+          banner.img_path,
+        );
       } catch (err) {
         console.error('Ошибка при удалении файла:', err);
       }
@@ -88,7 +90,10 @@ export class BannersService {
 
       return updatedBanner;
     } catch (error) {
-      console.error(`Ошибка при обновлении пути к изображению для баннера с ID ${id}:`, error);
+      console.error(
+        `Ошибка при обновлении пути к изображению для баннера с ID ${id}:`,
+        error,
+      );
     }
   }
 
@@ -96,8 +101,8 @@ export class BannersService {
     try {
       const deletedBanner = await this.databaseService.banners.delete({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
 
       if (!deletedBanner) {
@@ -106,8 +111,11 @@ export class BannersService {
 
       try {
         // Удаление файла
-        fs.unlinkSync(deletedBanner.img_path);
-        console.log('Изображение баннера при удалении баннера успешно удалено:', deletedBanner.img_path);
+        fs.unlinkSync('./public/uploads/' + deletedBanner.img_path);
+        console.log(
+          'Изображение баннера при удалении баннера успешно удалено: ./public/uploads/',
+          deletedBanner.img_path,
+        );
       } catch (err) {
         console.error('Ошибка при удалении файла:', err);
       }

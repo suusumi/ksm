@@ -10,46 +10,67 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Infographics{
-  id Int @id @default(autoincrement())
-  value String
+model Contacts {
+  id         Int     @id @default(autoincrement())
+  first_tel  String?
+  second_tel String?
+  mail       String?
+  street     String?
+  city       String  @default("Волгоград")
+  vk_link    String?
+  tg_link    String?
+  wa_link    String?
+  email_link String?
+}
+
+model Infographics {
+  id          Int    @id @default(autoincrement())
+  value       String
   description String
 }
 
-model Banners{
-  id Int @id @default(autoincrement())
-  title String
-  subtitle String
-  text_content String @db.Text
-  img_path String?
+model Documents {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String? @default("doc")
+  file_name   String?
 }
 
-model Administrators{
-  id Int @id @default(autoincrement())
-  login String @unique
+model Banners {
+  id           Int     @id @default(autoincrement())
+  title        String
+  subtitle     String
+  text_content String  @db.Text
+  img_path     String?
+}
+
+model Administrators {
+  id            Int     @id @default(autoincrement())
+  login         String  @unique
   password_hash String
-  full_name String? @db.VarChar(255)
+  full_name     String? @db.VarChar(255)
 }
 
-model Services{
-  id Int @id @default(autoincrement())
-  type ServiceType @default(AllergologyAndImmunology)
-  category CategoryType @default(ReceptionAndInspectionAndConsultation)
-  name String
+model Services {
+  id          Int          @id @default(autoincrement())
+  type        ServiceType  @default(AllergologyAndImmunology)
+  category    CategoryType @default(ReceptionAndInspectionAndConsultation)
+  name        String
   description String?
-  price Int
+  price       Int
 }
 
-model Specialists{
-  id Int @id @default(autoincrement())
+model Specialists {
+  id         Int         @id @default(autoincrement())
   photo_path String?
-  name String
-  post String?
+  name       String
+  post       String?
   speciality String?
-  degree String?
+  degree     String?
+  filial     SpecFilial? @default(PlPavBortsov1)
 }
 
-enum CategoryType{
+enum CategoryType {
   ReceptionAndInspectionAndConsultation
   BronchoprovocationTest
   AllergyTests
@@ -98,7 +119,14 @@ enum CategoryType{
   MedicalExamination
 }
 
-enum ServiceType{
+enum SpecFilial {
+  KIM20
+  PlPavBortsov1
+  Kozlovskaya45A
+  KIM18A
+}
+
+enum ServiceType {
   AllergologyAndImmunology
   ObstetricsAndGynecology
   ChildrensSpecialists
