@@ -195,7 +195,7 @@ const Price: React.FC = () => {
   };
 
   return (
-    <Box>
+    <Box sx={{ marginBottom: "50px" }}>
       <Typography
         variant="h2"
         sx={{
