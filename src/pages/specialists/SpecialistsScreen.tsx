@@ -56,8 +56,8 @@ export const SpecialistsScreen = () => {
         }
 
         createSpecialist(formData);
-        setValue({});
         handleCreateClose();
+        setValue({});
     }
 
     useEffect(() => {
