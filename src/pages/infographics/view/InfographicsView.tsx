@@ -32,83 +32,32 @@ export const InfographicsView: React.FC<IInfographicsView> = (props) => {
 
             <Grid item xs={4}>
                 <Grid container direction={'row'} spacing={3}>
-                    <Grid item xs={4}>
-                        <Grid container direction={'column'} spacing={3}>
-                            <Grid item xs={6}>
-                                <TextField
-                                    id="firstInfogrpahicsNumber"
-                                    fullWidth
-                                    variant="outlined"
-                                    label="Первая цифровая инфографика"
-                                    value={props.data[0]?.title}
-                                    onChange={(event) => props.handleNumberInfographicsChange(event, props.data[0].id)}
-                                />
-                            </Grid>
+                    {props.data?.map((infographic) => (
+                        <Grid item xs={4}>
+                            <Grid container direction={'column'} spacing={3}>
+                                <Grid item xs={6}>
+                                    <TextField
+                                        id={"InfogrpahicsNumber" + infographic.id}
+                                        fullWidth
+                                        variant="outlined"
+                                        label="Цифровая инфографика"
+                                        value={infographic.value}
+                                        onChange={(event) => props.handleNumberInfographicsChange(event, infographic.id)}
+                                    />
+                                </Grid>
 
-                            <Grid item xs={6}>
-                                <TextField
-                                    id="firstInfogrpahicstText"
-                                    fullWidth
-                                    variant="outlined"
-                                    label="Первая текстовая инфографика"
-                                    value={props.data[0]?.description}
-                                    onChange={(event) => props.handleTextInfographicsChange(event, props.data[0].id)}
-                                />
+                                <Grid item xs={6}>
+                                    <TextField
+                                        id="firstInfogrpahicstText"
+                                        fullWidth
+                                        variant="outlined"
+                                        label="Первая текстовая инфографика"
+                                        value={infographic.description}
+                                        onChange={(event) => props.handleTextInfographicsChange(event, infographic.id)}
+                                    />
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Grid>
-
-                    <Grid item xs={4}>
-                        <Grid container direction={'column'} spacing={3}>
-                            <Grid item xs={6}>
-                                <TextField
-                                    id="secondInfogrpahicsNumber"
-                                    fullWidth
-                                    variant="outlined"
-                                    label="Вторая цифровая инфографика"
-                                    value={props.data[1]?.title}
-                                    onChange={(event) => props.handleNumberInfographicsChange(event, props.data[1].id)}
-                                />
-                            </Grid>
-
-                            <Grid item xs={6}>
-                                <TextField
-                                    id="secondInfogrpahicstText"
-                                    fullWidth
-                                    variant="outlined"
-                                    label="Вторая текстовая инфографика"
-                                    value={props.data[1]?.description}
-                                    onChange={(event) => props.handleTextInfographicsChange(event, props.data[1].id)}
-                                />
-                            </Grid>
-                        </Grid>
-                    </Grid>
-
-                    <Grid item xs={4}>
-                        <Grid container direction={'column'} spacing={3}>
-                            <Grid item xs={6}>
-                                <TextField
-                                    id="thirdInfogrpahicsNumber"
-                                    fullWidth
-                                    variant="outlined"
-                                    label="Третья цифровая инфографика"
-                                    value={props.data[2]?.title}
-                                    onChange={(event) => props.handleNumberInfographicsChange(event, props.data[2].id)}
-                                />
-                            </Grid>
-
-                            <Grid item xs={6}>
-                                <TextField
-                                    id="thirdInfogrpahicstText"
-                                    fullWidth
-                                    variant="outlined"
-                                    label="Третья текстовая инфографика"
-                                    value={props.data[2]?.description}
-                                    onChange={(event) => props.handleTextInfographicsChange(event, props.data[2].id)}
-                                />
-                            </Grid>
-                        </Grid>
-                    </Grid>
+                        </Grid>))}
                 </Grid>
             </Grid>
 
@@ -136,18 +85,10 @@ export const InfographicsView: React.FC<IInfographicsView> = (props) => {
 
             <Grid item xs={4}>
                 <Grid container direction={'row'} spacing={3}>
-                    <Grid item xs={4}>
-                        <Typography style={styles.TitleText}>{props.data[0]?.title}</Typography>
-                        <Typography style={styles.StandartText}>{props.data[0]?.description}</Typography>
-                    </Grid>
-
-                    <Grid item xs={4}>
-                        <Typography style={styles.TitleText}>{props.data[1]?.title}</Typography>
-                        <Typography style={styles.StandartText}>{props.data[1]?.description}</Typography>                    </Grid>
-
-                    <Grid item xs={4}>
-                        <Typography style={styles.TitleText}>{props.data[2]?.title}</Typography>
-                        <Typography style={styles.StandartText}>{props.data[2]?.description}</Typography>                    </Grid>
+                    {props.data?.map((infographic) => (<Grid item xs={4}>
+                        <Typography style={styles.TitleText}>{infographic.value}</Typography>
+                        <Typography style={styles.StandartText}>{infographic.description}</Typography>
+                    </Grid>))}
                 </Grid>
             </Grid>
         </Grid>
