@@ -1,40 +1,50 @@
 import React, { MouseEventHandler, useEffect, useState } from "react";
 import { InfographicsView } from "./view/InfographicsView";
-import { InfographicsItem } from "./model/InfographicsModel";
+import { fetchAllInfogrpaphics, updateInfographicsById } from "../../api/infographics/request";
+import { CreateInfographicsDto, InfographicsDto } from "../../api/infographics/dto";
+import { error } from "console";
 
 export const InfographicsScreen = () => {
-    const [data, setData] = useState<InfographicsItem[]>([
-        { id: 1, title: '35+', description: 'Специалистов из разных областей' },
-        { id: 2, title: '17', description: 'Лет на страже вашего здоровья' },
-        { id: 3, title: '18+', description: 'Областей медицинской помощи' },
-    ]);
+    const [infographics, setInfographics] = useState<InfographicsDto[]>();
+
+    useEffect(() => {
+        fetchAllInfogrpaphics()
+            .then((response) => { return response.json() })
+            .then((data) => {
+                setInfographics(data);
+            })
+            .catch((error) => console.error(error))
+    }, []);
 
     const handleNumberInfographicsChange = (event: any, id: number) => {
-        const numberInfographics = data.map((data) => {
-            return data.id === id ? { ...data, title: event.target.value } : { ...data }
+        const numberInfographics = infographics?.map((data) => {
+            return data.id === id ? { ...data, value: event.target.value } : { ...data }
         });
 
-        setData(numberInfographics);
+        setInfographics(numberInfographics);
     };
 
     const handleTextInfographicsChange = (event: any, id: number) => {
-        const textInfographics = data.map((data) => {
+        const textInfographics = infographics?.map((data) => {
             return data.id === id ? { ...data, description: event.target.value } : { ...data }
         });
 
-        setData(textInfographics);
+        setInfographics(textInfographics);
     };
 
-    const handleSave:MouseEventHandler<HTMLButtonElement> = () => {
-        const saveData = data; 
-        console.log(saveData);
-        console.log("Сохранено");
-        
+    const handleSave: MouseEventHandler<HTMLButtonElement> = async () => {
+        infographics?.map((data) => {
+            const updateInfographics = {
+                'value': data.value,
+                'description': data.description
+            }
+            updateInfographicsById(data.id, updateInfographics);
+        });
     }
 
     return (
         <InfographicsView
-            data={data}
+            data={infographics}
             handleNumberInfographicsChange={handleNumberInfographicsChange}
             handleTextInfographicsChange={handleTextInfographicsChange}
             handleSave={handleSave}
