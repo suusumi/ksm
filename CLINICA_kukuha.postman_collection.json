@@ -574,14 +574,13 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/images/photo_name.jpg",
+					"raw": "localhost:8080/images",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
-						"images",
-						"photo_name.jpg"
+						"images"
 					]
 				}
 			},
