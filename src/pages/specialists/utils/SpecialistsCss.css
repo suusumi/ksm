@@ -1,0 +1,59 @@
+.card {
+    /* background-color: black; */
+    overflow: hidden;
+  }
+  
+  .card-top img {
+    object-fit: cover;
+    /* height: 300px; */
+  }
+  .slick-slide > div {
+    margin: 0 10px;
+  }
+  .slick-list {
+    margin: 0 -10px;
+  }
+  
+  .card-top {
+    /* object-fit: cover; */
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 20px;
+  }
+  
+  .slick-prev:before,
+  .slick-next:before {
+    color: #288e81 !important;
+  
+    font-size: 34px; /* Размер шрифта */
+  }
+  
+  .slick-prev,
+  .slick-next {
+    /* font-size: 24px; Размер шрифта */
+  }
+  
+  /* Стили для экранов с разрешением больше 1024px */
+  @media screen and (min-width: 1025px) {
+    .slick-prev {
+      left: -60px; /* Отступ кнопки "назад" от левого края */
+    }
+  
+    .slick-next {
+      right: -40px; /* Отступ кнопки "вперед" от правого края */
+    }
+  }
+  
+  /* Стили для экранов с разрешением больше 1024px */
+  @media screen and (max-width: 600px) {
+    .slick-prev {
+      left: -5px;
+      z-index: 2; /* Отступ кнопки "назад" от левого края */
+    }
+  
+    .slick-next {
+      right: 10px; /* Отступ кнопки "вперед" от правого края */
+    }
+  }
+  

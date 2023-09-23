@@ -43,6 +43,11 @@
   src: url('../src/assets/fonts/AustinCyr-Bold.ttf');
 }
 
+@font-face {
+  font-family: AustinMedium;
+  src: url('../src/assets/fonts/AustinCyr-Medium.ttf');
+}
+
 /* Шрифт для обычного текста */
 @font-face {
   font-family: PT-Sans;

@@ -8,16 +8,15 @@ import {
   Delete,
   UsePipes,
   ValidationPipe,
-  ParseIntPipe,
-  UseInterceptors,
-  UploadedFile,
+  ParseIntPipe, UseInterceptors, UploadedFile
 } from '@nestjs/common';
 import { BannersService } from './banners.service';
 import { CreateBannerDto } from './dto/create-banner.dto';
 import { UpdateBannerDto } from './dto/update-banner.dto';
-import { FileInterceptor } from '@nestjs/platform-express';
-import { diskStorage } from 'multer';
-import { extname } from 'path';
+import {FileInterceptor} from "@nestjs/platform-express";
+import {diskStorage} from "multer";
+import {extname} from "path";
+import * as fs from 'fs';
 
 @Controller('banners')
 export class BannersController {
@@ -49,25 +48,17 @@ export class BannersController {
   }
 
   @Patch('updateimage/:id')
-  @UseInterceptors(
-    FileInterceptor('image', {
-      storage: diskStorage({
-        destination: './public/uploads', // Путь к папке для сохранения изображений
-        filename: (req, file, cb) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
-          return cb(null, `${randomName}${extname(file.originalname)}`);
-        },
-      }),
+  @UseInterceptors(FileInterceptor('image', {
+    storage: diskStorage({
+      destination: './public/uploads', // Путь к папке для сохранения изображений
+      filename: (req, file, cb) => {
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+        return cb(null, `${randomName}${extname(file.originalname)}`);
+      },
     }),
-  )
-  async updateImage(
-    @Param('id', ParseIntPipe) id: number,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    if (file) {
+  }))
+  async updateImage(@Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File) {
+    if(file){
       return await this.bannersService.updateImage(+id, file.filename);
     } else {
       console.log(
@@ -82,25 +73,20 @@ export class BannersController {
   }
 
   @Post('createwithimage')
-  @UseInterceptors(
-    FileInterceptor('image', {
-      storage: diskStorage({
-        destination: './public/uploads', // Путь к папке для сохранения изображений
-        filename: (req, file, cb) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
-          return cb(null, `${randomName}${extname(file.originalname)}`);
-        },
-      }),
+  @UseInterceptors(FileInterceptor('image', {
+    storage: diskStorage({
+      destination: './public/uploads', // Путь к папке для сохранения изображений
+      filename: (req, file, cb) => {
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+        return cb(null, `${randomName}${extname(file.originalname)}`);
+      },
     }),
-  )
+  }))
 
   //@UsePipes(new ValidationPipe())
   async createBannerWithImage(
-    @UploadedFile() file: Express.Multer.File,
-    @Body() bodyData: CreateBannerDto,
+      @UploadedFile() file: Express.Multer.File,
+      @Body() bodyData: CreateBannerDto
   ) {
     // Внимание, костыли!
     // Преобразую то, что пришло, в строку
@@ -112,11 +98,11 @@ export class BannersController {
     // Создаю DTO на основе строки с данными из объекта json
     const createBannerDto: CreateBannerDto = JSON.parse(bodyDataString);
     // Заменяю свойство photo_path на файл, который upload-им
-    if (file) {
+    if(file){
       createBannerDto.img_path = file.filename;
       return await this.bannersService.create(createBannerDto);
     } else {
-      console.log('Всё сломалось при загрузке изображения баннера на сервер');
+      console.log("Всё сломалось при загрузке изображения баннера на сервер");
     }
   }
 }

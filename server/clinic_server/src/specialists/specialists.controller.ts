@@ -10,18 +10,20 @@ import {
   UsePipes,
   ValidationPipe,
   UploadedFile,
-  UseInterceptors,
+  UseInterceptors
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { diskStorage } from 'multer';
 import { extname } from 'path';
-import { SpecialistsService } from './specialists.service';
-import { CreateSpecialistDto } from './dto/create-specialist.dto';
-import { UpdateSpecialistDto } from './dto/update-specialist.dto';
+import {SpecialistsService} from './specialists.service';
+import {CreateSpecialistDto} from './dto/create-specialist.dto';
+import {UpdateSpecialistDto} from './dto/update-specialist.dto';
+import * as path from 'path';
+import * as fs from 'fs';
 
 @Controller('specialists')
 export class SpecialistsController {
-  constructor(private readonly specialistsService: SpecialistsService) {}
+  constructor(private readonly specialistsService: SpecialistsService) { }
 
   @UsePipes(new ValidationPipe())
   @Post()
@@ -48,25 +50,17 @@ export class SpecialistsController {
   }
 
   @Patch('updatephoto/:id')
-  @UseInterceptors(
-    FileInterceptor('photo', {
-      storage: diskStorage({
-        destination: './public/uploads', // Путь к папке для сохранения изображений
-        filename: (req, file, cb) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
-          return cb(null, `${randomName}${extname(file.originalname)}`);
-        },
-      }),
+  @UseInterceptors(FileInterceptor('photo', {
+    storage: diskStorage({
+      destination: './public/uploads', // Путь к папке для сохранения изображений
+      filename: (req, file, cb) => {
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+        return cb(null, `${randomName}${extname(file.originalname)}`);
+      },
     }),
-  )
-  async updatePhoto(
-    @Param('id', ParseIntPipe) id: number,
-    @UploadedFile() file: Express.Multer.File,
-  ) {
-    if (file) {
+  }))
+  async updatePhoto(@Param('id', ParseIntPipe) id: number, @UploadedFile() file: Express.Multer.File) {
+    if(file) {
       return await this.specialistsService.updatePhoto(+id, file.filename);
     } else {
       console.log('Всё сломалось при обновлении фото специалиста на сервере');
@@ -79,25 +73,20 @@ export class SpecialistsController {
   }
 
   @Post('createwithphoto')
-  @UseInterceptors(
-    FileInterceptor('photo', {
-      storage: diskStorage({
-        destination: './public/uploads', // Путь к папке для сохранения изображений
-        filename: (req, file, cb) => {
-          const randomName = Array(32)
-            .fill(null)
-            .map(() => Math.round(Math.random() * 16).toString(16))
-            .join('');
-          return cb(null, `${randomName}${extname(file.originalname)}`);
-        },
-      }),
+  @UseInterceptors(FileInterceptor('photo', {
+    storage: diskStorage({
+      destination: './public/uploads', // Путь к папке для сохранения изображений
+      filename: (req, file, cb) => {
+        const randomName = Array(32).fill(null).map(() => (Math.round(Math.random() * 16)).toString(16)).join('');
+        return cb(null, `${randomName}${extname(file.originalname)}`);
+      },
     }),
-  )
+  }))
 
   //@UsePipes(new ValidationPipe())
   async createSpecialistWithImage(
-    @UploadedFile() file: Express.Multer.File,
-    @Body() bodyData: CreateSpecialistDto,
+      @UploadedFile() file: Express.Multer.File,
+      @Body() bodyData: CreateSpecialistDto
   ) {
     // Внимание, костыли!
     // Преобразую то, что пришло, в строку
@@ -109,11 +98,11 @@ export class SpecialistsController {
     // Создаю DTO на основе строки с данными из объекта json
     const createSpecialistDto: CreateSpecialistDto = JSON.parse(bodyDataString);
     // Заменяю свойство photo_path на файл, который upload-им
-    if (file) {
+    if(file){
       createSpecialistDto.photo_path = file.filename;
       return await this.specialistsService.create(createSpecialistDto);
     } else {
-      console.log('Всё сломалось при загрузке фото специалиста на сервер');
+      console.log("Всё сломалось при загрузке фото специалиста на сервер");
     }
   }
 }
