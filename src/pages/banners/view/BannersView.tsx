@@ -3,8 +3,19 @@ import Carousel from 'react-material-ui-carousel';
 import { BannersDto, CreateBannersDto } from '../../../api/banners/dto';
 import { createBanners, deleteBanner, fetchAllBanners } from '../../../api/banners/request';
 import { IMAGE_URL } from '../../../utils/constants/url.constants';
-import { Button } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 import { DialogCreateBanner } from '../../../components/dialogs/DialogCreateBanner';
+import theme from '../../../assets/theme/Theme';
+
+const styles = {
+    TitleText: {
+        color: theme.palette.primary.main,
+        textDecoration: 'none',
+        fontSize: '24px',
+        font: 'Roboto',
+        fontWeight: '500',
+    },
+}
 
 export const BannersView = () => {
     const [open, setOpen] = useState<boolean>(false);
@@ -83,12 +94,16 @@ export const BannersView = () => {
           }
         `}
             </style>
+            <Typography style={styles.TitleText} sx={{marginBottom: 2, spacing: 3}}>НАСТРОЙКА БАННЕРОВ</Typography>
             <Button
                 variant='contained'
                 onClick={handleClickOpen}
             >
                 Создать новый баннер
             </Button>
+            <Typography style={styles.TitleText} sx={{marginY: 2}}>
+                КАК БАННЕРЫ БУДУТ ВЫГЛЯДЕТЬ
+            </Typography>
             <DialogCreateBanner 
                 open={open}
                 handleClickOpen={handleClickOpen}
