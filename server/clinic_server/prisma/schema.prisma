@@ -10,10 +10,30 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model Contacts {
+  id         Int     @id @default(autoincrement())
+  first_tel  String?
+  second_tel String?
+  mail       String?
+  street     String?
+  city       String  @default("Волгоград")
+  vk_link    String?
+  tg_link    String?
+  wa_link    String?
+  email_link String?
+}
+
 model Infographics {
   id          Int    @id @default(autoincrement())
   value       String
   description String
+}
+
+model Documents {
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String? @default("doc")
+  file_name   String?
 }
 
 model Banners {

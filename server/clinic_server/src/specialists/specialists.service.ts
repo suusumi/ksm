@@ -1,13 +1,12 @@
-import {Injectable} from '@nestjs/common';
-import {CreateSpecialistDto} from './dto/create-specialist.dto';
-import {UpdateSpecialistDto} from './dto/update-specialist.dto';
-import {DatabaseService} from "../database/database.service";
-import * as fs from "fs";
+import { Injectable } from '@nestjs/common';
+import { CreateSpecialistDto } from './dto/create-specialist.dto';
+import { UpdateSpecialistDto } from './dto/update-specialist.dto';
+import { DatabaseService } from '../database/database.service';
+import * as fs from 'fs';
 
 @Injectable()
 export class SpecialistsService {
-  constructor(private readonly databaseService: DatabaseService) {
-  }
+  constructor(private readonly databaseService: DatabaseService) {}
 
   async create(createSpecialistDto: CreateSpecialistDto) {
     try {
@@ -15,7 +14,7 @@ export class SpecialistsService {
         data: createSpecialistDto,
       }); // Возврат созданного
     } catch (error) {
-      console.error("Ошибка при создании специалиста:", error);
+      console.error('Ошибка при создании специалиста:', error);
     }
   }
 
@@ -23,7 +22,7 @@ export class SpecialistsService {
     try {
       return await this.databaseService.specialists.findMany();
     } catch (error) {
-      console.error("Ошибка при получении списка специалистов:", error);
+      console.error('Ошибка при получении списка специалистов:', error);
     }
   }
 
@@ -42,7 +41,6 @@ export class SpecialistsService {
       console.error(`Ошибка при поиске специалиста с ID ${id}:`, error);
     }
   }
-
 
   async update(id: number, updateSpecialistDto: UpdateSpecialistDto) {
     try {
@@ -63,7 +61,7 @@ export class SpecialistsService {
 
   async updatePhoto(id: number, photoPath: string) {
     try {
-      const updateSpecialistDto: UpdateSpecialistDto = {}
+      const updateSpecialistDto: UpdateSpecialistDto = {};
       updateSpecialistDto.photo_path = photoPath;
 
       const specialist = await this.databaseService.specialists.findUnique({
@@ -72,8 +70,11 @@ export class SpecialistsService {
 
       try {
         // Удаление старой фотки
-        fs.unlinkSync(specialist.photo_path);
-        console.log('Старое фото перед апдейтом фото специалиста успешно удалено:', specialist.photo_path);
+        fs.unlinkSync('./public/uploads/' + specialist.photo_path);
+        console.log(
+          'Старое фото перед апдейтом фото специалиста успешно удалено: ./public/uploads/',
+          specialist.photo_path,
+        );
       } catch (err) {
         console.error('Ошибка при удалении файла:', err);
       }
@@ -89,7 +90,10 @@ export class SpecialistsService {
 
       return updatedSpecialist;
     } catch (error) {
-      console.error(`Ошибка при обновлении фотографии специалиста с ID ${id}:`, error);
+      console.error(
+        `Ошибка при обновлении фотографии специалиста с ID ${id}:`,
+        error,
+      );
     }
   }
 
@@ -97,8 +101,8 @@ export class SpecialistsService {
     try {
       const deletedSpecialist = await this.databaseService.specialists.delete({
         where: {
-          id: id
-        }
+          id: id,
+        },
       });
 
       if (!deletedSpecialist) {
@@ -107,8 +111,11 @@ export class SpecialistsService {
 
       try {
         // Удаление файла
-        fs.unlinkSync(deletedSpecialist.photo_path);
-        console.log('Файл с фото специалиста при удалении специалиста успешно удален:', deletedSpecialist.photo_path);
+        fs.unlinkSync('./public/uploads/' + deletedSpecialist.photo_path);
+        console.log(
+          'Файл с фото специалиста при удалении специалиста успешно удален: ./public/uploads/',
+          deletedSpecialist.photo_path,
+        );
       } catch (err) {
         console.error('Ошибка при удалении файла:', err);
       }
@@ -118,5 +125,4 @@ export class SpecialistsService {
       console.error(`Ошибка при удалении специалиста с ID ${id}:`, error);
     }
   }
-
 }
