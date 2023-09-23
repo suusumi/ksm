@@ -1,13 +1,8 @@
 import { MouseEventHandler } from "react";
-
-export interface InfographicsItem {
-    id: number;
-    title: string;
-    description: string;
-};
+import { InfographicsDto } from "../../../api/infographics/dto";
 
 export interface IInfographicsView {
-    data: InfographicsItem[],
+    data: InfographicsDto[] | undefined,
     handleNumberInfographicsChange: Function,
     handleTextInfographicsChange: Function,
     handleSave: MouseEventHandler<HTMLButtonElement>,
