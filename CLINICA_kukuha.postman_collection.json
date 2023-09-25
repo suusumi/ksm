@@ -105,12 +105,12 @@
 								{
 									"key": "photo",
 									"type": "file",
-									"src": "/C:/Users/arsen/Desktop/clinica/clinic_frontend/public/logo192.png"
+									"src": "/C:/Users/arsen/Pictures/govnokot.jpg"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:8080/specialists/updatephoto/22",
+							"raw": "localhost:8080/specialists/updatephoto/39",
 							"host": [
 								"localhost"
 							],
@@ -118,7 +118,7 @@
 							"path": [
 								"specialists",
 								"updatephoto",
-								"22"
+								"39"
 							]
 						}
 					},
@@ -134,7 +134,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Andrey Crossauchik\",\r\n    \"post\": \"also not boss\",\r\n    \"speciality\": \"not stated\",\r\n    \"degree\": \"VSTU\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Andrey Crossauchik\",\r\n    \"post\": \"also not boss\",\r\n    \"speciality\": \"not stated\",\r\n    \"degree\": \"VSTU\",\r\n    \"filial\": \"Kozlovskaya45A\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -164,14 +164,14 @@
 							"formdata": [
 								{
 									"key": "bodyData",
-									"value": "{\n    \"name\": \"Andrey Umnichkin\",\n    \"post\": \"also not boss\",\n    \"speciality\": \"not stated\",\n    \"degree\": \"VSTU\"\n}",
+									"value": "{\"name\": \"Andrey Crossauchik\",\n    \"post\": \"also not boss\",\n    \"speciality\": \"not stated\",\n    \"degree\": \"VSTU\",\n    \"filial\": \"Kozlovskaya45A\"}",
 									"contentType": "application/json",
 									"type": "text"
 								},
 								{
 									"key": "photo",
 									"type": "file",
-									"src": "/C:/Users/arsen/Pictures/1662506702_12-kartinkin-net-p-selfi-kota-s-sobakami-pinterest-12.jpg"
+									"src": "/C:/Users/arsen/Pictures/pidor_kot.jpg"
 								}
 							]
 						},
@@ -261,12 +261,12 @@
 								{
 									"key": "image",
 									"type": "file",
-									"src": "/C:/Users/arsen/Desktop/clinica/clinic_frontend/public/logo512.png"
+									"src": "/C:/Users/arsen/Pictures/1.jpg"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:8080/banners/updateimage/11",
+							"raw": "localhost:8080/banners/updateimage/20",
 							"host": [
 								"localhost"
 							],
@@ -274,7 +274,7 @@
 							"path": [
 								"banners",
 								"updateimage",
-								"11"
+								"20"
 							]
 						}
 					},
@@ -353,7 +353,7 @@
 									"key": "image",
 									"contentType": "",
 									"type": "file",
-									"src": "/C:/Users/arsen/Pictures/1662506702_12-kartinkin-net-p-selfi-kota-s-sobakami-pinterest-12.jpg"
+									"src": "/C:/Users/arsen/Pictures/IMG_7893.jpg"
 								}
 							]
 						},
@@ -366,6 +366,252 @@
 							"path": [
 								"banners",
 								"createwithimage"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "documents",
+			"item": [
+				{
+					"name": "getAllDocumentsEntity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/documents",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOneDocumentEntityById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/documents/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteDocumentById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/documents/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDocumentFileById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "doc",
+									"type": "file",
+									"src": "/C:/Users/arsen/Pictures/2023_отчет.doc"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/documents/updatefile/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"updatefile",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDocumentEntityById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Новое описание документа\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/documents/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createDocumentEntity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ИМЯ ДОКУМЕНТА\",\r\n    \"description\": \"старое описание документа\",\r\n    \"file_name\": \"nothing\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/documents",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createDocumentWithFile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "bodyData",
+									"value": "{\n    \"name\": \"ИМЯ ДОКУМЕНТА\",\n    \"description\": \"старое описание документа\"\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "doc",
+									"contentType": "",
+									"type": "file",
+									"src": "/C:/Users/arsen/Pictures/2023_отчет.doc"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/documents/createwithfile",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"createwithfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFileByName",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/documents/getfilebyname/cbad454a6d15b43b99ffd255253897fe.doc",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"getfilebyname",
+								"cbad454a6d15b43b99ffd255253897fe.doc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFileByDocumentEntityId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/documents/getfilebyid/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"getfilebyid",
+								"5"
 							]
 						}
 					},
@@ -509,10 +755,23 @@
 		},
 		{
 			"name": "administrators",
-			"item": []
+			"item": [
+				{
+					"name": "getAllAdmins",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "services",
+			"item": []
+		},
+		{
+			"name": "contacts",
 			"item": []
 		},
 		{
@@ -525,11 +784,15 @@
 				{
 					"name": "ServiceType",
 					"item": []
+				},
+				{
+					"name": "SpecFilial",
+					"item": []
 				}
 			]
 		},
 		{
-			"name": "getImage",
+			"name": "getImageByName",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -546,41 +809,14 @@
 					}
 				},
 				"url": {
-					"raw": "localhost:8080/images/1d6feb38bfca1a42f68ea9ef8103c8c89.jpg",
+					"raw": "localhost:8080/images/10267b73dafc0ea5876f3244b3c36f8e8.jpg",
 					"host": [
 						"localhost"
 					],
 					"port": "8080",
 					"path": [
 						"images",
-						"1d6feb38bfca1a42f68ea9ef8103c8c89.jpg"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "getImage By POST and body",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{\r\n    \"image_path\": \"public/uploads/specialists/0cf10bcedfa7364117ba83b3585e4e15e.png\"\r\n}",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "localhost:8080/images",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"images"
+						"10267b73dafc0ea5876f3244b3c36f8e8.jpg"
 					]
 				}
 			},
