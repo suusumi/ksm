@@ -81,7 +81,7 @@ export class InphographicsService {
       const deletedInphographicsCount = await this.databaseService.infographics.deleteMany({
         where: {
           id: {
-            gt: 0, // id > 0
+            gt: 0, // id > 0 (greater than 0)
           }
         }
       });
