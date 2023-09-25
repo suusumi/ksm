@@ -6,23 +6,72 @@ import {DatabaseService} from "../database/database.service";
 @Injectable()
 export class ContactsService {
   constructor(private readonly databaseService: DatabaseService) {}
-  create(createContactDto: CreateContactDto) {
-    return 'This action adds a new contact';
+  async create(createContactDto: CreateContactDto) {
+    try {
+      return await this.databaseService.contacts.create({
+        data: createContactDto,
+      });
+    } catch (error) {
+      console.error('Ошибка при создании контактов:', error);
+    }
   }
 
-  findAll() {
-    return `This action returns all contacts`;
+  async findAll() {
+    try {
+      return await this.databaseService.contacts.findMany();
+    } catch (error) {
+      console.error('Ошибка при получении списка сущностей-контактов:', error);
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} contact`;
+  async findOne(id: number) {
+    try {
+      const contact = await this.databaseService.contacts.findUnique({
+        where: { id },
+      });
+
+      if (!contact) {
+        throw new Error(`Сущность контакта с ID ${id} не найден`);
+      }
+
+      return contact;
+    } catch (error) {
+      console.error(`Ошибка при поиске сущности контакта с ID ${id}:`, error);
+    }
   }
 
-  update(id: number, updateContactDto: UpdateContactDto) {
-    return `This action updates a #${id} contact`;
+  async update(id: number, updateContactDto: UpdateContactDto) {
+    try {
+      const updatedContact = await this.databaseService.contacts.update({
+        where: { id },
+        data: updateContactDto,
+      });
+
+      if (!updatedContact) {
+        throw new Error(`Сущность контакта с ID ${id} не найдена`);
+      }
+
+      return updatedContact;
+    } catch (error) {
+      console.error(`Ошибка при обновлении сущности контакта с ID ${id}:`, error);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} contact`;
+  async remove(id: number) {
+    try {
+      const deletedContacts = await this.databaseService.contacts.delete({
+        where: {
+          id: id
+        }
+      });
+
+      if (!deletedContacts) {
+        throw new Error(`Сущность контакта с ID ${id} не найдена`);
+      }
+
+      return deletedContacts;
+    } catch (error) {
+      console.error(`Ошибка при удалении сущности контакта с ID ${id}:`, error);
+    }
   }
 }

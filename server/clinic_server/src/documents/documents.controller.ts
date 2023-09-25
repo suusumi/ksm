@@ -28,7 +28,7 @@ export class DocumentsController {
   @UsePipes(new ValidationPipe())
   @Post()
   async create(@Body() createDocumentDto: CreateDocumentDto) {
-    return this.documentsService.create(createDocumentDto);
+    return await this.documentsService.create(createDocumentDto);
   }
 
   @Post('createwithfile')
@@ -71,12 +71,12 @@ export class DocumentsController {
 
   @Get()
   async findAll() {
-    return this.documentsService.findAll();
+    return await this.documentsService.findAll();
   }
 
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.documentsService.findOne(+id);
+    return await this.documentsService.findOne(+id);
   }
 
   @Get('getfilebyid/:id')
@@ -204,6 +204,6 @@ export class DocumentsController {
 
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number) {
-    return this.documentsService.remove(+id);
+    return await this.documentsService.remove(+id);
   }
 }
