@@ -33,10 +33,11 @@ interface Category {
   subcategories: Subcategory[];
 }
 
-const Price: React.FC = () => {
-  const theme = useTheme();
-  const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
+interface PriceProps {
+  id: string;
+}
 
+const Price: React.FC<PriceProps> = ({ id }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>("");
 
@@ -184,6 +185,9 @@ const Price: React.FC = () => {
     fetchData();
   }, []);
 
+  const theme = useTheme();
+  const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
+
   const handleCategoryChange = (category: string) => {
     setActiveCategory(category);
     setSelectedCategory(category);
@@ -194,8 +198,18 @@ const Price: React.FC = () => {
     setSelectedSubcategory(subcategory);
   };
 
+  // Стили для названия карточек
+  const SubcategoryText = {
+    fontSize: 18,
+  };
+
+  const serviceTextStyle = {
+    fontSize: 26,
+    fontWeight: 400,
+  };
+
   return (
-    <Box sx={{ marginBottom: "50px" }}>
+    <Box sx={{ marginBottom: "50px" }} id={id}>
       <Typography
         variant="h2"
         sx={{
@@ -203,7 +217,7 @@ const Price: React.FC = () => {
           fontSize: isXsScreen ? 22 : 38,
           fontFamily: "Austin, sans-serif",
           textTransform: "uppercase",
-          maxWidth: isXsScreen ? 500 : 500,
+          maxWidth: isXsScreen ? "100%" : 500, // изменение максимальной ширины
           textAlign: isXsScreen ? "center" : "left",
           marginBottom: "25px",
         }}
@@ -216,13 +230,34 @@ const Price: React.FC = () => {
             <Select
               value={selectedCategory}
               onChange={(e) => handleCategoryChange(e.target.value as string)}
-              sx={{ marginBottom: "35px" }}
+              sx={{
+                marginBottom: "35px",
+                "&.Mui-focused": {
+                  borderColor: "#288e81 !important", // цвет обводки при фокусе
+                },
+              }}
             >
-              <MenuItem value="">Выберите категорию</MenuItem>
+              <MenuItem
+                value=""
+                sx={{
+                  "&.Mui-selected": {
+                    backgroundColor: "#288e81", // цвет выбранного пункта
+                    color: "white", // цвет текста выбранного пункта
+                  },
+                }}
+              >
+                Выберите категорию
+              </MenuItem>
               {priceData.map((category) => (
                 <MenuItem
                   key={category.categoryTitle}
                   value={category.categoryTitle}
+                  sx={{
+                    "&.Mui-selected": {
+                      backgroundColor: "#288e81", // цвет выбранного пункта
+                      color: "white", // цвет текста выбранного пункта
+                    },
+                  }}
                 >
                   {category.categoryTitle}
                 </MenuItem>
@@ -246,6 +281,7 @@ const Price: React.FC = () => {
                     color: "#ffffff",
                   },
                   margin: "0px 15px 15px 0",
+                  minWidth: "150px", // добавление минимальной ширины кнопки
                 }}
                 className={
                   activeCategory === category.categoryTitle ? "active" : ""
@@ -262,6 +298,21 @@ const Price: React.FC = () => {
         <TextField
           label="Поиск по услугам"
           value={searchText}
+          sx={{
+            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+              {
+                borderColor: "#288e81", // цвет обводки при фокусе
+              },
+            "& .MuiInputLabel-root.Mui-focused": {
+              color: "#288e81", // цвет метки при фокусе
+            },
+            "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+              borderColor: "gray", // цвет обводки по умолчанию
+            },
+            "& .MuiInputLabel-root": {
+              color: "gray", // цвет метки по умолчанию
+            },
+          }}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             const searchText = e.target.value.toLowerCase();
             setSearchText(searchText);
@@ -282,13 +333,63 @@ const Price: React.FC = () => {
           {searchText.length > 0 &&
             searchResults.map((service) => (
               <Box key={service.serviceID}>
-                <Typography variant="h6">{service.serviceText}</Typography>
-                <Typography variant="body1">Цена: {service.price}</Typography>
-                <Typography variant="body1">
-                  <a href={service.AppointmentLink}>
-                    {service.AppointmentText}
-                  </a>
-                </Typography>
+                {isXsScreen ? (
+                  // Вариант отображения для экранов xs
+                  <Box sx={{ marginBottom: "35px" }}>
+                    <Typography variant="h6">{service.serviceText}</Typography>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        justifyContent: "space-between",
+                        marginTop: "10px",
+                      }}
+                    >
+                      <Typography variant="body1">
+                        {service.serviceID} |{" "}
+                        <span style={{ fontFamily: "PT-Sans-Bold" }}>
+                          {service.price}Р
+                        </span>
+                      </Typography>
+                      <a
+                        href={service.AppointmentLink}
+                        style={{
+                          color: "#288e81",
+                          textDecoration: "none",
+                        }}
+                      >
+                        {service.AppointmentText}
+                      </a>
+                    </Box>
+                  </Box>
+                ) : (
+                  // Вариант отображения для стандартных экранов
+                  <Box
+                    sx={{
+                      display: "flex",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                      marginBottom: "20px",
+                    }}
+                  >
+                    <Typography
+                      variant="h6"
+                      sx={{ maxWidth: "500px", minWidth: "500px" }}
+                    >
+                      {service.serviceText}
+                    </Typography>
+                    <Typography variant="body1">{service.serviceID}</Typography>
+                    <Typography variant="body1">{service.price}Р</Typography>
+                    <a
+                      href={service.AppointmentLink}
+                      style={{
+                        color: "#288e81",
+                        textDecoration: "none",
+                      }}
+                    >
+                      {service.AppointmentText}
+                    </a>
+                  </Box>
+                )}
               </Box>
             ))}
         </Box>
@@ -303,8 +404,12 @@ const Price: React.FC = () => {
                 .find((category) => category.categoryTitle === selectedCategory)
                 ?.subcategories.map((subcategory) => (
                   <Accordion key={subcategory.subcategoryTitle}>
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                      <Typography>{subcategory.subcategoryTitle}</Typography>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon sx={{ color: "#288e81" }} />}
+                    >
+                      <Typography sx={SubcategoryText}>
+                        {subcategory.subcategoryTitle}
+                      </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
                       {subcategory.services
@@ -315,17 +420,71 @@ const Price: React.FC = () => {
                         )
                         .map((service) => (
                           <Box key={service.serviceID}>
-                            <Typography variant="h6">
-                              {service.serviceText}
-                            </Typography>
-                            <Typography variant="body1">
-                              Цена: {service.price}
-                            </Typography>
-                            <Typography variant="body1">
-                              <a href={service.AppointmentLink}>
-                                {service.AppointmentText}
-                              </a>
-                            </Typography>
+                            {isXsScreen ? (
+                              // Вариант отображения для экранов xs
+                              <Box sx={{ marginBottom: "35px" }}>
+                                <Typography variant="h6">
+                                  {service.serviceText}
+                                </Typography>
+                                <Box
+                                  sx={{
+                                    display: "flex",
+                                    justifyContent: "space-between",
+                                    marginTop: "10px",
+                                  }}
+                                >
+                                  <Typography variant="body1">
+                                    {service.serviceID} |{" "}
+                                    <span
+                                      style={{ fontFamily: "PT-Sans-Bold" }}
+                                    >
+                                      {service.price}Р
+                                    </span>
+                                  </Typography>
+                                  <a
+                                    href={service.AppointmentLink}
+                                    style={{
+                                      color: "#288e81",
+                                      textDecoration: "none",
+                                    }}
+                                  >
+                                    {service.AppointmentText}
+                                  </a>
+                                </Box>
+                              </Box>
+                            ) : (
+                              // Вариант отображения для стандартных экранов
+                              <Box
+                                sx={{
+                                  display: "flex",
+                                  justifyContent: "space-between",
+                                  alignItems: "center",
+                                  marginBottom: "20px",
+                                }}
+                              >
+                                <Typography
+                                  variant="h6"
+                                  sx={{ maxWidth: "500px", minWidth: "500px" }}
+                                >
+                                  {service.serviceText}
+                                </Typography>
+                                <Typography variant="body1">
+                                  {service.serviceID}
+                                </Typography>
+                                <Typography variant="h6">
+                                  {service.price}Р
+                                </Typography>
+                                <a
+                                  href={service.AppointmentLink}
+                                  style={{
+                                    color: "#288e81",
+                                    textDecoration: "none",
+                                  }}
+                                >
+                                  {service.AppointmentText}
+                                </a>
+                              </Box>
+                            )}
                           </Box>
                         ))}
                     </AccordionDetails>
@@ -338,5 +497,4 @@ const Price: React.FC = () => {
     </Box>
   );
 };
-
 export default Price;
