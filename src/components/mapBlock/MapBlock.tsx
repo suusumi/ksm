@@ -8,22 +8,57 @@ import Button from "@mui/material/Button";
 import { useEffect, useState } from "react";
 import OutlineButton from "../outlineButton/OutlineButton";
 
+// Виджет Яндекс.Карты с основным подразделением
 const yandexMapWidget = `<div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/org/klinika_semeynoy_meditsiny/1123002518/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Клиника семейной медицины</a><a href="https://yandex.ru/maps/38/volgograd/category/medical_center_clinic/184106108/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:14px;">Медцентр, клиника в Волгограде</a><iframe src="https://yandex.ru/map-widget/v1/?indoorLevel=1&ll=44.500105%2C48.699683&mode=search&oid=1123002518&ol=biz&z=16.64" width="100%" height=500px" frameborder="0" allowfullscreen="true" style="position:relative;border:1px solid #e6e6e6;border-radius:8px;"></iframe></div>`;
 
+/**
+ * Идентификатор для корректной навигации в шапке.
+ * @interface
+ *
+ * @property {string} id Идентификатор блока.
+ */
 interface mapBlockProps {
   id: string;
 }
 
+/**
+ * Данные по департаменту.
+ * @interface
+ *
+ * @property {string} title Название подразделения.
+ * @property {string} adress Адрес подразделения.
+ * @property {string} yamapLink Ссылка на Яндекс.Карты с меткой подразделения.
+ */
 interface departmentsData {
   title: string;
   adress: string;
   yamapLink: string;
 }
 
+/**
+ * Часы работы подразделений.
+ * @interface
+ *
+ * @property {string} workdays Рабочие дни.
+ * @property {string} weekends Выходные.
+ */
+interface departmentHours {
+  workdays: string;
+  weekends: string;
+}
+
+/**
+ * Компонент, отображающий блок карты с расположением основного подразделения.
+ *
+ * @param {mapBlockProps} id - Идентификатор для корректной навигации в шапке.
+ * @return {React.FC}  Отрисованный компонент MapBlock.
+ */
 const MapBlock: React.FC<mapBlockProps> = ({ id }) => {
   const [data, setData] = useState<departmentsData[]>([]);
+  const [data2, setData2] = useState<departmentHours[]>([]);
 
   useEffect(() => {
+    // Заглушка с данными по подразделениям
     const departmentsData: departmentsData[] = [
       {
         title: "Подразделение 1",
@@ -47,6 +82,17 @@ const MapBlock: React.FC<mapBlockProps> = ({ id }) => {
       },
     ];
     setData(departmentsData);
+  }, []);
+
+  useEffect(() => {
+    // Заглушка с данными по часам работы
+    const departmentHours: departmentHours[] = [
+      {
+        workdays: "Понедельник - пятница 08:00-19:00",
+        weekends: "Суббота - 09:00-14:00",
+      },
+    ];
+    setData2(departmentHours);
   }, []);
 
   const theme = useTheme();
@@ -132,6 +178,15 @@ const MapBlock: React.FC<mapBlockProps> = ({ id }) => {
                     buttonText={`${item.title} ${item.adress}`}
                     buttonLink={item.yamapLink}
                   />
+                </div>
+              ))}
+            </Box>
+            <Box sx={{ marginTop: "15px" }}>
+              <Typography sx={TitleText}>График работы клиники</Typography>
+              {data2.map((item, index) => (
+                <div key={index}>
+                  <Typography>{item.workdays}</Typography>
+                  <Typography>{item.weekends}</Typography>
                 </div>
               ))}
             </Box>
