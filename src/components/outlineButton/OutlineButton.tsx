@@ -3,11 +3,26 @@ import React from "react";
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
+/**
+ * Данные кнопки
+ * @interface
+ *
+ * @property {string} buttonText Текст кнопки
+ * @property {string} buttonLink Ссылка
+ */
 interface OutlineButtonProps {
   buttonText: string;
   buttonLink: string;
 }
 
+/**
+ * Компонент, отображающий кнопку
+ *
+ * @param {OutlineButtonProps} props - Данные кнопки
+ * @param {string} props.buttonText - Текст кнопки
+ * @param {string} props.buttonLink - Ссылка
+ * @return {ReactElement} Отрисованный компонент OutlineButton
+ */
 const OutlineButton: React.FC<OutlineButtonProps> = ({
   buttonText,
   buttonLink,
