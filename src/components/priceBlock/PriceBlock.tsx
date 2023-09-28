@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from "react";
+import React, { useState, useEffect, ChangeEvent, ReactNode } from "react";
 import {
   Typography,
   useTheme,
@@ -15,6 +15,26 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
+/**
+ * Идентификатор для корректной навигации в шапке.
+ * @interface
+ *
+ * @property {string} id Идентификатор блока.
+ */
+interface PriceProps {
+  id: string;
+}
+
+/**
+ * Услуга
+ * @interface
+ *
+ * @property {string} serviceText Текст услуги.
+ * @property {string} serviceID Идентификатор услуги.
+ * @property {string} price Цена услуги.
+ * @property {string} AppointmentLink Ссылка на форму.
+ * @property {string} AppointmentText Текст кнопки, которая ведёт в форму.
+ */
 interface Service {
   serviceText: string;
   serviceID: string;
@@ -23,20 +43,36 @@ interface Service {
   AppointmentText: string;
 }
 
+/**
+ * Подкатегория
+ * @interface
+ *
+ * @property {string} subcategoryTitle Заголовок подкатегории.
+ * @property {Service[]} services Список услуг.
+ */
 interface Subcategory {
   subcategoryTitle: string;
   services: Service[];
 }
 
+/**
+ * Категория
+ * @interface
+ *
+ * @property {string} categoryTitle Заголовок категории.
+ * @property {Subcategory[]} subcategories Список подкатегорий.
+ */
 interface Category {
   categoryTitle: string;
   subcategories: Subcategory[];
 }
 
-interface PriceProps {
-  id: string;
-}
-
+/**
+ * Компонент, отображающий блок услуг
+ *
+ * @param {PriceProps} id - Идентификатор для корректной навигации в шапке.
+ * @returns {ReactNode} Отрисованный компонент Price
+ */
 const Price: React.FC<PriceProps> = ({ id }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>("");
