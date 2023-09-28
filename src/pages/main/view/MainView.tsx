@@ -32,8 +32,8 @@ function MainView() {
   return (
     <div>
       <Container>
-        <WelcomeBlock id="welcomeBlock" />
-        <StatisticBar id="statisticBar" />
+        <WelcomeBlock />
+        <StatisticBar />
       </Container>
       <CarouselBlock></CarouselBlock>
       <Container>
