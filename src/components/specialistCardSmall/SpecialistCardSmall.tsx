@@ -147,7 +147,7 @@ const SpecialistCardSmall: React.FC<SpecialistCardContent> = ({
               {/* Переход на страницу специалиста с подробной информацией. Надо передавать id специалиста */}
               <Button
                 component={Link}
-                to="/specialist-details"
+                to={`/specialist-details/${id}`} // Здесь передается id специалиста
                 sx={buttonAppointment}
               >
                 Подробнее
