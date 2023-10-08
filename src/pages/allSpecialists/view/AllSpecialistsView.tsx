@@ -5,34 +5,12 @@ import { ThemeProvider, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import Toolbar from "@mui/material/Toolbar";
-
-import SpecialistCardSmall from "../../../components/specialistCardSmall/SpecialistCardSmall";
 import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 
-/**
- * Контент карточки специалиста
- * @interface
- *
- * @property {string} id идентификатор
- * @property {string} name ФИО
- * @property {string} post должность
- * @property {string} speciality специальность
- * @property {string} degree степень
- * @property {string} quote цитата
- * @property {string} imageUrl ссылка на фото
- */
-interface SpecialistCardContent {
-  id: string;
-  name: string;
-  post: string;
-  speciality: string;
-  degree: string;
-  quote: string;
-  imageUrl: string;
-}
-
+import SpecialistCardSmall from "../../../components/specialistCardSmall/SpecialistCardSmall";
+import { SpecialistCardInterface } from "../../../components/interfaces/SpecialistInterface";
 /**
  * Вид компонента всех специалистов
  *
@@ -57,16 +35,16 @@ function AllSpecialistsView() {
   };
 
   // Состояния для специалистов
-  const [specialists, setSpecialists] = useState<SpecialistCardContent[]>([]);
+  const [specialists, setSpecialists] = useState<SpecialistCardInterface[]>([]);
 
   // Состояния для фильтрации
   const [filterSpecialty, setFilterSpecialty] = useState("");
   const [filterName, setFilterName] = useState("");
   const [filteredSpecialists, setFilteredSpecialists] =
-    useState<SpecialistCardContent[]>(specialists);
+    useState<SpecialistCardInterface[]>(specialists);
 
   useEffect(() => {
-    const data: SpecialistCardContent[] = [
+    const data: SpecialistCardInterface[] = [
       {
         id: "1",
         name: "Лисина Оксана Алексеевна",
@@ -74,7 +52,7 @@ function AllSpecialistsView() {
         speciality: "Врач-невролог",
         degree: "М",
         quote:
-          "“Вперёд к покорению новых высот” - любимая цитата нашего глав. врача, я с ней полностью согласна. Вся наша жизнь игра, а мы в ней пешки.",
+          "“Вперёд к покорению новых высот” - любимая цитата нашего глав. врача, я с ней полностью согласна. Вся наша жизнь игра. А тут еще очень много интересного текста. А тут еще очень много интересного текста. А тут еще очень много интересного текста. А тут еще очень много интересного текста. А тут еще очень много интересного текста. А тут еще очень много интересного текста. А тут еще очень много интересного текста.",
         imageUrl:
           "https://ksm.volgmed.ru/images/tild3363-3830-4232-a135-353739393161__163787-lisina_oa.jpg",
       },

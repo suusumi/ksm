@@ -8,28 +8,7 @@ import { ThemeProvider, useTheme } from "@mui/material/styles";
 import Grid from "@mui/material/Grid";
 import Button from "@mui/material/Button";
 import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace"; // Импорт иконки "назад"
-
-/**
- * Контент карточки специалиста
- * @interface
- *
- * @property {string} id идентификатор
- * @property {string} name ФИО
- * @property {string} post должность
- * @property {string} speciality специальность
- * @property {string} degree степень
- * @property {string} quote цитата
- * @property {string} imageUrl ссылка на фото
- */
-interface SpecialistCardContent {
-  id: string;
-  name: string; // ФИО
-  post: string;
-  speciality: string;
-  degree: string;
-  quote: string;
-  imageUrl: string;
-}
+import { SpecialistCardInterface } from "../../components/interfaces/SpecialistInterface";
 
 /**
  * Вывод данных по конкретному специалисту
@@ -38,7 +17,7 @@ interface SpecialistCardContent {
  */
 function SpecialistDataView() {
   const { id } = useParams<{ id: string }>();
-  const [specialist, setSpecialist] = useState<SpecialistCardContent | null>(
+  const [specialist, setSpecialist] = useState<SpecialistCardInterface | null>(
     null,
   );
 
@@ -59,17 +38,34 @@ function SpecialistDataView() {
     marginBottom: "25px",
   };
 
+  const specialtyText = {
+    color: "#288E81",
+    // fontFamily: "PT Sans",
+    fontSize: "22px",
+    fontWeight: 700,
+    lineHeight: "normal",
+    marginBottom: "10px",
+  };
+
+  const PostText = {
+    color: "#000",
+    //   fontFamily: "PT Sans",
+    fontSize: "18px",
+    fontWeight: 400,
+    maxWidth: isXsScreen ? 500 : 240,
+  };
+
   useEffect(() => {
     // TODO: Получить информацию о специалисте по id с сервера
-    const data: SpecialistCardContent[] = [
+    const data: SpecialistCardInterface[] = [
       {
         id: "1",
         name: "Лисина Оксана Алексеевна",
         post: "Заместитель главного врача по медицинской части",
         speciality: "Врач-невролог",
-        degree: "М",
+        degree: "Доктор медицинских наук",
         quote:
-          "“Вперёд к покорению новых высот” - любимая цитата нашего глав. врача, я с ней полностью согласна. Вся наша жизнь игра, а мы в ней пешки.",
+          "“Вперёд к покорению новых высот” - любимая цитата нашего глав. врача, я с ней полностью согласна. Вся наша жизнь игра. А тут еще очень много интересного текста. А тут еще очень много интересного текста. А тут еще очень много интересного текста. А тут еще очень много интересного текста. А тут еще очень много интересного текста. А тут еще очень много интересного текста. А тут еще очень много интересного текста.",
         imageUrl:
           "https://ksm.volgmed.ru/images/tild3363-3830-4232-a135-353739393161__163787-lisina_oa.jpg",
       },
@@ -105,13 +101,15 @@ function SpecialistDataView() {
   }
 
   return (
-    <div>
+    <div style={{ marginBottom: "100px" }}>
       <Container>
         <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-          }}
+          sx={
+            {
+              // display: "flex",
+              // flexDirection: "row",
+            }
+          }
         >
           <Link to="/">
             <Button variant="outlined" startIcon={<KeyboardBackspaceIcon />}>
@@ -138,11 +136,23 @@ function SpecialistDataView() {
           </Grid>
           {/* Вся информация по специалисту */}
           <Grid item xs={12} md={6}>
-            <Box>
-              <Typography>{specialist.speciality}</Typography>
-              <Typography>{specialist.post}</Typography>
+            <Box sx={{ marginBottom: "30px" }}>
+              <Typography sx={specialtyText}>
+                {specialist.speciality}
+              </Typography>
+              <Typography sx={PostText}>{specialist.post}</Typography>
             </Box>
-            <Typography>{specialist.degree}</Typography>
+            <Typography
+              sx={{
+                ...PostText,
+                marginBottom: {
+                  xs: "30px",
+                  md: "50px",
+                },
+              }}
+            >
+              {specialist.degree}
+            </Typography>
             <Typography>{specialist.quote}</Typography>
           </Grid>
         </Grid>
