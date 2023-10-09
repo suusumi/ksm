@@ -4,6 +4,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
 import Typography from "@mui/material/Typography";
 import OutlineButton from "../outlineButton/OutlineButton";
+import { fetchAllContacts } from "../../api/contacts/request";
 
 /**
  * Идентификатор для корректной навигации в шапке.
@@ -31,16 +32,16 @@ interface SocialLink {
  * Данные по контактам
  * @interface
  *
- * @property {string[]} phones Массив номеров
- * @property {string[]} mails Массив почтовых адресов
- * @property {SocialLink[]} socialLinks Массив ссылок на социальные сети
- * @property {string} address Адрес
  */
 interface OurContactsBlockData {
   phones: string[];
   mails: string[];
   socialLinks: SocialLink[];
   address: string;
+  vk_link: string;
+  tg_link: string;
+  wa_link: string;
+  email_link: string;
 }
 
 /**
@@ -54,33 +55,55 @@ const OurContactsBlock: React.FC<OurContactsBlockProps> = ({ id }) => {
   const [data, setData] = useState<OurContactsBlockData[]>([]);
 
   useEffect(() => {
-    const ourContactsBlockData: OurContactsBlockData[] = [
-      {
-        phones: ["(8442)971212", "8(937)0971212"],
-        mails: ["ksm@Volgmed.ru", "ksm@Volgmed.ru2"],
-        socialLinks: [
-          {
-            name: "Telegram",
-            url: "https://t.me/volggmu_vuz",
-          },
-          {
-            name: "Whatsapp",
-            url: "https://wa.me/79370971212",
-          },
-          {
-            name: "VK",
-            url: "https://vk.com/ksm_voggmu",
-          },
-          {
-            name: "Email",
-            url: "ksm@Volgmed.ru",
-          },
-        ],
-        address: "ул. КИМ, 20, 400001, Волгоград",
-      },
-    ];
-
-    setData(ourContactsBlockData);
+    fetchAllContacts()
+      .then((response) => response.json())
+      .then((dataArray) => {
+        // Обратите внимание на dataArray
+        if (dataArray.length > 0) {
+          const dataItem = dataArray[0]; // Первый элемент массива
+          const formattedData: OurContactsBlockData = {
+            phones: [dataItem.first_tel, dataItem.second_tel].filter(Boolean),
+            mails: [dataItem.mail].filter(Boolean),
+            socialLinks: [
+              {
+                name: "VK",
+                url:
+                  dataItem.vk_link && dataItem.vk_link.trim() !== ""
+                    ? dataItem.vk_link
+                    : null,
+              },
+              {
+                name: "Telegram",
+                url:
+                  dataItem.tg_link && dataItem.tg_link.trim() !== ""
+                    ? dataItem.tg_link
+                    : null,
+              },
+              {
+                name: "WhatsApp",
+                url:
+                  dataItem.wa_link && dataItem.wa_link.trim() !== ""
+                    ? dataItem.wa_link
+                    : null,
+              },
+              {
+                name: "Email",
+                url:
+                  dataItem.email_link && dataItem.email_link.trim() !== ""
+                    ? dataItem.email_link
+                    : null,
+              },
+            ],
+            address: `${dataItem.street}, ${dataItem.city}`,
+            vk_link: dataItem.vk_link,
+            tg_link: dataItem.tg_link,
+            wa_link: dataItem.wa_link,
+            email_link: dataItem.email_link,
+          };
+          setData([formattedData]);
+        }
+      })
+      .catch((error) => console.error("Ошибка при получении данных", error));
   }, []);
 
   const theme = useTheme();
@@ -118,13 +141,15 @@ const OurContactsBlock: React.FC<OurContactsBlockProps> = ({ id }) => {
             {data &&
               data.map((item, index) => (
                 <div key={`contact-${index}`}>
-                  {item.phones.map((phone, phoneIndex) => (
-                    <OutlineButton
-                      key={`phone-${phoneIndex}`}
-                      buttonText={`${phone}`}
-                      buttonLink={`tel:${phone}`}
-                    />
-                  ))}
+                  {item.phones
+                    .filter((phone) => phone) // Фильтрация пустых телефонов
+                    .map((phone, phoneIndex) => (
+                      <OutlineButton
+                        key={`phone-${phoneIndex}`}
+                        buttonText={`${phone}`}
+                        buttonLink={`tel:${phone}`}
+                      />
+                    ))}
                 </div>
               ))}
           </div>
@@ -148,13 +173,20 @@ const OurContactsBlock: React.FC<OurContactsBlockProps> = ({ id }) => {
             {data &&
               data.map((item, index) => (
                 <div key={`social-${index}`}>
-                  {item.socialLinks.map((socialLink, socialIndex) => (
-                    <OutlineButton
-                      key={`social-${socialIndex}`}
-                      buttonText={socialLink.name}
-                      buttonLink={socialLink.url}
-                    />
-                  ))}
+                  {item.socialLinks.length > 0 && // Проверка на наличие социальных ссылок в массиве
+                    item.socialLinks.map((socialLink, socialIndex) => {
+                      if (socialLink.url && socialLink.url.trim() !== "") {
+                        return (
+                          <OutlineButton
+                            key={`social-${socialIndex}`}
+                            buttonText={socialLink.name}
+                            buttonLink={socialLink.url}
+                          />
+                        );
+                      } else {
+                        return null; // Если ссылка пуста, вернуть null, чтобы её не отображать
+                      }
+                    })}
                 </div>
               ))}
           </div>
