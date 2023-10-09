@@ -5,16 +5,17 @@ import { ThemeProvider, useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import Box from "@mui/material/Box";
 import gsap from "gsap";
+import { fetchAllInfogrpaphics } from "../../api/infographics/request";
 
 /**
  * Данные блока с инфографикой.
  * @interface
  *
- * @property {string} title Заголовок.
+ * @property {string} value Заголовок.
  * @property {string} description Описание.
  */
 interface StatisticItem {
-  title: string;
+  value: string;
   description: string;
 }
 
@@ -29,38 +30,14 @@ const StatisticBar: React.FC = () => {
   const descriptionRefs = useRef<(HTMLSpanElement | null)[]>([]);
 
   useEffect(() => {
-    // Пример получения данных с сервера:
-    // fetch('URL_ВАШЕГО_СЕРВЕРА')
-    //   .then(response => response.json())
-    //   .then(data => setData(data))
-    //   .catch(error => console.error('Ошибка при получении данных', error));
+    fetchAllInfogrpaphics()
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data); // Устанавливаем данные, полученные с сервера
+      })
+      .catch((error) => console.error("Ошибка при получении данных", error));
 
-    const statisticData: StatisticItem[] = [
-      { title: "35+", description: "Специалистов из разных областей" },
-      { title: "17 лет", description: "На страже вашего здоровья" },
-      { title: "18+", description: "Областей медицинской помощи" },
-    ];
-
-    setData(statisticData);
-
-    if (statisticData.length > 0) {
-      // Ваш код анимации
-      const tl = gsap.timeline({ defaults: { ease: "power3.inOut" } });
-      statisticData.forEach((item, index) => {
-        tl.from(titleRefs.current[index], {
-          opacity: 0,
-          y: -10,
-          duration: 1,
-          delay: index * 0.2,
-        });
-        tl.from(
-          descriptionRefs.current[index],
-          { opacity: 0, y: -10, duration: 1 },
-          `-=${0.7}`,
-        );
-      });
-      tl.totalDuration(statisticData.length * 0.4 + 1.7);
-    }
+    // Здесь больше не нужны фиктивные данные
   }, []);
 
   const theme = useTheme();
@@ -108,7 +85,7 @@ const StatisticBar: React.FC = () => {
                 ref={(el) => (titleRefs.current[index] = el as HTMLSpanElement)}
                 sx={TitleText}
               >
-                {item.title}
+                {item.value}
               </Typography>
               <Typography
                 ref={(el) =>
