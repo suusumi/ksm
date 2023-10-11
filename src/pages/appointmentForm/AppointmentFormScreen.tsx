@@ -34,7 +34,7 @@ function AppointmentFormScreen() {
   useEffect(() => {
     if (selectedDate) {
       const tmpDate = new Date(selectedDate);
-      setRegistrations({ ...registrations, date: formatDateToString(tmpDate)});
+      setRegistrations({ ...registrations, date: formatDateToString(tmpDate) });
     }
   }, [selectedDate]);
 
@@ -79,7 +79,7 @@ function AppointmentFormScreen() {
 
     if (!selectedDate) {
       newErrors.date = 'Заполните это поле';
-    } 
+    }
 
     if (!checked) {
       errorChecked = 'Подтвердите положение о конфиденциальности';
@@ -93,16 +93,16 @@ function AppointmentFormScreen() {
   const handleCreateRegistration = () => {
     if (validateForm() && checked) {
       createRegistation(registrations)
-      .catch((error) => {
-        console.error(error);
-        Swal.fire({
-          title: 'Opps...',
-          icon: 'error',
-          text: 'Что-то пошло не так, попробуйте позже',
-          confirmButtonColor: '#288e81'
-      });
-      return;
-      });
+        .catch((error) => {
+          console.error(error);
+          Swal.fire({
+            title: 'Opps...',
+            icon: 'error',
+            text: 'Что-то пошло не так, попробуйте позже',
+            confirmButtonColor: '#288e81'
+          });
+          return;
+        });
 
       Swal.fire({
         title: 'Good...',
@@ -110,6 +110,15 @@ function AppointmentFormScreen() {
         text: 'Запись на прием зарегестрирована. Ожидайте звонка от регистратуры.',
         confirmButtonColor: '#288e81'
       })
+      setRegistrations({
+        fio: '',
+        phone: '',
+        doctor: '',
+        date: '',
+        comments: '',
+      });
+      setSelectedDate(null);
+      setChecked(false);
     } else {
       console.log('В данных есть ошибка', registrations);
       Swal.fire({
@@ -117,7 +126,7 @@ function AppointmentFormScreen() {
         icon: 'error',
         text: 'Попробуйте перепроверить вводимые данные и попробовать снова!',
         confirmButtonColor: '#288e81'
-    })
+      })
     }
   }
 

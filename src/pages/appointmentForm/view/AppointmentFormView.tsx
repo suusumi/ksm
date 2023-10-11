@@ -1,9 +1,10 @@
-import { FormControlLabel, FormGroup, Grid, Checkbox, TextField, Typography, Button } from '@mui/material'
+import { FormControlLabel, FormGroup, Grid, Checkbox, TextField, Typography, Button, Input, FormControl, OutlinedInput, InputLabel, FormHelperText, styled } from '@mui/material'
 import React from 'react'
 import { AppointmentFormViewProps } from '../model/AppointmentsFormModel'
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import 'dayjs/locale/de'
+import { TextMaskCustom } from '../../../components/TextMaskCustom/TextMaskCustom'
 
 const styles = {
   text: {
@@ -55,17 +56,21 @@ export const AppointmentFormView: React.FC<AppointmentFormViewProps> = (props) =
 
           <Grid item xs={2}>
             <Typography style={styles.text} mb={1}>Ваш телефон</Typography>
-            <TextField
-              id='input-phone'
-              fullWidth
-              variant='outlined'
-              label='+7(999)999-99-99'
-              value={props.registrations.phone}
-              onChange={(event) => props.handleRegistrationsChange(event, 'phone')}
-              error={!!props.errorMessage.phone}
-              helperText={props.errorMessage.phone}
-              InputProps={{ sx: { borderRadius: '10px' } }}
-            />
+            <FormControl variant="outlined" error={!!props.errorMessage.phone} fullWidth>
+              <InputLabel htmlFor="component-outlined">+7(999)999-99-99</InputLabel>
+              <OutlinedInput
+                id='input-phone'
+                fullWidth
+                label='+7(999)999-99-99'
+                value={props.registrations.phone}
+                onChange={(event) => props.handleRegistrationsChange(event, 'phone')}
+                inputComponent={TextMaskCustom as any}
+                style={{ borderRadius: '10px' }}
+              />
+              <FormHelperText id="component-error-text">
+                {props.errorMessage.phone}
+              </FormHelperText>
+            </FormControl>
           </Grid>
 
           <Grid item xs={2}>
@@ -87,6 +92,11 @@ export const AppointmentFormView: React.FC<AppointmentFormViewProps> = (props) =
             <Typography style={styles.text} mb={1}>Когда Вам удобно попасть на прием?</Typography>
             <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='de'>
               <DatePicker
+              slotProps={{textField: { 
+                InputProps: {sx: { borderRadius: '10px'}},
+                error: !!props.errorMessage.date,
+                helperText: props.errorMessage.date }}}
+                sx={{ borderRadius: '10px' }}
                 label="ДД.ММ.ГГГГ"
                 value={props.selectedDate}
                 disablePast
@@ -114,7 +124,7 @@ export const AppointmentFormView: React.FC<AppointmentFormViewProps> = (props) =
               <Grid item>
                 <FormGroup>
                   <FormControlLabel
-                    control={<Checkbox 
+                    control={<Checkbox
                       checked={props.checked}
                       onChange={props.handleChecked}
                     />}
