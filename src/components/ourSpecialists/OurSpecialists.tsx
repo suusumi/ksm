@@ -8,6 +8,26 @@ import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./OurSpecialists.css";
 
+/**
+ * Идентификатор для корректной навигации в шапке.
+ * @interface
+ *
+ * @property {string} id Идентификатор блока.
+ */
+interface OurSpecialistsId {
+  id: string;
+}
+
+/**
+ * Данные по специалистам
+ * @interface
+ *
+ * @property {string} name ФИО
+ * @property {string} post должность
+ * @property {string} speciality специальность
+ * @property {string} degree степень
+ * @property {string} imageUrl ссылка на фото
+ */
 interface OurSpecialistsProps {
   name: string;
   post: string;
@@ -16,7 +36,13 @@ interface OurSpecialistsProps {
   imageUrl: string;
 }
 
-function OurSpecialists() {
+/**
+ * Компонент, отображающий блок специалистов
+ *
+ * @param {OurSpecialistsId} id - Идентификатор для корректной навигации в шапке.
+ * @return {ReactElement} Отрисованный компонент OurSpecialists
+ */
+const OurSpecialists: React.FC<OurSpecialistsId> = ({ id }) => {
   const [data, setData] = useState<OurSpecialistsProps[]>([]);
 
   useEffect(() => {
@@ -30,12 +56,12 @@ function OurSpecialists() {
           "https://i.ibb.co/JtVms49/tild3332-6363-4764-a465-376264616662-163780-tarasova-nv.jpg",
       },
       {
-        name: "Иванов иван иваныч",
-        post: "Зам. врача 2",
-        speciality: "Невролог вроде",
+        name: "Паскалев Паскаль Паскальевич",
+        post: "",
+        speciality: "Педро",
         degree: "ВОЛГГМУ2",
         imageUrl:
-          "https://i.ibb.co/JtVms49/tild3332-6363-4764-a465-376264616662-163780-tarasova-nv.jpg",
+          "https://i.ibb.co/T8M0wHG/tild3234-3063-4534-b735-306464383135-163812-malanin-da.jpg",
       },
       {
         name: "Иванов иван иваныч",
@@ -123,37 +149,45 @@ function OurSpecialists() {
   };
 
   return (
-    <Box sx={{ padding: "40px 0px" }}>
-      <Typography sx={TitleText}>Наши специалисты</Typography>
-      <Slider {...settings}>
-        {data.map((doctor, index) => (
-          <div className="card">
-            <div
-              className="card-item"
-              style={{ maxWidth: "260px" }}
-              key={index}
-            >
-              <div className="card-top">
-                <img src={doctor.imageUrl} alt={doctor.name} />
-              </div>
-              <div className="card-bottom">
-                <Typography sx={{ fontFamily: "PT-Sans-Bold" }}>
-                  {doctor.name}
-                </Typography>
-                <Typography variant="subtitle1">{doctor.speciality}</Typography>
-                <Typography sx={{ fontFamily: "PT-Sans-Bold" }}>
-                  {doctor.post}
-                </Typography>
-                <Typography sx={{ color: "#288E81" }}>
-                  {doctor.degree}
-                </Typography>
+    <div id={id}>
+      <Box sx={{ padding: "40px 0px" }}>
+        <Typography sx={TitleText}>Наши специалисты</Typography>
+        <Slider {...settings}>
+          {data.map((doctor, index) => (
+            <div className="card">
+              <div
+                className="card-item"
+                style={{ maxWidth: "260px" }}
+                key={index}
+              >
+                <div className="card-top">
+                  <img
+                    src={doctor.imageUrl}
+                    alt={doctor.name}
+                    style={{ maxWidth: "345px", maxHeight: "320px" }}
+                  />
+                </div>
+                <div className="card-bottom">
+                  <Typography sx={{ fontFamily: "PT-Sans-Bold" }}>
+                    {doctor.name}
+                  </Typography>
+                  <Typography variant="subtitle1">
+                    {doctor.speciality}
+                  </Typography>
+                  <Typography sx={{ fontFamily: "PT-Sans-Bold" }}>
+                    {doctor.post}
+                  </Typography>
+                  <Typography sx={{ color: "#288E81" }}>
+                    {doctor.degree}
+                  </Typography>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
-      </Slider>
-    </Box>
+          ))}
+        </Slider>
+      </Box>
+    </div>
   );
-}
+};
 
 export default OurSpecialists;

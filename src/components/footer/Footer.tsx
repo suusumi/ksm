@@ -3,7 +3,6 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
-import cursor from 'cli-cursor';
 import React from 'react'
 
 const Footer: React.FC = () => {
@@ -15,16 +14,15 @@ const Footer: React.FC = () => {
   return (
     <Box component="footer" sx={{ backgroundColor: '#171717', width: '100%', paddingTop: 9, paddingBottom: 9 }}>
       <Container maxWidth='lg'>
-        <Grid container spacing={0}>
-          <Grid item xs={12} sm={4} md={6}>
+        <Grid container spacing={5}>
+          <Grid item xs={12} sm={4} md={7}>
             <img src="/logos/footer_logo.svg" style={{maxWidth:'180px'}} alt="Клиника семейной медицины" />
             <Typography variant="body2" sx={{ color: '#525252', maxWidth: '370px', paddingTop:'20px' }}>
               © 2023 Волгоградский государственный медицинский университет - Все права защищены
             </Typography>
           </Grid>
-
-          <Grid item xs={12} sm={4} md={2} style = {{cursor: 'pointer'}}>
-            <Typography variant="h6" sx={headerStyle} style = {{cursor: 'auto'}} gutterBottom >
+          <Grid item xs={12} sm={4} md={3}>
+            <Typography variant="h6" sx={headerStyle} gutterBottom>
               Меню
             </Typography>
             <Typography variant="body1" sx={{ color: 'lightgrey' }} style={textStyle}>
@@ -42,10 +40,7 @@ const Footer: React.FC = () => {
             <Typography variant="body1" color="lightgrey" style={textStyle}>
               Наши специалисты
             </Typography>
-          </Grid>
-
-          <Grid item xs={12} sm={4} md={2} style = {{cursor: 'pointer'}}>
-            <Typography variant="body1" sx={{paddingTop:'25px'}} color="lightgrey" style={textStyle}>
+            <Typography variant="body1" color="lightgrey" style={textStyle}>
               Где мы находимся
             </Typography>
             <Typography variant="body1" color="lightgrey" style={textStyle}>
@@ -58,7 +53,6 @@ const Footer: React.FC = () => {
               Политика конфиденциальности
             </Typography>
           </Grid>
-
           <Grid item xs={12} sm={4} md={2}>
             <Typography variant="h6" sx={headerStyle} gutterBottom>
               Контакты
@@ -79,7 +73,6 @@ const Footer: React.FC = () => {
               <a href="tel:+79370971212" style={linkStyle}>TG</a>
             </Typography>
           </Grid>
-
           <Grid item xs={12} sm={12} md={12}>
             <Typography sx={{ paddingTop: '20px', fontSize: '12px', color: '#525252' }}>
               Информация и цены, представленные на сайте, являются справочными и не являются публичной офертой. Лекарственные средства, медицинские услуги, в том числе методы лечения, медицинская техника имеют противопоказания к их применению и использованию. Существует необходимость ознакомления с инструкцией по их применению и получения консультации специалистов.

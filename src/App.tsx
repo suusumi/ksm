@@ -14,6 +14,7 @@ import { SpecialistsScreen } from './pages/specialists/SpecialistsScreen';
 import { BannersScreen } from './pages/banners/BannersScreen';
 import AppointmentFormScreen from './pages/appointmentForm/AppointmentFormScreen';
 import PrivacyPolicyScreen from './pages/privacyPolicy/PrivacyPolicyScreen';
+import SpecialistScreen from './pages/specialist/SpecialistScreen';
 
 function App() {
   return (
@@ -29,6 +30,10 @@ function App() {
           <Route path={routes.specialists} element={<AdminPanelContainer children={<SpecialistsScreen />} />} />
           <Route path={routes.banners} element={<AdminPanelContainer children={<BannersScreen />} />} />
           <Route path='*' element={<Navigate to={'/'} />} />
+          <Route
+            path="/specialist-details/:id"
+            element={<SpecialistScreen />}
+          />
           {/* Add more Route elements for other pages */}
         </Routes>
       </BrowserRouter>

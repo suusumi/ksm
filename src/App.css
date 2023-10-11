@@ -40,28 +40,33 @@
 /* Шрифт для заголовков */
 @font-face {
   font-family: Austin;
-  src: url('../src/assets/fonts/AustinCyr-Bold.ttf');
+  src: url("../src/assets/fonts/AustinCyr-Bold.ttf");
 }
 
 @font-face {
   font-family: AustinMedium;
-  src: url('../src/assets/fonts/AustinCyr-Medium.ttf');
+  src: url("../src/assets/fonts/AustinCyr-Medium.ttf");
 }
 
 /* Шрифт для обычного текста */
 @font-face {
   font-family: PT-Sans;
-  src: url('../src/assets/fonts/PTSans-Regular.ttf');
+  src: url("../src/assets/fonts/PTSans-Regular.ttf");
 }
 
 @font-face {
   font-family: PT-Sans-Bold;
-  src: url('../src/assets/fonts/PTSans-Bold.ttf');
+  src: url("../src/assets/fonts/PTSans-Bold.ttf");
   font-weight: bold;
 }
 
+@font-face {
+  font-family: PT-Sans-Italic;
+  src: url("../src/assets/fonts/PTSans-Italic.ttf");
+}
+
 body {
-  font-family: 'PT-Sans', sans-serif;
+  font-family: "PT-Sans", sans-serif;
 }
 
 h1,
@@ -70,5 +75,5 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: 'Austin', sans-serif;
+  font-family: "Austin", sans-serif;
 }

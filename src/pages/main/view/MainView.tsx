@@ -32,17 +32,17 @@ function MainView() {
   return (
     <div>
       <Container>
-        <WelcomeBlock></WelcomeBlock>
-        <StatisticBar></StatisticBar>
+        <WelcomeBlock />
+        <StatisticBar />
       </Container>
       <CarouselBlock></CarouselBlock>
       <Container>
-        <AboutUsBlock></AboutUsBlock>
-        <OurContactsBlock></OurContactsBlock>
-        <OurSpecialists></OurSpecialists>
-        <ReviewsFromMapBlock></ReviewsFromMapBlock>
-        <Price></Price>
-        <MapBlock />
+        <AboutUsBlock id="aboutUsBlock" />
+        <OurContactsBlock id="ourContactsBlock"></OurContactsBlock>
+        <OurSpecialists id="ourSpecialists"></OurSpecialists>
+        <ReviewsFromMapBlock id="reviewsFromMapBlock"></ReviewsFromMapBlock>
+        <Price id="priceBlock"></Price>
+        <MapBlock id="mapBlock" />
       </Container>
     </div>
   );

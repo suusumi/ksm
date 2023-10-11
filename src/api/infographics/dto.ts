@@ -1,10 +1,13 @@
+/**
+ * GetInfographicsDto
+ */
 export type InfographicsDto = {
-    id: number,
-    value: string,
-    description: string,
-}
+  id: number;
+  value: string;
+  description: string;
+};
 
 export type CreateInfographicsDto = {
-    value: string,
-    description: string,
-}
+  value: string;
+  description: string;
+};
