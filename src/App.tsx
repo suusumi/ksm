@@ -13,6 +13,7 @@ import { ServicesScreen } from './pages/services/ServicesScreen';
 import { SpecialistsScreen } from './pages/specialists/SpecialistsScreen';
 import { BannersScreen } from './pages/banners/BannersScreen';
 import AppointmentFormScreen from './pages/appointmentForm/AppointmentFormScreen';
+import PrivacyPolicyScreen from './pages/privacyPolicy/PrivacyPolicyScreen';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Routes>
           <Route path={routes.main} element={<MainPanelContainer children={<MainScreen />} />} />
           <Route path={routes.appointment} element={<MainPanelContainer children={<AppointmentFormScreen />}/>}/>
+          <Route path={routes.privacyPolicy} element={<MainPanelContainer children={<PrivacyPolicyScreen />} />}/>
           <Route path={routes.authAdmin} element={<AdminLoginScreen />} />
           <Route path={routes.infographics} element={<AdminPanelContainer children={<InfographicsScreen />} />} />
           <Route path={routes.services} element={<AdminPanelContainer children={<ServicesScreen />} />} />

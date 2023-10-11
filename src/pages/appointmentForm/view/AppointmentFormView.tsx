@@ -5,6 +5,7 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 import 'dayjs/locale/de'
 import { TextMaskCustom } from '../../../components/TextMaskCustom/TextMaskCustom'
+import { routes } from '../../../assets/routes/routes'
 
 const styles = {
   text: {
@@ -128,7 +129,7 @@ export const AppointmentFormView: React.FC<AppointmentFormViewProps> = (props) =
                       checked={props.checked}
                       onChange={props.handleChecked}
                     />}
-                    label={<Typography textAlign={'center'}>Отправляя данные, подтверждаю, что ознакомлен(а) и согласен(согласна) с политикой конфиденциальности.</Typography>}
+                    label={<Typography textAlign={'center'}>Отправляя данные, подтверждаю, что ознакомлен(а) и согласен(согласна) с <a href={routes.privacyPolicy} style={{color: 'rgb(8, 142, 129)'}}>политикой конфиденциальности.</a></Typography>}
                   />
                 </FormGroup>
               </Grid>

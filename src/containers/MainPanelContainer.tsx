@@ -11,7 +11,7 @@ export const MainPanelContainer: React.FC<IMainPanelContainer> = ({ children }) 
     return (<>
         <Container>
             <Header />
-            <div style={{ marginBottom: '180px' }}></div>
+            <div style={{ marginBottom: '90px' }}></div>
             {children}
         </Container>
         <Footer />
