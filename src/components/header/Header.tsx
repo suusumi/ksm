@@ -11,6 +11,7 @@ import MenuItem from '@mui/material/MenuItem';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { ThemeProvider, useTheme } from '@mui/material/styles';
 import PrimaryButton from '../primaryButton/PrimaryButton';
+import { routes } from '../../assets/routes/routes';
 
 const ButtonAppBar: React.FC<{}> = () => {
   // Состояния для меню иконки и выпадающего меню
@@ -97,7 +98,19 @@ const ButtonAppBar: React.FC<{}> = () => {
             </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'none', sm: 'flex' } }}>
-            <PrimaryButton buttonText='Записаться на прием'></PrimaryButton>
+            <Button href={routes.appointment} sx={{
+              color: 'white',
+              backgroundColor: '#288e81',
+              borderRadius: '30px',
+              fontSize: '14px',
+              textTransform: 'none',
+              padding: '8px 36px',
+              display: { xs: 'flex', sm: 'none', lg: 'flex' },
+              whiteSpace: 'nowrap',
+              '&:hover': {
+                backgroundColor: '#1a665d',
+              },
+            }}>Записаться на прием</Button>
           </Box>
           {/* Выпадающее меню на мобильных устройствах */}
           <Menu

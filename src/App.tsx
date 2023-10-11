@@ -12,6 +12,7 @@ import { MainPanelContainer } from './containers/MainPanelContainer';
 import { ServicesScreen } from './pages/services/ServicesScreen';
 import { SpecialistsScreen } from './pages/specialists/SpecialistsScreen';
 import { BannersScreen } from './pages/banners/BannersScreen';
+import AppointmentFormScreen from './pages/appointmentForm/AppointmentFormScreen';
 
 function App() {
   return (
@@ -19,6 +20,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path={routes.main} element={<MainPanelContainer children={<MainScreen />} />} />
+          <Route path={routes.appointment} element={<MainPanelContainer children={<AppointmentFormScreen />}/>}/>
           <Route path={routes.authAdmin} element={<AdminLoginScreen />} />
           <Route path={routes.infographics} element={<AdminPanelContainer children={<InfographicsScreen />} />} />
           <Route path={routes.services} element={<AdminPanelContainer children={<ServicesScreen />} />} />

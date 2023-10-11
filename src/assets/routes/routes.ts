@@ -5,4 +5,5 @@ export const routes = {
     services: '/services',
     specialists: '/specialists',
     banners: '/banners',
+    appointment: '/appointment',
 }
