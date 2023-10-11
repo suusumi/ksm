@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent, ReactNode } from "react";
+import React, { useState, useEffect, ChangeEvent } from "react";
 import {
   Typography,
   useTheme,
@@ -14,70 +14,26 @@ import {
   TextField,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { fetchAllServices } from "../../api/services/request";
 
-/**
- * Идентификатор для корректной навигации в шапке.
- * @interface
- *
- * @property {string} id Идентификатор блока.
- */
 interface PriceProps {
   id: string;
 }
 
-/**
- * Услуга
- * @interface
- *
- * @property {string} serviceText Текст услуги.
- * @property {string} serviceID Идентификатор услуги.
- * @property {string} price Цена услуги.
- * @property {string} AppointmentLink Ссылка на форму.
- * @property {string} AppointmentText Текст кнопки, которая ведёт в форму.
- */
 interface Service {
-  serviceText: string;
-  serviceID: string;
-  price: string;
-  AppointmentLink: string;
-  AppointmentText: string;
+  id: number;
+  type: string;
+  category: string;
+  name: string;
+  description: string;
+  price: number;
 }
 
-/**
- * Подкатегория
- * @interface
- *
- * @property {string} subcategoryTitle Заголовок подкатегории.
- * @property {Service[]} services Список услуг.
- */
-interface Subcategory {
-  subcategoryTitle: string;
-  services: Service[];
-}
-
-/**
- * Категория
- * @interface
- *
- * @property {string} categoryTitle Заголовок категории.
- * @property {Subcategory[]} subcategories Список подкатегорий.
- */
-interface Category {
-  categoryTitle: string;
-  subcategories: Subcategory[];
-}
-
-/**
- * Компонент, отображающий блок услуг
- *
- * @param {PriceProps} id - Идентификатор для корректной навигации в шапке.
- * @returns {ReactNode} Отрисованный компонент Price
- */
 const Price: React.FC<PriceProps> = ({ id }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("");
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>("");
 
-  const [priceData, setPriceData] = useState<Category[]>([]);
+  const [priceData, setPriceData] = useState<Service[]>([]);
   const [activeCategory, setActiveCategory] = useState<string>("");
 
   const [searchText, setSearchText] = useState<string>("");
@@ -86,136 +42,19 @@ const Price: React.FC<PriceProps> = ({ id }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-
-      const initialData: Category[] = [
-        {
-          categoryTitle: "Инфекционные болезни",
-          subcategories: [
-            {
-              subcategoryTitle: "Прием (осмотр, консультация)",
-              services: [
-                {
-                  serviceText:
-                    "Прием (осмотр, консультация) врача-инфекциониста, заведующего кафедрой инфекционных болезней с эпидемиологией, тропической медициной, кмн",
-                  serviceID: "КСМ 1500",
-                  price: "1800",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-                {
-                  serviceText:
-                    "Прием (осмотр, консультация) врача-инфекциониста, доцента кафедры инфекционных болезней с эпидемиологией, тропической медициной, кмн",
-                  serviceID: "КСМ 1501",
-                  price: "1600",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-                {
-                  serviceText:
-                    "Прием (осмотр, консультация) врача-инфекциониста",
-                  serviceID: "КСМ 1502",
-                  price: "1200",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-              ],
-            },
-          ],
-        },
-        {
-          categoryTitle: "Дерматовенерология",
-          subcategories: [
-            {
-              subcategoryTitle: "Прием (осмотр, консультация)",
-              services: [
-                {
-                  serviceText:
-                    "Прием (осмотр, консультация) врача-дерматолога, заведующего кафедрой дерматовенерологии, кмн",
-                  serviceID: "КСМ 1400",
-                  price: "1800",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-                {
-                  serviceText:
-                    "Прием (осмотр, консультация) врача-дерматовенеролога первичный без дерматоскопии",
-                  serviceID: "КСМ 1401",
-                  price: "1200",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-                {
-                  serviceText:
-                    "Прием (осмотр, консультация) врача-дерматовенеролога повторный без дерматоскопии",
-                  serviceID: "КСМ 1402",
-                  price: "1000",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-              ],
-            },
-            {
-              subcategoryTitle: "Дерматоскопия",
-              services: [
-                {
-                  serviceText: "Дерматоскопия (1 элемент)",
-                  serviceID: "КСМ 1403",
-                  price: "450",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-                {
-                  serviceText: "Дерматоскопия за 1 элемент (2-10 элементов)",
-                  serviceID: "КСМ 1404",
-                  price: "400",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-                {
-                  serviceText:
-                    "Дерматоскопия за 1 элемент (более 10 элементов)",
-                  serviceID: "КСМ 1405",
-                  price: "350",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-              ],
-            },
-            {
-              subcategoryTitle: "Криодеструкция",
-              services: [
-                {
-                  serviceText:
-                    "Криодеструкция доброкачественных образований: папиллом, кератом, плоских вульгарных и подошвенных бородавок, кондиллом и элементов контагиозного моллюска до 0,5 см 1 элемент",
-                  serviceID: "КСМ 1406",
-                  price: "500",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-                {
-                  serviceText:
-                    "Криодеструкция доброкачественных образований: папиллом, кератом, плоских вульгарных и подошвенных бородавок, кондиллом и элементов контагиозного моллюска 0,5 - 1.0 см. 1 элемент",
-                  serviceID: "КСМ 1407",
-                  price: "1000",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-                {
-                  serviceText:
-                    "Криодеструкция доброкачественных образований: папиллом, кератом, плоских вульгарных и подошвенных бородавок, кондиллом и элементов контагиозного моллюска более 1.0 см. 1 элемент",
-                  serviceID: "КСМ 1408",
-                  price: "1500",
-                  AppointmentLink: "/appointment.html",
-                  AppointmentText: "Записаться",
-                },
-              ],
-            },
-          ],
-        },
-      ];
-
-      setPriceData(initialData);
+      try {
+        const response = await fetchAllServices();
+        if (response.ok) {
+          const data = await response.json();
+          setPriceData(data);
+        } else {
+          throw new Error(
+            "Ошибка в получении всех услуг: " + response.statusText
+          );
+        }
+      } catch (error) {
+        throw new Error("Ошибка: " + error);
+      }
     };
 
     fetchData();
@@ -224,9 +63,9 @@ const Price: React.FC<PriceProps> = ({ id }) => {
   const theme = useTheme();
   const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
 
-  const handleCategoryChange = (category: string) => {
-    setActiveCategory(category);
-    setSelectedCategory(category);
+  const handleCategoryChange = (type: string) => {
+    setActiveCategory(type);
+    setSelectedCategory(type);
     setSelectedSubcategory("");
   };
 
@@ -234,14 +73,8 @@ const Price: React.FC<PriceProps> = ({ id }) => {
     setSelectedSubcategory(subcategory);
   };
 
-  // Стили для названия карточек
   const SubcategoryText = {
     fontSize: 18,
-  };
-
-  const serviceTextStyle = {
-    fontSize: 26,
-    fontWeight: 400,
   };
 
   return (
@@ -253,7 +86,7 @@ const Price: React.FC<PriceProps> = ({ id }) => {
           fontSize: isXsScreen ? 22 : 38,
           fontFamily: "Austin, sans-serif",
           textTransform: "uppercase",
-          maxWidth: isXsScreen ? "100%" : 500, // изменение максимальной ширины
+          maxWidth: isXsScreen ? "100%" : 500,
           textAlign: isXsScreen ? "center" : "left",
           marginBottom: "25px",
         }}
@@ -269,7 +102,7 @@ const Price: React.FC<PriceProps> = ({ id }) => {
               sx={{
                 marginBottom: "35px",
                 "&.Mui-focused": {
-                  borderColor: "#288e81 !important", // цвет обводки при фокусе
+                  borderColor: "#288e81 !important",
                 },
               }}
             >
@@ -277,54 +110,50 @@ const Price: React.FC<PriceProps> = ({ id }) => {
                 value=""
                 sx={{
                   "&.Mui-selected": {
-                    backgroundColor: "#288e81", // цвет выбранного пункта
-                    color: "white", // цвет текста выбранного пункта
+                    backgroundColor: "#288e81",
+                    color: "white",
                   },
                 }}
               >
                 Выберите категорию
               </MenuItem>
-              {priceData.map((category) => (
+              {priceData.map((service) => (
                 <MenuItem
-                  key={category.categoryTitle}
-                  value={category.categoryTitle}
+                  key={service.id}
+                  value={service.type}
                   sx={{
                     "&.Mui-selected": {
-                      backgroundColor: "#288e81", // цвет выбранного пункта
-                      color: "white", // цвет текста выбранного пункта
+                      backgroundColor: "#288e81",
+                      color: "white",
                     },
                   }}
                 >
-                  {category.categoryTitle}
+                  {service.type}
                 </MenuItem>
               ))}
             </Select>
           </FormControl>
         ) : (
           <Box>
-            {priceData.map((category) => (
+            {priceData.map((service) => (
               <Button
-                key={category.categoryTitle}
+                key={service.id}
                 sx={{
                   backgroundColor: "transparent",
                   border: "2px solid #288e81",
                   color:
-                    activeCategory === category.categoryTitle
-                      ? "#ffffff"
-                      : "#288e81",
+                    activeCategory === service.type ? "#ffffff" : "#288e81",
                   "&.active": {
                     backgroundColor: "#288e81",
                     color: "#ffffff",
                   },
                   margin: "0px 15px 15px 0",
-                  minWidth: "150px", // добавление минимальной ширины кнопки
+                  minWidth: "150px",
                 }}
-                className={
-                  activeCategory === category.categoryTitle ? "active" : ""
-                }
-                onClick={() => handleCategoryChange(category.categoryTitle)}
+                className={activeCategory === service.type ? "active" : ""}
+                onClick={() => handleCategoryChange(service.type)}
               >
-                {category.categoryTitle}
+                {service.type}
               </Button>
             ))}
           </Box>
@@ -337,28 +166,23 @@ const Price: React.FC<PriceProps> = ({ id }) => {
           sx={{
             "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
               {
-                borderColor: "#288e81", // цвет обводки при фокусе
+                borderColor: "#288e81",
               },
             "& .MuiInputLabel-root.Mui-focused": {
-              color: "#288e81", // цвет метки при фокусе
+              color: "#288e81",
             },
             "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-              borderColor: "gray", // цвет обводки по умолчанию
+              borderColor: "gray",
             },
             "& .MuiInputLabel-root": {
-              color: "gray", // цвет метки по умолчанию
+              color: "gray",
             },
           }}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
             const searchText = e.target.value.toLowerCase();
             setSearchText(searchText);
-            // Фильтруем услуги на основе текста поиска
-            const filteredServices = priceData.flatMap((category) =>
-              category.subcategories.flatMap((subcategory) =>
-                subcategory.services.filter((service) =>
-                  service.serviceText.toLowerCase().includes(searchText),
-                ),
-              ),
+            const filteredServices = priceData.filter((service) =>
+              service.name.toLowerCase().includes(searchText)
             );
             setSearchResults(filteredServices);
           }}
@@ -368,11 +192,10 @@ const Price: React.FC<PriceProps> = ({ id }) => {
         <Box>
           {searchText.length > 0 &&
             searchResults.map((service) => (
-              <Box key={service.serviceID}>
+              <Box key={service.id}>
                 {isXsScreen ? (
-                  // Вариант отображения для экранов xs
                   <Box sx={{ marginBottom: "35px" }}>
-                    <Typography variant="h6">{service.serviceText}</Typography>
+                    <Typography variant="h6">{service.name}</Typography>
                     <Box
                       sx={{
                         display: "flex",
@@ -381,24 +204,23 @@ const Price: React.FC<PriceProps> = ({ id }) => {
                       }}
                     >
                       <Typography variant="body1">
-                        {service.serviceID} |{" "}
+                        {service.description} |{" "}
                         <span style={{ fontFamily: "PT-Sans-Bold" }}>
                           {service.price}Р
                         </span>
                       </Typography>
                       <a
-                        href={service.AppointmentLink}
+                        href="/appointment/"
                         style={{
                           color: "#288e81",
                           textDecoration: "none",
                         }}
                       >
-                        {service.AppointmentText}
+                        Записаться
                       </a>
                     </Box>
                   </Box>
                 ) : (
-                  // Вариант отображения для стандартных экранов
                   <Box
                     sx={{
                       display: "flex",
@@ -411,18 +233,20 @@ const Price: React.FC<PriceProps> = ({ id }) => {
                       variant="h6"
                       sx={{ maxWidth: "500px", minWidth: "500px" }}
                     >
-                      {service.serviceText}
+                      {service.name}
                     </Typography>
-                    <Typography variant="body1">{service.serviceID}</Typography>
+                    <Typography variant="body1">
+                      {service.description}
+                    </Typography>
                     <Typography variant="body1">{service.price}Р</Typography>
                     <a
-                      href={service.AppointmentLink}
+                      href="/appointment/"
                       style={{
                         color: "#288e81",
                         textDecoration: "none",
                       }}
                     >
-                      {service.AppointmentText}
+                      Записаться
                     </a>
                   </Box>
                 )}
@@ -434,95 +258,80 @@ const Price: React.FC<PriceProps> = ({ id }) => {
       {selectedCategory && (
         <Box>
           <Box>
-            {/* Кнопки для выбора подкатегории */}
             <Box>
               {priceData
-                .find((category) => category.categoryTitle === selectedCategory)
-                ?.subcategories.map((subcategory) => (
-                  <Accordion key={subcategory.subcategoryTitle}>
+                .filter((service) => service.type === selectedCategory)
+                .map((service) => (
+                  <Accordion key={service.id}>
                     <AccordionSummary
                       expandIcon={<ExpandMoreIcon sx={{ color: "#288e81" }} />}
                     >
                       <Typography sx={SubcategoryText}>
-                        {subcategory.subcategoryTitle}
+                        {service.category}
                       </Typography>
                     </AccordionSummary>
                     <AccordionDetails>
-                      {subcategory.services
-                        .filter((service) =>
-                          service.serviceText
-                            .toLowerCase()
-                            .includes(searchText.toLowerCase()),
-                        )
-                        .map((service) => (
-                          <Box key={service.serviceID}>
-                            {isXsScreen ? (
-                              // Вариант отображения для экранов xs
-                              <Box sx={{ marginBottom: "35px" }}>
-                                <Typography variant="h6">
-                                  {service.serviceText}
-                                </Typography>
-                                <Box
-                                  sx={{
-                                    display: "flex",
-                                    justifyContent: "space-between",
-                                    marginTop: "10px",
-                                  }}
-                                >
-                                  <Typography variant="body1">
-                                    {service.serviceID} |{" "}
-                                    <span
-                                      style={{ fontFamily: "PT-Sans-Bold" }}
-                                    >
-                                      {service.price}Р
-                                    </span>
-                                  </Typography>
-                                  <a
-                                    href={service.AppointmentLink}
-                                    style={{
-                                      color: "#288e81",
-                                      textDecoration: "none",
-                                    }}
-                                  >
-                                    {service.AppointmentText}
-                                  </a>
-                                </Box>
-                              </Box>
-                            ) : (
-                              // Вариант отображения для стандартных экранов
-                              <Box
-                                sx={{
-                                  display: "flex",
-                                  justifyContent: "space-between",
-                                  alignItems: "center",
-                                  marginBottom: "20px",
+                      <Box key={service.id}>
+                        {isXsScreen ? (
+                          <Box sx={{ marginBottom: "35px" }}>
+                            <Typography variant="h6">{service.name}</Typography>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                justifyContent: "space-between",
+                                marginTop: "10px",
+                              }}
+                            >
+                              <Typography variant="body1">
+                                {service.description} |{" "}
+                                <span style={{ fontFamily: "PT-Sans-Bold" }}>
+                                  {service.price}Р
+                                </span>
+                              </Typography>
+                              <a
+                                href="/appointment/"
+                                style={{
+                                  color: "#288e81",
+                                  textDecoration: "none",
                                 }}
                               >
-                                <Typography
-                                  variant="h6"
-                                  sx={{ maxWidth: "500px", minWidth: "500px" }}
-                                >
-                                  {service.serviceText}
-                                </Typography>
-                                <Typography variant="body1">
-                                  {service.serviceID}
-                                </Typography>
-                                <Typography variant="h6">
-                                  {service.price}Р
-                                </Typography>
-                                <a
-                                  href={service.AppointmentLink}
-                                  style={{
-                                    color: "#288e81",
-                                    textDecoration: "none",
-                                  }}
-                                >
-                                  {service.AppointmentText}
-                                </a>
-                              </Box>
-                            )}
+                                Записаться
+                              </a>
+                            </Box>
                           </Box>
-                        ))}
+                        ) : (
+                          <Box
+                            sx={{
+                              display: "flex",
+                              justifyContent: "space-between",
+                              alignItems: "center",
+                              marginBottom: "20px",
+                            }}
+                          >
+                            <Typography
+                              variant="h6"
+                              sx={{ maxWidth: "500px", minWidth: "500px" }}
+                            >
+                              {service.name}
+                            </Typography>
+                            <Typography variant="body1">
+                              {service.description}
+                            </Typography>
+                            <Typography variant="body1">
+                              {service.price}Р
+                            </Typography>
+                            <a
+                              href="/appointment/"
+                              style={{
+                                color: "#288e81",
+                                textDecoration: "none",
+                              }}
+                            >
+                              Записаться
+                            </a>
+                          </Box>
+                        )}
+                      </Box>
                     </AccordionDetails>
                   </Accordion>
                 ))}
@@ -533,4 +342,5 @@ const Price: React.FC<PriceProps> = ({ id }) => {
     </Box>
   );
 };
+
 export default Price;
