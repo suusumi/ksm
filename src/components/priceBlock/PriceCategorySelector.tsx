@@ -1,5 +1,6 @@
 import React from "react";
 import { FormControl, Select, MenuItem, Button } from "@mui/material";
+import ServiceType from "./enum/ServiceType";
 
 // Интерфейс для типа данных "Service"
 interface Service {
@@ -23,6 +24,9 @@ const PriceCategorySelector: React.FC<CategorySelectorProps> = ({
   activeCategory,
   isXsScreen,
 }) => {
+  const uniqueCategories = Array.from(
+    new Set(priceData.map((service) => service.type))
+  );
   return (
     <div>
       {isXsScreen ? ( // Если экран имеет размер "xs"
@@ -48,32 +52,36 @@ const PriceCategorySelector: React.FC<CategorySelectorProps> = ({
             >
               Выберите категорию
             </MenuItem>
-            {priceData.map((service) => (
-              <MenuItem
-                key={service.id}
-                value={service.type}
-                sx={{
-                  "&.Mui-selected": {
-                    backgroundColor: "#288e81",
-                    color: "white",
-                  },
-                }}
-              >
-                {service.type}
-              </MenuItem>
-            ))}
+            {Object.values(ServiceType).map(
+              (
+                type // Пройдитесь по Enum
+              ) => (
+                <MenuItem
+                  key={type}
+                  value={type}
+                  sx={{
+                    "&.Mui-selected": {
+                      backgroundColor: "#288e81",
+                      color: "white",
+                    },
+                  }}
+                >
+                  {type}
+                </MenuItem>
+              )
+            )}
           </Select>
         </FormControl>
       ) : (
         // В противном случае (экран больше "xs")
         <div>
-          {priceData.map((service) => (
+          {uniqueCategories.map((category) => (
             <Button
-              key={service.id}
+              key={category}
               sx={{
                 backgroundColor: "transparent",
                 border: "2px solid #288e81",
-                color: activeCategory === service.type ? "#ffffff" : "#288e81",
+                color: activeCategory === category ? "#ffffff" : "#288e81",
                 "&.active": {
                   backgroundColor: "#288e81",
                   color: "#ffffff",
@@ -81,10 +89,11 @@ const PriceCategorySelector: React.FC<CategorySelectorProps> = ({
                 margin: "0px 15px 15px 0",
                 minWidth: "150px",
               }}
-              className={activeCategory === service.type ? "active" : ""}
-              onClick={() => handleCategoryChange(service.type)}
+              className={activeCategory === category ? "active" : ""}
+              onClick={() => handleCategoryChange(category)}
             >
-              {service.type}
+              {ServiceType[category]}
+              {/* Используйте Enum для отображения на русском языке */}
             </Button>
           ))}
         </div>
