@@ -113,6 +113,7 @@ const Price: React.FC<PriceProps> = ({ id }) => {
         Услуги
       </Typography>
 
+      {/* Кнопки/селектор категории */}
       <PriceCategorySelector
         selectedCategory={selectedCategory}
         handleCategoryChange={handleCategoryChange}
@@ -120,9 +121,12 @@ const Price: React.FC<PriceProps> = ({ id }) => {
         activeCategory={activeCategory}
         isXsScreen={isXsScreen}
       />
+
+      {/* Поиск по прайсу */}
       <FormControl fullWidth sx={{ marginBottom: "15px" }}>
         <PriceSearch searchText={searchText} onSearchChange={setSearchText} />
       </FormControl>
+      {/* Результаты поиска */}
       {searchResults.length > 0 ? (
         <Box>
           {searchText.length > 0 &&
@@ -190,6 +194,7 @@ const Price: React.FC<PriceProps> = ({ id }) => {
         </Box>
       ) : null}
 
+      {/* Отображение выпадающих список с их услугами */}
       {selectedCategory && (
         <Box>
           <Box>
