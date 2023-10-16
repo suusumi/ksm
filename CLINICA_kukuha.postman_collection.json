@@ -1,0 +1,1228 @@
+{
+	"info": {
+		"_postman_id": "18d5fad5-8ad8-4aea-ada5-1f8b0d19aec7",
+		"name": "CLINICA_kukuha",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21706083",
+		"_collection_link": "https://restless-firefly-458958.postman.co/workspace/serv~57ee0ddf-bde9-4822-9e44-92b2a52cb118/collection/21706083-18d5fad5-8ad8-4aea-ada5-1f8b0d19aec7?action=share&source=collection_link&creator=21706083"
+	},
+	"item": [
+		{
+			"name": "speciallsts",
+			"item": [
+				{
+					"name": "getAllSpecialists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/specialists",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOneSpecialistById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/specialists/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSpecialistById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/specialists/16",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSpecialistDataById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Andrey NE gopa i NE Pisya\",\r\n    \"filial\": \"KIM20\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/specialists/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSpecialistPhotoById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/arsen/Pictures/govnokot.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/specialists/updatephoto/39",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists",
+								"updatephoto",
+								"39"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createSpecialist",
+					"protocolProfileBehavior": {
+						"disabledSystemHeaders": {}
+					},
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Andrey Crossauchik\",\r\n    \"post\": \"also not boss\",\r\n    \"speciality\": \"not stated\",\r\n    \"degree\": \"VSTU\",\r\n    \"filial\": \"Kozlovskaya45A\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/specialists",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createSpecWithPhoto",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "bodyData",
+									"value": "{\"name\": \"Andrey Crossauchik\",\n    \"post\": \"also not boss\",\n    \"speciality\": \"not stated\",\n    \"degree\": \"VSTU\",\n    \"filial\": \"Kozlovskaya45A\"}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "photo",
+									"type": "file",
+									"src": "/C:/Users/arsen/Pictures/pidor_kot.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/specialists/createwithphoto",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"specialists",
+								"createwithphoto"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "banners",
+			"item": [
+				{
+					"name": "getAllBanners",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/banners",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOneBannerById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/banners/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteBannerById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/banners/11",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners",
+								"11"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateBannerImageById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/arsen/Pictures/1.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/banners/updateimage/20",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners",
+								"updateimage",
+								"20"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateBannerById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"subtitle\": \"все таки гений баннера\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/banners/9",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createBanner",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"ДАРОВА БАННЕРЫ33333\",\r\n    \"subtitle\": \"все таки гений баннера\",\r\n    \"text_content\": \"контент 2 контент\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/banners",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createBannerWithImage",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "bodyData",
+									"value": "{\n    \"title\": \"ДАРОВА БАННЕРЫ33333\",\n    \"subtitle\": \"все таки гений баннера\",\n    \"text_content\": \"контент 2 контент\",\n    \"img_path\": \"картинОчка2\"\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "image",
+									"contentType": "",
+									"type": "file",
+									"src": "/C:/Users/arsen/Pictures/IMG_7893.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/banners/createwithimage",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"banners",
+								"createwithimage"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "documents",
+			"item": [
+				{
+					"name": "getAllDocumentsEntity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/documents",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOneDocumentEntityById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/documents/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteDocumentById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/documents/4",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDocumentFileById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "doc",
+									"type": "file",
+									"src": "/C:/Users/arsen/Pictures/2023_отчет.doc"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/documents/updatefile/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"updatefile",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateDocumentEntityById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Новое описание документа\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/documents/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createDocumentEntity",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ИМЯ ДОКУМЕНТА\",\r\n    \"description\": \"старое описание документа\",\r\n    \"file_name\": \"nothing\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/documents",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createDocumentWithFile",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "bodyData",
+									"value": "{\n    \"name\": \"ИМЯ ДОКУМЕНТА\",\n    \"description\": \"старое описание документа\"\n}",
+									"contentType": "application/json",
+									"type": "text"
+								},
+								{
+									"key": "doc",
+									"contentType": "",
+									"type": "file",
+									"src": "/C:/Users/arsen/Pictures/2023_отчет.doc"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:8080/documents/createwithfile",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"createwithfile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFileByName",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/documents/getfilebyname/cbad454a6d15b43b99ffd255253897fe.doc",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"getfilebyname",
+								"cbad454a6d15b43b99ffd255253897fe.doc"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getFileByDocumentEntityId",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/documents/getfilebyid/5",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"documents",
+								"getfilebyid",
+								"5"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "infographics",
+			"item": [
+				{
+					"name": "getAllInphographics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/inphographics",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inphographics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getInphographicsById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/inphographics/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inphographics",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteInpographicsById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/inphographics/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inphographics",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAllInpographics",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/inphographics",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inphographics"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateInphoraphicsById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Специалистов из ОФИСА\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/inphographics/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inphographics",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createNewIphographics",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"value\": \"27+\",\r\n    \"description\": \"Специалистов из дома\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/inphographics",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inphographics"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "contacts",
+			"item": [
+				{
+					"name": "getAllContactsEntities",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/contacts",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getContactEntityById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/contacts/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contacts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createContact",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"first_tel\": \"8-(927)-061-35-34\",\r\n    \"second_tel\": \"8-(927)-061-35-34\",\r\n    \"mail\": \"vasya@gmail.com\",\r\n    \"street\": \"Eremenko\",\r\n    \"city\": \"Volgograd\",\r\n    \"vk_link\": \"id130234\",\r\n    \"tg_link\": \"id130234\",\r\n    \"wa_link\": \"id130234\",\r\n    \"email_link\": \"id130234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/contacts",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contacts"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateContactById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"mail\": \"adolf@gmail.com\",\r\n    \"street\": \"Shrichst-strasse\",\r\n    \"city\": \"Berlin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/contacts/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contacts",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteContactById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/contacts/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"contacts",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "administrators",
+			"item": [
+				{
+					"name": "getAllAdmins",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAdminById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateAdmin",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"arsyaka\",\r\n    \"full_name\": \"Arseniy Vaskin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admin/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "registerAdmin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"arsik\",\r\n    \"password_hash\": \"root\",\r\n    \"full_name\": \"Arseniy Pupkin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admin",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "authAdmin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"login\": \"arsik\",\r\n    \"password\": \"root\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/admin/auth",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"auth"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteAdminById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/admin/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"admin",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "services",
+			"item": [
+				{
+					"name": "getAllServices",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/services",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getServicesByServiceType",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/services/getbyservice/Vaccinoprophylaxis",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"services",
+								"getbyservice",
+								"Vaccinoprophylaxis"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getServicesByCategoryType",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/services/getbycategory/TakingBlood",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"services",
+								"getbycategory",
+								"TakingBlood"
+							],
+							"query": [
+								{
+									"key": "category_type",
+									"value": "\"TakingBlood\"",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOneServiceById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/services/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"services",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteServiceById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/services/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"services",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createService",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"Therapy\",\r\n    \"category\": \"TakingBlood\",\r\n    \"name\": \"УСЛУГА КРОВЬ\",\r\n    \"description\": \"описания взятия крови\",\r\n    \"price\": 1230\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/services",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"services"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateService",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"type\": \"Vaccinoprophylaxis\",\r\n    \"category\": \"Biopsy\",\r\n    \"name\": \"Биопсия\",\r\n    \"description\": \"описание биопсии\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/services/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"services",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ENUM",
+			"item": [
+				{
+					"name": "CategoryType",
+					"item": []
+				},
+				{
+					"name": "ServiceType",
+					"item": []
+				},
+				{
+					"name": "SpecFilial",
+					"item": []
+				}
+			]
+		},
+		{
+			"name": "getImageByName",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8080/images/10267b73dafc0ea5876f3244b3c36f8e8.jpg",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"images",
+						"10267b73dafc0ea5876f3244b3c36f8e8.jpg"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
