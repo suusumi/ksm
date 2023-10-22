@@ -315,7 +315,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"ДАРОВА БАННЕРЫ33333\",\r\n    \"subtitle\": \"все таки гений баннера\",\r\n    \"text_content\": \"контент 2 контент\"\r\n}",
+							"raw": "{\r\n    \"title\": \"ДАРОВА БАННЕРЫ33333\",\r\n    \"subtitle\": \"все таки гений баннера\",\r\n    \"text_content\": \"контент 2 контент\",\r\n    \"banner_type\": \"mobile\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -353,7 +353,7 @@
 									"key": "image",
 									"contentType": "",
 									"type": "file",
-									"src": "/C:/Users/arsen/Pictures/arsen-violet.jpg"
+									"src": "/C:/Users/arsen/Pictures/pidor_kot.jpg"
 								}
 							]
 						},
@@ -1035,47 +1035,20 @@
 					"response": []
 				},
 				{
-					"name": "getServicesByServiceType",
+					"name": "getServicesBySubCategoryId",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/services/getbyservice/Vaccinoprophylaxis",
+							"raw": "localhost:8080/services/getbysubcategory/4",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"services",
-								"getbyservice",
-								"Vaccinoprophylaxis"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "getServicesByCategoryType",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:8080/services/getbycategory/TakingBlood",
-							"host": [
-								"localhost"
-							],
-							"port": "8080",
-							"path": [
-								"services",
-								"getbycategory",
-								"TakingBlood"
-							],
-							"query": [
-								{
-									"key": "category_type",
-									"value": "\"TakingBlood\"",
-									"disabled": true
-								}
+								"getbysubcategory",
+								"4"
 							]
 						}
 					},
@@ -1087,14 +1060,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8080/services/1",
+							"raw": "localhost:8080/services/3",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"services",
-								"1"
+								"3"
 							]
 						}
 					},
@@ -1126,7 +1099,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"type\": \"Therapy\",\r\n    \"category\": \"TakingBlood\",\r\n    \"name\": \"УСЛУГА КРОВЬ\",\r\n    \"description\": \"описания взятия крови\",\r\n    \"price\": 1230\r\n}",
+							"raw": "{\r\n    \"sub_category_id\": 4,\r\n    \"name\": \"УСЛУГА КРОВЬ\",\r\n    \"description\": \"описания взятия крови\",\r\n    \"price\": 1230\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1153,7 +1126,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"type\": \"Vaccinoprophylaxis\",\r\n    \"category\": \"Biopsy\",\r\n    \"name\": \"Биопсия\",\r\n    \"description\": \"описание биопсии\"\r\n}",
+							"raw": "{\r\n    \"name\": \"Биопсия\",\r\n    \"description\": \"описание биопсии\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1161,14 +1134,266 @@
 							}
 						},
 						"url": {
-							"raw": "localhost:8080/services/2",
+							"raw": "localhost:8080/services/3",
 							"host": [
 								"localhost"
 							],
 							"port": "8080",
 							"path": [
 								"services",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "categories",
+			"item": [
+				{
+					"name": "getOneCategoryById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/categories/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getAllCategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/categories",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateCategoryByid",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Аллергология или гистаминные\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/categories/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categories",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createCategory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ИММУНОЛОГИЯ\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/categories",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteCategoryById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/categories/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"categories",
+								"2"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "subcategories",
+			"item": [
+				{
+					"name": "getAllSubCategories",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/subcategories",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"subcategories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getOneSubCategoryById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/subcategories/2",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"subcategories",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updateSubCategoryById",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Клизма\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/subcategories/1",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"subcategories",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "createSubCategory",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"category_id\": 3,\r\n    \"name\": \"подкатегория: инъекции\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8080/subcategories",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"subcategories"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "deleteSubCategoryById",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/subcategories/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"subcategories",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "getSubCategoriesByCategoryId",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8080/subcategories/getbycategory/3",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"subcategories",
+								"getbycategory",
+								"3"
 							]
 						}
 					},
