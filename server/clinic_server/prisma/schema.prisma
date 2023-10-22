@@ -41,6 +41,7 @@ model Banners {
   title        String
   subtitle     String
   text_content String  @db.Text
+  banner_type  String?
   img_path     String?
 }
 

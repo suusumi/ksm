@@ -14,4 +14,8 @@ export class CreateBannerDto {
     @IsOptional()
     @IsString()
     img_path: string;
+
+    @IsOptional()
+    @IsString()
+    banner_type: string;
 }
