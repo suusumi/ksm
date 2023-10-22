@@ -53,12 +53,26 @@ model Administrators {
 }
 
 model Services {
-  id          Int          @id @default(autoincrement())
-  type        ServiceType  @default(AllergologyAndImmunology)
-  category    CategoryType @default(ReceptionAndInspectionAndConsultation)
-  name        String
-  description String?
-  price       Int
+  id              Int           @id @default(autoincrement())
+  name            String
+  description     String?
+  price           Int
+  sub_category_id Int // Поле для связи с подкатегориями
+  sub_category    SubCategories @relation(fields: [sub_category_id], references: [id]) // Связь (sub_cat_id назначется FK, id в SubCategories тоже становится FK)
+}
+
+model Categories {
+  id            Int             @id @default(autoincrement())
+  name          String          @default("Аллергология и иммунология")
+  subcategories SubCategories[] // Связь многие к одному
+}
+
+model SubCategories {
+  id          Int        @id @default(autoincrement())
+  category_id Int // Поле для связи с категориями
+  category    Categories @relation(fields: [category_id], references: [id]) // Связь
+  name        String     @default("Прием")
+  services    Services[] // Связь многие к одному
 }
 
 model Specialists {
@@ -71,87 +85,9 @@ model Specialists {
   filial     SpecFilial? @default(PlPavBortsov1)
 }
 
-enum CategoryType {
-  ReceptionAndInspectionAndConsultation
-  BronchoprovocationTest
-  AllergyTests
-  DecisionOTheMedicalCommissionIVF
-  PreGravidalPreparation
-  Other
-  Dermatoscopy
-  Cryodestruction
-  Researches
-  InspectionOfDrivers
-  RegistrationOfSanatoriumAndResortCard
-  MedicalExaminationOfStudents
-  RegistrationOfCertificateSwimmingPoolSportsSection
-  SetOfExaminationsForAdmissionToPhysicalEducationClasses
-  ComprehensiveServices
-  AdaptationProgram
-  IntroductionOfBotulinumToxinAnemia
-  IntroductionOfMedicines
-  OtherProcedures
-  Biopsy
-  Blockade
-  Drainage
-  Inhalations
-  InstillationAndApplication
-  Insufflation
-  FunctionResearch
-  Catheterization
-  TherapeuticManeuver
-  LocalAnemia
-  MassageOfBackWallOfPharynx
-  Otomicroscopy
-  Puncture
-  Washing
-  VariousProcedures
-  Treatment
-  Injections
-  KinesiologicalTaping
-  PRPTherapy
-  SynovialFluidIntake
-  UltrasoundExamination
-  TreatmentAndTherapy
-  Vaccination
-  LaboratoryDiagnostics
-  TakingBlood
-  MedicalCareAtHome
-  MedicalExamination
-}
-
 enum SpecFilial {
   KIM20
   PlPavBortsov1
   Kozlovskaya45A
   KIM18A
-}
-
-enum ServiceType {
-  AllergologyAndImmunology
-  ObstetricsAndGynecology
-  ChildrensSpecialists
-  Gastroenterology
-  Dermatovenerology
-  InfectiousDiseases
-  Cardiology
-  MedicalAndPsychologicalCenter
-  MedicalExaminations
-  Neurology
-  Otorhinolaryngology
-  Ophthalmology
-  PsychiatryAndNarcology
-  Pulmonology
-  Rheumatology
-  CardiovascularSurgery
-  Therapy
-  TraumatologyAndOrthopedics
-  UltrasoundDiagnostics
-  PhysicalTherapy
-  Endocrinology
-  Vaccinoprophylaxis
-  LaboratoryDiagnostics
-  Manipulations
-  MedicalCareAtHome
-  MedicalExaminationOfForeignCitizens
 }
