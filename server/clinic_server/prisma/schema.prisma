@@ -58,7 +58,7 @@ model Services {
   description     String?
   price           Int
   sub_category_id Int // Поле для связи с подкатегориями
-  sub_category    SubCategories @relation(fields: [sub_category_id], references: [id]) // Связь (sub_cat_id назначется FK, id в SubCategories тоже становится FK)
+  sub_category    SubCategories @relation(fields: [sub_category_id], references: [id], onDelete: Cascade) // Связь (sub_cat_id назначется FK, id в SubCategories тоже становится FK)
 }
 
 model Categories {
@@ -70,7 +70,7 @@ model Categories {
 model SubCategories {
   id          Int        @id @default(autoincrement())
   category_id Int // Поле для связи с категориями
-  category    Categories @relation(fields: [category_id], references: [id]) // Связь
+  category    Categories @relation(fields: [category_id], references: [id], onDelete: Cascade) // Связь
   name        String     @default("Прием")
   services    Services[] // Связь многие к одному
 }
