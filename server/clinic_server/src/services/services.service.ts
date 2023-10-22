@@ -42,15 +42,15 @@ export class ServicesService {
 
   async findServicesBySubCategory(sub_category_id: number) {
     try {
-      const service = await this.databaseService.services.findMany({
+      const services = await this.databaseService.services.findMany({
         where: { sub_category_id: sub_category_id },
       });
 
-      if (!service) {
+      if (!services) {
         throw new Error(`Услуги с подкатегорией ${sub_category_id} не найдены`);
       }
 
-      return service;
+      return services;
     } catch (error) {
       throw new HttpException(`Ошибка при поиске услуг с подкатегорией ${sub_category_id}:` + error, HttpStatus.INTERNAL_SERVER_ERROR);
     }

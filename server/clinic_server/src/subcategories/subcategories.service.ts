@@ -40,6 +40,22 @@ export class SubcategoriesService {
     }
   }
 
+  async findSubCategoriesByCategory(category_id: number) {
+    try {
+      const subcategories = await this.databaseService.subCategories.findMany({
+        where: { category_id: category_id },
+      });
+
+      if (!subcategories) {
+        throw new Error(`Подкатегории с категорией ${category_id} не найдены`);
+      }
+
+      return subcategories;
+    } catch (error) {
+      throw new HttpException(`Ошибка при поиске подкатегорий с категорией ${category_id}:` + error, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
   async update(id: number, updateSubcategoryDto: UpdateSubcategoryDto) {
     try {
       const updatedSubCategory = await this.databaseService.subCategories.update({

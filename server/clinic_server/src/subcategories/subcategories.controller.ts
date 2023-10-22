@@ -36,6 +36,12 @@ export class SubcategoriesController {
   }
 
   @UsePipes(new ValidationPipe())
+  @Get('getbycategory/:category_id')
+  async findSubCategoriesByCategory(@Param('category_id', ParseIntPipe) category_id: number) {
+    return await this.subcategoriesService.findSubCategoriesByCategory(category_id);
+  }
+
+  @UsePipes(new ValidationPipe())
   @Patch(':id')
   async update(@Param('id', ParseIntPipe) id: number, @Body() updateSubcategoryDto: UpdateSubcategoryDto) {
     return await this.subcategoriesService.update(id, updateSubcategoryDto);
