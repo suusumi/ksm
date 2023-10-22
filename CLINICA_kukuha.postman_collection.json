@@ -345,7 +345,7 @@
 							"formdata": [
 								{
 									"key": "bodyData",
-									"value": "{\n    \"title\": \"ДАРОВА БАННЕРЫ33333\",\n    \"subtitle\": \"все таки гений баннера\",\n    \"text_content\": \"контент 2 контент\",\n    \"img_path\": \"картинОчка2\"\n}",
+									"value": "{\n    \"title\": \"ДАРОВА БАННЕРЫ33333\",\n    \"subtitle\": \"все таки гений баннера\",\n    \"text_content\": \"контент 2 контент\",\n    \"img_path\": \"картинОчка2\",\n\"banner_type\": \"desktop\"\n}",
 									"contentType": "application/json",
 									"type": "text"
 								},
@@ -353,7 +353,7 @@
 									"key": "image",
 									"contentType": "",
 									"type": "file",
-									"src": "/C:/Users/arsen/Pictures/IMG_7893.jpg"
+									"src": "/C:/Users/arsen/Pictures/arsen-violet.jpg"
 								}
 							]
 						},
@@ -1179,14 +1179,6 @@
 		{
 			"name": "ENUM",
 			"item": [
-				{
-					"name": "CategoryType",
-					"item": []
-				},
-				{
-					"name": "ServiceType",
-					"item": []
-				},
 				{
 					"name": "SpecFilial",
 					"item": []
