@@ -2,7 +2,6 @@ import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
 import {DatabaseService} from "../database/database.service";
-import {CategoryType, ServiceType} from '@prisma/client';
 
 @Injectable()
 export class ServicesService {
@@ -41,37 +40,19 @@ export class ServicesService {
     }
   }
 
-  async findServicesByServiceType(service_type: string) {
+  async findServicesBySubCategory(sub_category_id: number) {
     try {
-      const enum_service = service_type as ServiceType;
       const service = await this.databaseService.services.findMany({
-        where: { type: enum_service },
+        where: { sub_category_id: sub_category_id },
       });
 
       if (!service) {
-        throw new Error(`Услуги с видом услуг ${service_type} не найдены`);
+        throw new Error(`Услуги с подкатегорией ${sub_category_id} не найдены`);
       }
 
       return service;
     } catch (error) {
-      throw new HttpException(`Ошибка при поиске услуг с видом услуг ${service_type}:` + error, HttpStatus.INTERNAL_SERVER_ERROR);
-    }
-  }
-
-  async findServicesByCategoryType(category_type: string) {
-    try {
-      const enum_category = category_type as CategoryType;
-      const service = await this.databaseService.services.findMany({
-        where: { category: enum_category },
-      });
-
-      if (!service) {
-        throw new Error(`Услуги с категорией ${category_type} не найдены`);
-      }
-
-      return service;
-    } catch (error) {
-      throw new HttpException(`Ошибка при поиске услуг с категорией ${category_type}:` + error, HttpStatus.INTERNAL_SERVER_ERROR);
+      throw new HttpException(`Ошибка при поиске услуг с подкатегорией ${sub_category_id}:` + error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
   }
 

@@ -13,7 +13,6 @@ import {
 import { ServicesService } from './services.service';
 import { CreateServiceDto } from './dto/create-service.dto';
 import { UpdateServiceDto } from './dto/update-service.dto';
-import {ServiceType} from "@prisma/client";
 
 @Controller('services')
 export class ServicesController {
@@ -30,29 +29,26 @@ export class ServicesController {
     return await this.servicesService.findAll();
   }
 
+  @UsePipes(new ValidationPipe())
   @Get(':id')
   async findOne(@Param('id', ParseIntPipe) id: number) {
-    return await this.servicesService.findOne(+id);
+    return await this.servicesService.findOne(id);
   }
 
-  @Get('getbyservice/:service_type')
-  async findServicesByServiceType(@Param('service_type') service_type: string) {
-    return await this.servicesService.findServicesByServiceType(service_type);
-  }
-
-  @Get('getbycategory/:category_type')
-  async findServicesByCategoryType(@Param('category_type') category_type: string) {
-    return await this.servicesService.findServicesByCategoryType(category_type);
+  @UsePipes(new ValidationPipe())
+  @Get('getbysubcategory/:sub_category_id')
+  async findServicesBySubCategory(@Param('sub_category_id', ParseIntPipe) sub_category_id: number) {
+    return await this.servicesService.findServicesBySubCategory(sub_category_id);
   }
 
   @UsePipes(new ValidationPipe())
   @Patch(':id')
   async update(@Param('id', ParseIntPipe) id: number, @Body() updateServiceDto: UpdateServiceDto) {
-    return await this.servicesService.update(+id, updateServiceDto);
+    return await this.servicesService.update(id, updateServiceDto);
   }
 
   @Delete(':id')
   async remove(@Param('id', ParseIntPipe) id: number) {
-    return await this.servicesService.remove(+id);
+    return await this.servicesService.remove(id);
   }
 }

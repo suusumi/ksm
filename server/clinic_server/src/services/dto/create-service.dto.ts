@@ -1,13 +1,9 @@
-import {IsNumber, IsOptional, IsPositive, IsString} from "class-validator";
-import {ServiceType, CategoryType} from "@prisma/client";
+import {IsOptional, IsPositive, IsString} from "class-validator";
 
 export class CreateServiceDto {
 
-    @IsString()
-    type: ServiceType;
-
-    @IsString()
-    category: CategoryType;
+    @IsPositive()
+    sub_category_id: number;
 
     @IsString()
     name: string;
@@ -20,8 +16,3 @@ export class CreateServiceDto {
     price: number;
 }
 
-// type        ServiceType  @default(AllergologyAndImmunology)
-// category    CategoryType @default(ReceptionAndInspectionAndConsultation)
-// name        String
-// description String?
-//     price       Int
