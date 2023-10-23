@@ -1,8 +1,9 @@
 import React from 'react'
+import DocsView from './view/DocsView'
 
 function DocsScreen() {
   return (
-    <div>DocsScreen</div>
+    <DocsView />
   )
 }
 

@@ -6,5 +6,6 @@ export const routes = {
     specialists: '/specialists',
     banners: '/banners',
     appointment: '/appointment',
-    privacyPolicy: '/privacypolicy'
+    privacyPolicy: '/privacypolicy',
+    docs: '/docs',
 }

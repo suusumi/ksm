@@ -15,6 +15,8 @@ import { BannersScreen } from './pages/banners/BannersScreen';
 import AppointmentFormScreen from './pages/appointmentForm/AppointmentFormScreen';
 import PrivacyPolicyScreen from './pages/privacyPolicy/PrivacyPolicyScreen';
 import SpecialistScreen from './pages/specialist/SpecialistScreen';
+import DocsScreen from './pages/docs/DocsScreen';
+
 
 function App() {
   return (
@@ -24,6 +26,7 @@ function App() {
           <Route path={routes.main} element={<MainPanelContainer children={<MainScreen />} />} />
           <Route path={routes.appointment} element={<MainPanelContainer children={<AppointmentFormScreen />}/>}/>
           <Route path={routes.privacyPolicy} element={<MainPanelContainer children={<PrivacyPolicyScreen />} />}/>
+          <Route path={routes.docs} element={<MainPanelContainer children={<DocsScreen />} />}/>
           <Route path={routes.authAdmin} element={<AdminLoginScreen />} />
           <Route path={routes.infographics} element={<AdminPanelContainer children={<InfographicsScreen />} />} />
           <Route path={routes.services} element={<AdminPanelContainer children={<ServicesScreen />} />} />
