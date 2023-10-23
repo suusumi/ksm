@@ -11,9 +11,20 @@ import MenuItem from "@mui/material/MenuItem";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
 import PrimaryButton from "../primaryButton/PrimaryButton";
+import fullScreenMobileHeader from "./fullScreenMobileHeader";
+import FullScreenMobileHeader from "./fullScreenMobileHeader";
 import { routes } from "../../assets/routes/routes";
 
-const ButtonAppBar: React.FC<{}> = () => {
+interface ButtonAppBarProps {}
+
+const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
+  // Состояния для меню иконки и выпадающего меню
+  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
+  const [menuOpen, setMenuOpen] = useState(false);
+
+  // Состояние для раскрывающегося меню
+  const [fullScreenMenuOpen, setFullScreenMenuOpen] = useState(false);
+
   const scrollToBlock = (blockId: string) => {
     const block = document.getElementById(blockId);
     if (block) {
@@ -21,9 +32,10 @@ const ButtonAppBar: React.FC<{}> = () => {
     }
   };
 
-  // Состояния для меню иконки и выпадающего меню
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
+  // открытие меню
+  const toggleFullScreenMenu = () => {
+    setFullScreenMenuOpen(!fullScreenMenuOpen);
+  };
 
   // Создаем массив элементов меню
   const menuItems = [
@@ -82,7 +94,7 @@ const ButtonAppBar: React.FC<{}> = () => {
             <img
               src="/logos/header_logo.svg"
               alt=""
-              style={{ width: isXsScreen ? "50%" : "30%", margin: "10px 0px" }}
+              style={{ width: isXsScreen ? "40%" : "10em", margin: "10px 0px" }}
             />
           </Typography>
           {/* Навигационные кнопки для десктопа */}
@@ -114,7 +126,7 @@ const ButtonAppBar: React.FC<{}> = () => {
               color="inherit"
               aria-label="menu"
               sx={{ mr: 2, color: "black" }}
-              onClick={toggleMenu}
+              onClick={toggleFullScreenMenu}
             >
               <MenuIcon />
             </IconButton>
@@ -162,6 +174,23 @@ const ButtonAppBar: React.FC<{}> = () => {
           </Menu>
         </Toolbar>
       </AppBar>
+      {fullScreenMenuOpen && (
+        <div
+          style={{
+            position: "fixed",
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            zIndex: 3,
+            backgroundColor: "white",
+          }}
+        >
+          <FullScreenMobileHeader closeMenu={toggleFullScreenMenu} />
+        </div>
+      )}
+
+      {/* Отображение большого меню */}
     </Box>
   );
 };

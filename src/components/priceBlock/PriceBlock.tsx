@@ -15,6 +15,8 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { fetchAllServices } from "../../api/services/request";
+import PriceSearch from "./PriceSearch";
+import PriceCategorySelector from "./PriceCategorySelector";
 
 interface PriceProps {
   id: string;
@@ -40,13 +42,23 @@ const Price: React.FC<PriceProps> = ({ id }) => {
 
   const [searchResults, setSearchResults] = useState<Service[]>([]);
 
+  // дублирование type
+  const [uniqueCategories, setUniqueCategories] = useState<string[]>([]);
+
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetchAllServices();
         if (response.ok) {
-          const data = await response.json();
+          const data: Service[] = await response.json(); // Укажите тип данных Service
           setPriceData(data);
+
+          // Фильтруйте уникальные категории здесь
+          const uniqueCategories = Array.from(
+            new Set(data.map((service) => service.type))
+          );
+
+          setUniqueCategories(uniqueCategories);
         } else {
           throw new Error(
             "Ошибка в получении всех услуг: " + response.statusText
@@ -59,6 +71,13 @@ const Price: React.FC<PriceProps> = ({ id }) => {
 
     fetchData();
   }, []);
+  useEffect(() => {
+    // Фильтруем данные по тексту поиска
+    const filteredServices = priceData.filter((service) =>
+      service.name.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setSearchResults(filteredServices);
+  }, [searchText, priceData]);
 
   const theme = useTheme();
   const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
@@ -93,101 +112,21 @@ const Price: React.FC<PriceProps> = ({ id }) => {
       >
         Услуги
       </Typography>
-      <Box>
-        {isXsScreen ? (
-          <FormControl fullWidth>
-            <Select
-              value={selectedCategory}
-              onChange={(e) => handleCategoryChange(e.target.value as string)}
-              sx={{
-                marginBottom: "35px",
-                "&.Mui-focused": {
-                  borderColor: "#288e81 !important",
-                },
-              }}
-            >
-              <MenuItem
-                value=""
-                sx={{
-                  "&.Mui-selected": {
-                    backgroundColor: "#288e81",
-                    color: "white",
-                  },
-                }}
-              >
-                Выберите категорию
-              </MenuItem>
-              {priceData.map((service) => (
-                <MenuItem
-                  key={service.id}
-                  value={service.type}
-                  sx={{
-                    "&.Mui-selected": {
-                      backgroundColor: "#288e81",
-                      color: "white",
-                    },
-                  }}
-                >
-                  {service.type}
-                </MenuItem>
-              ))}
-            </Select>
-          </FormControl>
-        ) : (
-          <Box>
-            {priceData.map((service) => (
-              <Button
-                key={service.id}
-                sx={{
-                  backgroundColor: "transparent",
-                  border: "2px solid #288e81",
-                  color:
-                    activeCategory === service.type ? "#ffffff" : "#288e81",
-                  "&.active": {
-                    backgroundColor: "#288e81",
-                    color: "#ffffff",
-                  },
-                  margin: "0px 15px 15px 0",
-                  minWidth: "150px",
-                }}
-                className={activeCategory === service.type ? "active" : ""}
-                onClick={() => handleCategoryChange(service.type)}
-              >
-                {service.type}
-              </Button>
-            ))}
-          </Box>
-        )}
-      </Box>
+
+      {/* Кнопки/селектор категории */}
+      <PriceCategorySelector
+        selectedCategory={selectedCategory}
+        handleCategoryChange={handleCategoryChange}
+        priceData={priceData}
+        activeCategory={activeCategory}
+        isXsScreen={isXsScreen}
+      />
+
+      {/* Поиск по прайсу */}
       <FormControl fullWidth sx={{ marginBottom: "15px" }}>
-        <TextField
-          label="Поиск по услугам"
-          value={searchText}
-          sx={{
-            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
-              {
-                borderColor: "#288e81",
-              },
-            "& .MuiInputLabel-root.Mui-focused": {
-              color: "#288e81",
-            },
-            "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
-              borderColor: "gray",
-            },
-            "& .MuiInputLabel-root": {
-              color: "gray",
-            },
-          }}
-          onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            const searchText = e.target.value.toLowerCase();
-            setSearchText(searchText);
-            const filteredServices = priceData.filter((service) =>
-              service.name.toLowerCase().includes(searchText)
-            );
-            setSearchResults(filteredServices);
-          }}
-        />
+        <PriceSearch searchText={searchText} onSearchChange={setSearchText} />
       </FormControl>
+      {/* Результаты поиска */}
       {searchResults.length > 0 ? (
         <Box>
           {searchText.length > 0 &&
@@ -255,6 +194,7 @@ const Price: React.FC<PriceProps> = ({ id }) => {
         </Box>
       ) : null}
 
+      {/* Отображение выпадающих список с их услугами */}
       {selectedCategory && (
         <Box>
           <Box>
