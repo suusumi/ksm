@@ -13,6 +13,7 @@ import { ThemeProvider, useTheme } from "@mui/material/styles";
 import PrimaryButton from "../primaryButton/PrimaryButton";
 import FullScreenMobileHeader from "./fullScreenMobileHeader";
 import { Link, useNavigate } from "react-router-dom";
+import { routes } from "../../assets/routes/routes";
 
 interface ButtonAppBarProps {}
 
@@ -89,7 +90,9 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
     { label: "Где мы находимся", onClick: () => scrollToBlock("mapBlock") },
     {
       label: "Контакты",
-      onClick: () => scrollToBlock("ourContactsBlock"),
+      onClick: () => {
+        scrollToBlock("ourContactsBlock");
+      },
       subMenuItems: [
         {
           label: "Документы",
@@ -99,7 +102,10 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
         },
         {
           label: "О нас",
-          onClick: () => scrollToBlock("aboutUsBlock"),
+          onClick: async () => {
+            await navigate(routes.main);
+            scrollToBlock("aboutUsBlock");
+          },
         },
         {
           label: "Политика конфиденциальности",
