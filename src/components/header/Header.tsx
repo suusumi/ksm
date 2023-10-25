@@ -12,7 +12,7 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
 import PrimaryButton from "../primaryButton/PrimaryButton";
 import FullScreenMobileHeader from "./fullScreenMobileHeader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface ButtonAppBarProps {}
 
@@ -20,6 +20,7 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
   const [anchorEls, setAnchorEls] = useState<
     Record<number, HTMLElement | null>
   >({});
+
   const [fullScreenMenuOpen, setFullScreenMenuOpen] = useState(false);
 
   const scrollToBlock = (blockId: string) => {
@@ -29,6 +30,10 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
     }
   };
 
+  const handleClose = (index: number) => {
+    setAnchorEls({ ...anchorEls, [index]: null });
+  };
+
   const handleMenu = (
     event: React.MouseEvent<HTMLButtonElement>,
     index: number
@@ -36,13 +41,18 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
     setAnchorEls({ ...anchorEls, [index]: event.currentTarget });
   };
 
-  const handleClose = (index: number) => {
-    setAnchorEls({ ...anchorEls, [index]: null });
-  };
-
   const toggleFullScreenMenu = () => {
     setFullScreenMenuOpen(!fullScreenMenuOpen);
   };
+
+  // TODO: убирание мышки
+  const handleMouseLeave = (index: number) => {
+    setTimeout(() => {
+      setAnchorEls((prevAnchorEls) => ({ ...prevAnchorEls, [index]: null }));
+    }, 200); // Устанавливаем задержку в 200 миллисекунд перед закрытием SubMenu
+  };
+
+  const navigate = useNavigate();
 
   const theme = useTheme();
   const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
@@ -51,7 +61,7 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
   const menuItems = [
     {
       label: "О клинике",
-      onClick: () => scrollToBlock(""),
+      // onClick: () => scrollToBlock(""),
       subMenuItems: [
         {
           label: "Документы",
@@ -73,12 +83,18 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
     },
     {
       label: "Наши специалисты",
-      onClick: () => scrollToBlock(""),
+      onClick: () => scrollToBlock("ourSpecialistsBlock"),
+    },
+    { label: "Услуги", onClick: () => scrollToBlock("priceBlock") },
+    { label: "Где мы находимся", onClick: () => scrollToBlock("mapBlock") },
+    {
+      label: "Контакты",
+      onClick: () => scrollToBlock("ourContactsBlock"),
       subMenuItems: [
         {
-          label: "Пункт специалистов",
+          label: "Документы",
           onClick: () => {
-            scrollToBlock("ourSpecialists");
+            /* Handle click for category 1 */
           },
         },
         {
@@ -88,14 +104,11 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
         {
           label: "Политика конфиденциальности",
           onClick: () => {
-            scrollToBlock("mapBlock");
+            navigate(routes.privacyPolicy);
           },
         },
       ],
     },
-    { label: "Услуги", onClick: () => scrollToBlock("priceBlock") },
-    { label: "Где мы находимся", onClick: () => scrollToBlock("mapBlock") },
-    { label: "Контакты", onClick: () => scrollToBlock("ourContactsBlock") },
   ];
 
   // Обработчик открытия выпадающего мен
@@ -113,7 +126,6 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
-        position="fixed"
         sx={{
           width: isXsScreen ? "100%" : "80%", // 100% ширина на экранах xs, 80% на остальных
           left: "50%",
@@ -146,9 +158,13 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
                   padding: "8px 16px",
                   whiteSpace: "nowrap",
                 }}
-                onClick={item.onClick}
-                onMouseOver={(e) => handleMenu(e, index)}
-                onMouseOut={() => handleClose(index)}
+                // onClick={handleMenu}
+                onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
+                  handleMenu(e, index)
+                }
+
+                // onMouseOver={(e) => handleMenu(e, index)}
+                // onMouseOut={() => handleMouseLeave(index)}
               >
                 {item.label}
                 {item.subMenuItems && (
@@ -158,9 +174,15 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
                     onClose={() => handleClose(index)}
                     anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
                     transformOrigin={{ vertical: "top", horizontal: "center" }}
+                    MenuListProps={{
+                      onMouseLeave: (event) => handleClose(index),
+                    }}
                   >
                     {item.subMenuItems.map((subItem, subIndex) => (
-                      <MenuItem key={subIndex} onClick={subItem.onClick}>
+                      <MenuItem
+                        key={subIndex}
+                        onClick={() => subItem.onClick()}
+                      >
                         {subItem.label}
                       </MenuItem>
                     ))}
@@ -189,7 +211,7 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
       {fullScreenMenuOpen && (
         <div
           style={{
-            position: "fixed",
+            position: "sticky",
             top: 0,
             left: 0,
             right: 0,
