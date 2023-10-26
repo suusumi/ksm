@@ -117,7 +117,7 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
     },
   ];
 
-  // Обработчик открытия выпадающего мен
+  // Обработчик открытия выпадающего меню
   // Обработчик открытия/закрытия меню на мобильных устройствах
   // const toggleMenu = () => {
   //   setMenuOpen(!menuOpen);
@@ -164,13 +164,9 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
                   padding: "8px 16px",
                   whiteSpace: "nowrap",
                 }}
-                // onClick={handleMenu}
                 onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
                   handleMenu(e, index)
                 }
-
-                // onMouseOver={(e) => handleMenu(e, index)}
-                // onMouseOut={() => handleMouseLeave(index)}
               >
                 {item.label}
                 {item.subMenuItems && (
@@ -217,7 +213,7 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
       {fullScreenMenuOpen && (
         <div
           style={{
-            position: "sticky",
+            position: "fixed",
             top: 0,
             left: 0,
             right: 0,
