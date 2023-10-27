@@ -47,3 +47,12 @@ export const updateCategory = async (id: number, dto: CreateOrUpdateCategoryDto)
   
   return response.json();
 }
+
+export const deleteCategory = async (id: number): Promise<CategoryDto> => {
+  const response = await HttpClient.delete(`categories/${id}`);
+  if (!response.ok) {
+    throw new Error(response.statusText + " -  Ошибка при удалении категории!");
+  }
+
+  return response.json();
+}
