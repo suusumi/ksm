@@ -51,6 +51,7 @@ const WelcomeBlock: React.FC = () => {
   const TitleText = {
     color: "#288e81",
     fontSize: isXsScreen ? 30 : 70,
+    lineHeight: " 1.2 ",
     fontFamily: "Austin, sans-serif",
     textTransform: "uppercase",
     maxWidth: isXsScreen ? 240 : 500,
@@ -114,6 +115,7 @@ const WelcomeBlock: React.FC = () => {
         ) : (
           <>
             <Grid item xs={12} sm={6} md={6}>
+              {/* TODO: необходимо добавить отступ для WelcomePhraseButton */}
               <WelcomePhraseButton slogan={data[0]?.slogan || ""} />
               <Typography sx={TitleText}>{data[0]?.title || ""}</Typography>
               <Typography sx={SubtitleText}>
