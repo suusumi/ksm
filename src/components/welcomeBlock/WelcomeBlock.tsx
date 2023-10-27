@@ -116,7 +116,9 @@ const WelcomeBlock: React.FC = () => {
           <>
             <Grid item xs={12} sm={6} md={6}>
               {/* TODO: необходимо добавить отступ для WelcomePhraseButton */}
-              <WelcomePhraseButton slogan={data[0]?.slogan || ""} />
+              <div style={{ marginBottom: "20px" }}>
+                <WelcomePhraseButton slogan={data[0]?.slogan || ""} />
+              </div>
               <Typography sx={TitleText}>{data[0]?.title || ""}</Typography>
               <Typography sx={SubtitleText}>
                 {data[0]?.subtitle || ""}
