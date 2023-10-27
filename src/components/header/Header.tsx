@@ -62,42 +62,14 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
   const menuItems = [
     {
       label: "О клинике",
-      // onClick: () => scrollToBlock(""),
-      subMenuItems: [
-        {
-          label: "Документы",
-          onClick: () => {
-            /* Handle click for category 1 */
-          },
-        },
-        {
-          label: "О нас",
-          onClick: () => scrollToBlock("aboutUsBlock"),
-        },
-        {
-          label: "Политика конфиденциальности",
-          onClick: () => {
-            return <Link to="/privacy-policy" />;
-          },
-        },
-      ],
-    },
-    {
-      label: "Наши специалисты",
-      onClick: () => scrollToBlock("ourSpecialistsBlock"),
-    },
-    { label: "Услуги", onClick: () => scrollToBlock("priceBlock") },
-    { label: "Где мы находимся", onClick: () => scrollToBlock("mapBlock") },
-    {
-      label: "Контакты",
       onClick: () => {
-        scrollToBlock("ourContactsBlock");
+        navigate(routes.main);
       },
       subMenuItems: [
         {
           label: "Документы",
           onClick: () => {
-            /* Handle click for category 1 */
+            navigate(routes.docs);
           },
         },
         {
@@ -111,6 +83,38 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
           label: "Политика конфиденциальности",
           onClick: () => {
             navigate(routes.privacyPolicy);
+          },
+        },
+      ],
+    },
+    {
+      label: "Наши специалисты",
+      onClick: async () => {
+        navigate(routes.main);
+        scrollToBlock("ourSpecialistsBlock");
+      },
+      // onClick: () => scrollToBlock("ourSpecialistsBlock"),
+    },
+    { label: "Услуги", onClick: () => scrollToBlock("priceBlock") },
+    { label: "Где мы находимся", onClick: () => scrollToBlock("mapBlock") },
+    {
+      label: "Контакты",
+      onClick: () => {
+        scrollToBlock("ourContactsBlock");
+      },
+      subMenuItems: [
+        {
+          label: "+7 (937) 097-12-12",
+          onClick: () => {
+            const phoneNumber = "+79370971212"; // The phone number you want to dial
+            window.open(`tel:${phoneNumber}`);
+          },
+        },
+        {
+          label: "(8442) 97-12-12",
+          onClick: () => {
+            const phoneNumber = "(8442) 97-12-12"; // The phone number you want to dial
+            window.open(`tel:${phoneNumber}`);
           },
         },
       ],
@@ -148,6 +152,7 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
               src="/logos/header_logo.svg"
               alt=""
               style={{ width: isXsScreen ? "40%" : "10em", margin: "10px 0px" }}
+              onClick={() => navigate(routes.main)}
             />
           </Typography>
           <Box
