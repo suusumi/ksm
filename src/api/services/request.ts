@@ -1,5 +1,7 @@
 import { json } from "stream/consumers";
 import { HttpClient } from "../../ky/HttpClient";
+import { HTTPError } from "ky";
+import { CategoryDto, CreateOrUpdateCategoryDto } from "./dto";
 
 /**
  * Получение всех услуг
@@ -18,3 +20,30 @@ export const fetchAllServices = async (): Promise<Response> => {
     throw new Error("Ошибка: " + error);
   }
 };
+
+export const fetchAllCategories = async (): Promise<CategoryDto[]> => {
+  const response = await HttpClient.get("categories");
+  if (!response.ok) {
+    throw new Error("Ошибка в получение всех категорий: " + response.statusText);
+  }
+
+  return response.json();
+}
+
+export const createCategory = async (dto: CreateOrUpdateCategoryDto): Promise<CategoryDto> => {
+  const response = await HttpClient.post("categories", {json: dto});
+  if (!response.ok) {
+    throw new Error("Ошибка при создании новой категории");
+  }
+
+  return response.json();
+}
+
+export const updateCategory = async (id: number, dto: CreateOrUpdateCategoryDto): Promise<CategoryDto> => {
+  const response = await HttpClient.patch(`categories/${id}`, {json: dto});
+  if (!response.ok) {
+    throw new Error(response.statusText + " - Ошибка при обновлении категории!");
+  }
+  
+  return response.json();
+}
