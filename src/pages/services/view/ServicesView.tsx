@@ -2,7 +2,10 @@ import React from "react";
 import { ServicesViewProps } from "../model/ServicesModel";
 import { Button, Grid, TextField, Typography } from "@mui/material";
 import theme from "../../../assets/theme/Theme";
-
+import {
+  ChangingButtons,
+  ChangingButtonsEdit,
+} from "../../../components/ChangingButtonGroup/ChangingButtonsGroup";
 
 const styles = {
   textHeader: {
@@ -29,7 +32,11 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
       <Grid item xs={3} container direction={"row"} spacing={2}>
         {props.categories?.map((category) => {
           return (
-            <Grid item paddingTop={"14px"} key={"categoryIputText" + category.id}>
+            <Grid
+              item
+              paddingTop={"14px"}
+              key={"categoryIputText" + category.id}
+            >
               <Button
                 variant={
                   category.id === props.idButtonSelection
@@ -69,22 +76,21 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
           margin={0}
           paddingLeft={0}
         >
-          <Grid item xs={3} container direction={"row"} spacing={3}>
+          <Grid item xs={3} container direction={"row"} spacing={2}>
             {!props.isOpenChangeCategory && (
               <>
-                <Typography style={styles.textHeader}>
+                <Typography style={styles.textHeader} marginRight={1}>
                   {props.categories
                     ?.filter(
                       (category) => category.id === props.idButtonSelection
                     )
                     .map((category) => category.name)}
                 </Typography>
-                <Button onClick={() => props.openFormChangeCategory()}>
-                  Изменить
-                </Button>
-                <Button onClick={() => props.handleDeleteCategory(props.idButtonSelection)}>
-                  Удалить
-                </Button>
+                <ChangingButtons
+                  id={props.idButtonSelection}
+                  handleOpen={props.openFormChangeCategory}
+                  handleDelete={props.handleDeleteCategory}
+                />
               </>
             )}
             {props.isOpenChangeCategory && (
@@ -94,13 +100,14 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
                   variant="outlined"
                   label="Введите наименование категории"
                   value={props.newCategory.name}
-                  onChange={(event) =>
-                    props.handleChangeCategory(event)
-                  }
+                  onChange={(event) => props.handleChangeCategory(event)}
+                  sx={{marginRight: 1}}
                 />
-                <Button onClick={() => props.handleUpdateCategory(props.idButtonSelection)}>
-                  Сохранить
-                </Button>
+                <ChangingButtonsEdit
+                  id={props.idButtonSelection}
+                  handleUpdate={props.handleUpdateCategory}
+                  handleClose={props.openFormChangeCategory}
+                />
               </>
             )}
           </Grid>
