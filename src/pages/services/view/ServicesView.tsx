@@ -82,6 +82,9 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
                 <Button onClick={() => props.openFormChangeCategory()}>
                   Изменить
                 </Button>
+                <Button onClick={() => props.handleDeleteCategory(props.idButtonSelection)}>
+                  Удалить
+                </Button>
               </>
             )}
             {props.isOpenChangeCategory && (
