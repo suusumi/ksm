@@ -1,32 +1,55 @@
 import React from "react"
 import { ButtonGroup, IconButton } from '@mui/material';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
+import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
+import DeleteOutlineOutlinedIcon from '@mui/icons-material/DeleteOutlineOutlined';
+import CloseIcon from '@mui/icons-material/Close';
+import CheckIcon from '@mui/icons-material/Check';
 
-interface IChangingButton {
-    changingService: Function,
-    changing: string,
-    deleteService: Function,
-    idTitle: number,
-    idSubCategory: number,
-    idService: number,
+interface ChangingButtonsProps {
+    id: number,
+    handleOpen: Function,
+    handleDelete: Function,
 }
 
-export const ChangingButtons: React.FC<IChangingButton> = ({ changingService, changing, deleteService, idTitle, idSubCategory, idService }) => {
+export const ChangingButtons: React.FC<ChangingButtonsProps> = ({ id, handleOpen, handleDelete }) => {
     return (
         <ButtonGroup>
             <IconButton aria-label="edit"
-                onClick={(event) => changingService(event, changing)}
+                onClick={() => handleOpen()}
                 sx={{ paddingY: 0 }}
             >
-                <EditIcon />
+                <EditOutlinedIcon />
             </IconButton>
 
             <IconButton aria-label='delete'
-                onClick={(event) => deleteService(event, idTitle, idSubCategory, idService)}
+                onClick={() => handleDelete(id)}
                 sx={{ paddingY: 0 }}
             >
-                <DeleteIcon />
+                <DeleteOutlineOutlinedIcon />
+            </IconButton>
+        </ButtonGroup>
+    );
+}
+
+interface ChangingButtonsEditProps {
+    id: number,
+    handleUpdate: Function,
+    handleClose: Function,
+}
+
+export const ChangingButtonsEdit: React.FC<ChangingButtonsEditProps> = ({ id, handleUpdate, handleClose }) => {
+    return (
+        <ButtonGroup>
+            <IconButton aria-label="save"
+                onClick={() => handleUpdate(id)}
+                sx={{ paddingY: 0 }}
+            >
+                <CheckIcon />                
+            </IconButton>
+
+            <IconButton aria-label="close"
+            onClick={() => handleClose()}>
+                <CloseIcon />
             </IconButton>
         </ButtonGroup>
     );
