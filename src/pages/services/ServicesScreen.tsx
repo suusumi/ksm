@@ -36,7 +36,7 @@ export const ServicesScreen = () => {
       name: `New Category ${
         categories === undefined || categories.length === 0
           ? 1
-          : categories[categories.length - 1].id + 1
+          : categories.length + 1
       }`,
     };
     await createCategory(newCategory);
