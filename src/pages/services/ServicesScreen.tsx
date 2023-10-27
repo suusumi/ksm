@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ServicesView } from "./view/ServicesView";
 import {
   createCategory,
+  deleteCategory,
   fetchAllCategories,
   updateCategory,
 } from "../../api/services/request";
@@ -69,7 +70,9 @@ export const ServicesScreen = () => {
   };
 
   const handleDeleteCategory = (id: number) => {
-    console.log("DELETE");
+    deleteCategory(id).catch((error) => console.error(error));
+    handleChoise(-1);
+    setUpdate({});
   };
 
   return (
@@ -83,6 +86,7 @@ export const ServicesScreen = () => {
       openFormChangeCategory={openFormChangeCategory}
       handleChangeCategory={handleChangeCategory}
       handleUpdateCategory={handleUpdateCategory}
+      handleDeleteCategory={handleDeleteCategory}
     />
   );
 };

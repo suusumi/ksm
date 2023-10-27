@@ -10,4 +10,5 @@ export interface ServicesViewProps {
   openFormChangeCategory: Function;
   handleChangeCategory: Function;
   handleUpdateCategory: Function;
+  handleDeleteCategory: Function;
 }
