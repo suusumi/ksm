@@ -1,132 +1,88 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ServicesView } from "./view/ServicesView";
-import { ServicesDto, data1 } from "./model/ServicesModel";
+import {
+  createCategory,
+  fetchAllCategories,
+  updateCategory,
+} from "../../api/services/request";
+import { CategoryDto, CreateOrUpdateCategoryDto } from "../../api/services/dto";
 
 export const ServicesScreen = () => {
+  const [categories, setCategories] = useState<CategoryDto[]>();
+  const [idButtonSelection, setIdButtonSelection] = useState(-1);
+  const [update, setUpdate] = useState({});
+  const [isOpenChangeCategory, setIsOpenChangeCategory] =
+    useState<boolean>(false);
+  const [newCategory, setNewCategory] = useState<CreateOrUpdateCategoryDto>({
+    name: "",
+  });
 
-    const [services, setServices] = useState<ServicesDto>(data1);
-    const [idButtonSelection, setIdButtonSelection] = useState(0);
-    const [isChanging, setIsChanging] = useState<string>("");
+  useEffect(() => {
+    fetchAllCategories()
+      .then((data) => {
+        setCategories(data);
+      })
+      .catch((error) => console.error(error));
+  }, [, update]);
 
-    const handleChoise = (event: any, id: number) => {
-        setIdButtonSelection(id);
+  const handleChoise = (id: number) => {
+    setIdButtonSelection(id);
+    setIsOpenChangeCategory(false);
+  };
+
+  const handleCreateCategory = async () => {
+    const newCategory: CreateOrUpdateCategoryDto = {
+      name: `New Category ${
+        categories === undefined || categories.length === 0
+          ? 1
+          : categories[categories.length - 1].id + 1
+      }`,
     };
+    await createCategory(newCategory);
+    setUpdate({});
+  };
 
-    const changingService = (event: any, changing: string) => {
-        if (isChanging === changing) {
-            setIsChanging('');
-        } else {
-            setIsChanging(changing);
-        }
+  const openFormChangeCategory = () => {
+    setIsOpenChangeCategory(!isOpenChangeCategory);
+  };
+
+  useEffect(() => {
+    if (isOpenChangeCategory) {
+      setNewCategory({
+        name:
+          categories?.find((category) => category.id == idButtonSelection)
+            ?.name ?? "",
+      });
     }
+  }, [isOpenChangeCategory]);
 
-    const handleChangeTitle = (event: any, id: number) => {
-        let newServices = [...services];
-        newServices[id].categoryTitle = event.target.value;
-        setServices(newServices);
-    };
+  const handleChangeCategory = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setNewCategory({ name: event.target.value });
+  };
 
-    const handleChangeCategory = (event: any, idTitle: number, idCategory: number) => {
-        let newServices = [...services];
-        newServices[idTitle].subcategories[idCategory].subcategoryTitle = event.target.value;
-        setServices(newServices);
-    }
+  const handleUpdateCategory = async (id: number) => {
+    await updateCategory(id, newCategory).catch((error) =>
+      console.error(error)
+    );
+    openFormChangeCategory();
+    setUpdate({});
+  };
 
-    const handleCreate = (event: any, idTitle: number, idCategory: number, idService: number, type: string) => {
-        let newServices = [...services];
-        if (type === 'title') {
-            const createTitle = {
-                id: services.length,
-                categoryTitle: "Заголовок",
-                subcategories: [
-                    {
-                        subcategoryTitle: "Подзаголовок",
-                        services: [
-                            {
-                                serviceText: "Название услуги",
-                                serviceID: "КОД МКБ",
-                                price: "0",
-                            }
-                        ]
-                    },
-                ]
-            };
+  const handleDeleteCategory = (id: number) => {
+    console.log("DELETE");
+  };
 
-            newServices.push(createTitle);
-            setIdButtonSelection(services.length)
-
-        } else if (type === 'category') {
-            const createCategory = {
-                subcategoryTitle: "Подзаголовок",
-                services: [
-                    {
-                        serviceText: "Название услуги",
-                        serviceID: "КОД МКБ",
-                        price: "0",
-                    }
-                ]
-            };
-
-            newServices[idTitle].subcategories.push(createCategory);
-        } else if (type === 'service') {
-            const createService = {
-                serviceText: "Название услуги",
-                serviceID: "КОД МКБ",
-                price: "0",
-            }
-
-            newServices[idTitle].subcategories[idCategory].services.push(createService);
-        } else {
-            console.log('Что-то пошло не так!');
-        }
-
-        setServices(newServices);
-    }
-
-    const handleChangeService = (event: any, idTitle: number, idCategory: number, idService: number, type: string) => {
-        let newServices = [...services];
-        if (type === 'title') {
-            newServices[idTitle].subcategories[idCategory].services[idService].serviceText = event.target.value;
-        } else if (type === 'price') {
-            newServices[idTitle].subcategories[idCategory].services[idService].price = event.target.value;
-        } else if (type === 'ID') {
-            newServices[idTitle].subcategories[idCategory].services[idService].serviceID = event.target.value;
-        } else {
-            console.log("Что-то пошло не так");
-        }
-        setServices(newServices);
-    }
-
-    const deleteService = (event: any, idTitle: number, idSubCategory: number, idService: number) => {
-        let newServiceArray = [...services];
-        if (idSubCategory === -1 && idService === -1) {
-            console.log('Удаляю вот эту категорию: ', newServiceArray[idTitle]);
-            newServiceArray.splice(idTitle, 1);
-        } else if (idSubCategory !== -1 && idService === -1) {
-            console.log('Удаляю вот эту подкатегорию: ', newServiceArray[idTitle].subcategories[idSubCategory]);
-            newServiceArray[idTitle].subcategories.splice(idSubCategory, 1);
-        } else if (idSubCategory !== -1 && idService !== -1) {
-            console.log('Удаляю вот эту услугу: ', newServiceArray[idTitle].subcategories[idSubCategory].services[idService]);
-            newServiceArray[idTitle].subcategories[idSubCategory].services.splice(idService, 1);
-        } else {
-            console.log('Error, что-то тут не так');
-        }
-
-        setServices(newServiceArray);
-    }
-
-    return (
-        <ServicesView
-            services={services}
-            idButtonSelection={idButtonSelection}
-            handleChoise={handleChoise}
-            isChanging={isChanging}
-            changingService={changingService}
-            deleteService={deleteService}
-            handleChangeTitle={handleChangeTitle}
-            handleChangeCategory={handleChangeCategory}
-            handleChangeService={handleChangeService}
-            handleCreate={handleCreate}
-        />
-    )
-}
+  return (
+    <ServicesView
+      categories={categories}
+      idButtonSelection={idButtonSelection}
+      isOpenChangeCategory={isOpenChangeCategory}
+      newCategory={newCategory}
+      handleChoise={handleChoise}
+      handleCreateCategory={handleCreateCategory}
+      openFormChangeCategory={openFormChangeCategory}
+      handleChangeCategory={handleChangeCategory}
+      handleUpdateCategory={handleUpdateCategory}
+    />
+  );
+};
