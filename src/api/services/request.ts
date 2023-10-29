@@ -21,6 +21,11 @@ export const fetchAllServices = async (): Promise<Response> => {
   }
 };
 
+/**
+ * Получение всех категорий
+ * 
+ * @returns {Promise<CategoryDto[]>} Promise -> Список категорий 
+ */
 export const fetchAllCategories = async (): Promise<CategoryDto[]> => {
   const response = await HttpClient.get("categories");
   if (!response.ok) {
@@ -30,6 +35,12 @@ export const fetchAllCategories = async (): Promise<CategoryDto[]> => {
   return response.json();
 }
 
+/**
+ * Создание новой категории
+ * 
+ * @param dto - новая категория
+ * @returns {Promise<CategoryDto>} Promise -> Созданная Категория
+ */
 export const createCategory = async (dto: CreateOrUpdateCategoryDto): Promise<CategoryDto> => {
   const response = await HttpClient.post("categories", {json: dto});
   if (!response.ok) {
@@ -39,6 +50,13 @@ export const createCategory = async (dto: CreateOrUpdateCategoryDto): Promise<Ca
   return response.json();
 }
 
+/**
+ * Обновлении категории
+ * 
+ * @param id - идентификатор категории, которая будет обновлена
+ * @param dto - обновленная категория
+ * @returns {Promise<CategoryDto>} Promise -> обновленная категория
+ */
 export const updateCategory = async (id: number, dto: CreateOrUpdateCategoryDto): Promise<CategoryDto> => {
   const response = await HttpClient.patch(`categories/${id}`, {json: dto});
   if (!response.ok) {
@@ -48,6 +66,12 @@ export const updateCategory = async (id: number, dto: CreateOrUpdateCategoryDto)
   return response.json();
 }
 
+/**
+ * Удаление категории
+ * 
+ * @param id - идентификатор удаляемой категории
+ * @returns {Promise<CategoryDto>} Promise -> удаленная категория
+ */
 export const deleteCategory = async (id: number): Promise<CategoryDto> => {
   const response = await HttpClient.delete(`categories/${id}`);
   if (!response.ok) {
