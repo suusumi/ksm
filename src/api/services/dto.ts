@@ -5,15 +5,30 @@
  * @property {string} name - наименование услуги
  * @property {string} description - номер услуги
  * @property {number} price - цена
- * @property {number} subCategoryId - идентификатор SubCategory
+ * @property {number} sub_category_id - идентификатор SubCategory
  */
 export type ServiceDto = {
   id: number;
   name: string;
   description: string;
   price: number;
-  subCategoryId: number;
+  sub_category_id: number;
 };
+
+/**
+ * Create Or Update Service Dto
+ * 
+ * @property {string} name
+ * @property {string} description
+ * @property {string} 
+ * @property {string} name
+ */
+export type CreateOrUpdateServiceDto = {
+  name: string;
+  description: string;
+  price: number;
+  sub_category_id: number;
+}
 
 /**
  * SubcatrgotyDro
