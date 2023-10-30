@@ -16,16 +16,26 @@ export type ServiceDto = {
 };
 
 /**
- * SubCatrgotyDro
+ * SubcatrgotyDro
  * 
  * @property {number} id - идентификатор
  * @property {string} name - намиенование подкатегории
  * @property {categoryId} categoryId - иденнтификатор Category
  */
-export type SubCategoryDto = {
+export type SubcategoryDto = {
   id: number,
   name: string,
-  categoryId: number
+  category_id: number
+}
+
+/**
+ * Create Or Update Category Dto
+ * 
+ * @property {} name - наименование подкатегории
+ */
+export type CreateOrUpdateSubcategoryDto = {
+  name: string,
+  category_id: number,
 }
 
 /**
