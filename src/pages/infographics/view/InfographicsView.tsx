@@ -33,7 +33,7 @@ export const InfographicsView: React.FC<IInfographicsView> = (props) => {
             <Grid item xs={4}>
                 <Grid container direction={'row'} spacing={3}>
                     {props.data?.map((infographic) => (
-                        <Grid item xs={4}>
+                        <Grid item xs={4} key={"infographic_" + infographic.id}>
                             <Grid container direction={'column'} spacing={3}>
                                 <Grid item xs={6}>
                                     <TextField
@@ -85,7 +85,7 @@ export const InfographicsView: React.FC<IInfographicsView> = (props) => {
 
             <Grid item xs={4}>
                 <Grid container direction={'row'} spacing={3}>
-                    {props.data?.map((infographic) => (<Grid item xs={4}>
+                    {props.data?.map((infographic) => (<Grid item xs={4} key={"infographic_view_" + infographic.id}>
                         <Typography style={styles.TitleText}>{infographic.value}</Typography>
                         <Typography style={styles.StandartText}>{infographic.description}</Typography>
                     </Grid>))}
