@@ -14,6 +14,7 @@ import PrimaryButton from "../primaryButton/PrimaryButton";
 import FullScreenMobileHeader from "./fullScreenMobileHeader";
 import { Link, useNavigate } from "react-router-dom";
 import { routes } from "../../assets/routes/routes";
+import logo from "../../assets/content/header-logo.svg";
 
 interface ButtonAppBarProps {}
 
@@ -149,7 +150,7 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
         <Toolbar>
           <Typography component="div" sx={{ flexGrow: 1 }}>
             <img
-              src="/logos/header_logo.svg"
+              src={logo}
               alt=""
               style={{ width: isXsScreen ? "40%" : "10em", margin: "10px 0px" }}
               onClick={() => navigate(routes.main)}
