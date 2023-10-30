@@ -63,7 +63,7 @@ const StatisticBar: React.FC = () => {
   };
 
   return (
-    <div style={{ padding: "20px 0px" }}>
+    <div style={{ padding: isXsScreen ? "40px 0px" : "10px 0px" }}>
       <Grid container spacing={5}>
         {data.map((item, index) => (
           <Grid
