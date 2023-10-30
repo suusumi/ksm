@@ -1,6 +1,6 @@
 import React from "react";
 import { ServicesViewProps } from "../model/ServicesModel";
-import { Button, Grid, TextField, Typography } from "@mui/material";
+import { Button, Divider, Grid, TextField, Typography } from "@mui/material";
 import theme from "../../../assets/theme/Theme";
 import {
   ChangingButtons,
@@ -89,11 +89,11 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
                   handleDelete={props.handleDeleteCategory}
                 />
                 <Button
-                  variant='outlined'
+                  variant="outlined"
                   size="small"
                   onClick={() => props.handleCreateSubcategory()}
                 >
-                  + Добавить подкатегорию
+                  Добавить подкатегорию
                 </Button>
               </>
             )}
@@ -121,46 +121,143 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
               ?.filter((sub) => sub.category_id === props.idButtonSelection)
               ?.map((subcategory) => {
                 return (
-                  <Grid
-                    container
-                    direction={"row"}
-                    key={"subcategory_" + subcategory.id}
-                  >
-                    {props.idChangeSubcategory !== subcategory.id && (
-                      <>
-                        <Typography
-                          style={styles.textCategoryTitle}
-                          marginRight={2}
-                        >
-                          {subcategory.name}
-                        </Typography>
-                        <ChangingButtons
-                          id={subcategory.id}
-                          handleOpen={props.openFormChangeSubcategory}
-                          handleDelete={props.handleDeleteSubcategory}
-                        />
-                      </>
-                    )}
-                    {props.idChangeSubcategory === subcategory.id && (
-                      <>
-                        <TextField
-                          id="subcategoryInputText"
-                          variant="outlined"
-                          label="Введите наименование подкатегории"
-                          value={props.newSubcategory.name}
-                          onChange={(event) =>
-                            props.handleChangeSubcategory(event)
-                          }
-                          sx={{ marginRight: 1 }}
-                        />
-                        <ChangingButtonsEdit
-                          id={subcategory.id}
-                          handleUpdate={props.handleUpdateSubcategory}
-                          handleClose={props.openFormChangeSubcategory}
-                        />
-                      </>
-                    )}
-                  </Grid>
+                  <div key={"subcategory_" + subcategory.id}>
+                    <Grid container direction={"row"}>
+                      {props.idChangeSubcategory !== subcategory.id && (
+                        <>
+                          <Typography
+                            style={styles.textCategoryTitle}
+                            marginRight={2}
+                          >
+                            {subcategory.name}
+                          </Typography>
+                          <ChangingButtons
+                            id={subcategory.id}
+                            handleOpen={props.openFormChangeSubcategory}
+                            handleDelete={props.handleDeleteSubcategory}
+                          />
+                          <Button
+                            variant="outlined"
+                            size="small"
+                            onClick={() => props.handleCreateServise(subcategory.id)}
+                          >
+                            Добавить услугу
+                          </Button>
+                        </>
+                      )}
+                      {props.idChangeSubcategory === subcategory.id && (
+                        <>
+                          <TextField
+                            id="subcategoryInputText"
+                            variant="outlined"
+                            label="Введите наименование подкатегории"
+                            value={props.newSubcategory.name}
+                            onChange={(event) =>
+                              props.handleChangeSubcategory(event)
+                            }
+                            sx={{ marginRight: 1 }}
+                          />
+                          <ChangingButtonsEdit
+                            id={subcategory.id}
+                            handleUpdate={props.handleUpdateSubcategory}
+                            handleClose={props.openFormChangeSubcategory}
+                          />
+                        </>
+                      )}
+                    </Grid>
+                      <Divider />
+
+                    {props.services
+                      ?.filter(
+                        (item) => item.sub_category_id === subcategory.id
+                      )
+                      ?.map((service) => {
+                        return (
+                          <Grid
+                            container
+                            direction={"row"}
+                            key={"service_" + service.id}
+                            marginY={"8px"}
+                            marginLeft={"12px"}
+                          >
+                            {props.idChangeService !== service.id && (
+                              <>
+                                <Grid item xs={3}>
+                                  <Typography>{service.name}</Typography>
+                                </Grid>
+
+                                <Grid item xs={3}>
+                                  <Typography>{service.description}</Typography>
+                                </Grid>
+
+                                <Grid item xs={3}>
+                                  <Typography>{service.price}</Typography>
+                                </Grid>
+
+                                <Grid item xs={3}>
+                                  <ChangingButtons
+                                    id={service.id}
+                                    handleOpen={props.openFormChangeServise}
+                                    handleDelete={props.handleDeleteService}
+                                  />
+                                </Grid>
+                              </>
+                            )}
+                            {props.idChangeService === service.id && (
+                              <>
+                                <Grid item xs={3}>
+                                  <TextField
+                                    id="serviceNameInputText"
+                                    variant="outlined"
+                                    label="Введите наименование услуги"
+                                    value={props.newService.name}
+                                    onChange={(event) =>
+                                      props.handleChangeService(event, "name")
+                                    }
+                                  />
+                                </Grid>
+
+                                <Grid item xs={3}>
+                                  <TextField
+                                    id="serviceDescriptionInputText"
+                                    variant="outlined"
+                                    label="Введите описание услуги"
+                                    value={props.newService.description}
+                                    onChange={(event) =>
+                                      props.handleChangeService(
+                                        event,
+                                        "description"
+                                      )
+                                    }
+                                  />
+                                </Grid>
+
+                                <Grid item xs={3}>
+                                  <TextField
+                                    id="servicePriceInputText"
+                                    type="number"
+                                    variant="outlined"
+                                    label="Введите цену услуги"
+                                    value={props.newService.price}
+                                    onChange={(event) =>
+                                      props.handleChangeService(event, "price")
+                                    }
+                                  />
+                                </Grid>
+
+                                <Grid item xs={3}>
+                                  <ChangingButtonsEdit
+                                    id={service.id}
+                                    handleUpdate={props.handleUpdateService}
+                                    handleClose={props.openFormChangeServise}
+                                  />
+                                </Grid>
+                              </>
+                            )}
+                          </Grid>
+                        );
+                      })}
+                  </div>
                 );
               })}
           </Grid>
