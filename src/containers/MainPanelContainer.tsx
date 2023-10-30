@@ -4,17 +4,20 @@ import Header from "../components/header/Header";
 import Footer from "../components/footer/Footer";
 
 interface IMainPanelContainer {
-    children: JSX.Element
+  children: JSX.Element;
 }
 
-export const MainPanelContainer: React.FC<IMainPanelContainer> = ({ children }) => {
-    return (<>
-        <Container>
-            <Header />
-            <div style={{ marginBottom: '90px' }}></div>
-            {children}
-        </Container>
-        <Footer />
+export const MainPanelContainer: React.FC<IMainPanelContainer> = ({
+  children,
+}) => {
+  return (
+    <>
+      <Container>
+        <Header />
+        <div style={{ marginBottom: "140px" }}></div>
+        {children}
+      </Container>
+      <Footer />
     </>
-    );
-}
+  );
+};
