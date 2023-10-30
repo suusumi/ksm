@@ -7,6 +7,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "./OurSpecialists.css";
+import { fetchAllSpecialists } from "../../api/specialists/request";
+import { SpecialistDto } from "../../api/specialists/dto";
+import { IMAGE_URL } from "../../utils/constants/url.constants";
 
 /**
  * Идентификатор для корректной навигации в шапке.
@@ -43,62 +46,20 @@ interface OurSpecialistsProps {
  * @return {ReactElement} Отрисованный компонент OurSpecialists
  */
 const OurSpecialists: React.FC<OurSpecialistsId> = ({ id }) => {
-  const [data, setData] = useState<OurSpecialistsProps[]>([]);
+  // const [data, setData] = useState<OurSpecialistsProps[]>([]);
+  const [specialists, setSpecialists] = useState<SpecialistDto[]>();
+  const [value, setValue] = useState({});
 
   useEffect(() => {
-    const OurSpecialistsData: OurSpecialistsProps[] = [
-      {
-        name: "Лисина Оксана Алексеевна",
-        post: "Зам. врача",
-        speciality: "Невролог",
-        degree: "ВОЛГГМУ",
-        imageUrl:
-          "https://i.ibb.co/JtVms49/tild3332-6363-4764-a465-376264616662-163780-tarasova-nv.jpg",
-      },
-      {
-        name: "Паскалев Паскаль Паскальевич",
-        post: "",
-        speciality: "Педро",
-        degree: "ВОЛГГМУ2",
-        imageUrl:
-          "https://i.ibb.co/T8M0wHG/tild3234-3063-4534-b735-306464383135-163812-malanin-da.jpg",
-      },
-      {
-        name: "Иванов иван иваныч",
-        post: "Зам. врача 2",
-        speciality: "Невролог вроде",
-        degree: "ВОЛГГМУ2",
-        imageUrl:
-          "https://i.ibb.co/JtVms49/tild3332-6363-4764-a465-376264616662-163780-tarasova-nv.jpg",
-      },
-      {
-        name: "Иванов иван иваныч",
-        post: "Зам. врача 2",
-        speciality: "Невролог вроде",
-        degree: "ВОЛГГМУ2",
-        imageUrl:
-          "https://i.ibb.co/JtVms49/tild3332-6363-4764-a465-376264616662-163780-tarasova-nv.jpg",
-      },
-      {
-        name: "Иванов иван иваныч",
-        post: "Зам. врача 2",
-        speciality: "Невролог вроде",
-        degree: "ВОЛГГМУ2",
-        imageUrl:
-          "https://i.ibb.co/JtVms49/tild3332-6363-4764-a465-376264616662-163780-tarasova-nv.jpg",
-      },
-      {
-        name: "Иванов иван иваныч",
-        post: "Зам. врача 2",
-        speciality: "Невролог вроде",
-        degree: "ВОЛГГМУ2",
-        imageUrl:
-          "https://i.ibb.co/JtVms49/tild3332-6363-4764-a465-376264616662-163780-tarasova-nv.jpg",
-      },
-      // Добавьте остальные данные о врачах
-    ];
-    setData(OurSpecialistsData);
-  }, []);
+    fetchAllSpecialists()
+      .then((response) => {
+        return response.json();
+      })
+      .then((data) => {
+        setSpecialists(data);
+      })
+      .catch((error) => console.error(error));
+  }, [, value]);
 
   const settings = {
     dots: false,
@@ -153,18 +114,15 @@ const OurSpecialists: React.FC<OurSpecialistsId> = ({ id }) => {
       <Box sx={{ padding: "40px 0px" }}>
         <Typography sx={TitleText}>Наши специалисты</Typography>
         <Slider {...settings}>
-          {data.map((doctor, index) => (
+          {specialists?.map((doctor, index) => (
             <div className="card">
-              <div
-                className="card-item"
-                style={{ maxWidth: "260px" }}
-                key={index}
-              >
+              <div className="card-item" key={index}>
                 <div className="card-top">
                   <img
-                    src={doctor.imageUrl}
+                    src={IMAGE_URL + doctor.photo_path}
                     alt={doctor.name}
-                    style={{ maxWidth: "345px", maxHeight: "320px" }}
+                    width={260}
+                    height={346}
                   />
                 </div>
                 <div className="card-bottom">

@@ -12,6 +12,7 @@ export type BannersDto = {
   title: string;
   subtitle: string;
   text_content: string;
+  banner_type: string;
   img_path: string;
 };
 

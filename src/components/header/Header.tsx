@@ -11,18 +11,17 @@ import MenuItem from "@mui/material/MenuItem";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
 import PrimaryButton from "../primaryButton/PrimaryButton";
-import fullScreenMobileHeader from "./fullScreenMobileHeader";
 import FullScreenMobileHeader from "./fullScreenMobileHeader";
+import { Link, useNavigate } from "react-router-dom";
 import { routes } from "../../assets/routes/routes";
 
 interface ButtonAppBarProps {}
 
 const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
-  // Состояния для меню иконки и выпадающего меню
-  const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [anchorEls, setAnchorEls] = useState<
+    Record<number, HTMLElement | null>
+  >({});
 
-  // Состояние для раскрывающегося меню
   const [fullScreenMenuOpen, setFullScreenMenuOpen] = useState(false);
 
   const scrollToBlock = (blockId: string) => {
@@ -32,53 +31,111 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
     }
   };
 
-  // открытие меню
+  const handleClose = (index: number) => {
+    setAnchorEls({ ...anchorEls, [index]: null });
+  };
+
+  const handleMenu = (
+    event: React.MouseEvent<HTMLButtonElement>,
+    index: number
+  ) => {
+    setAnchorEls({ ...anchorEls, [index]: event.currentTarget });
+  };
+
   const toggleFullScreenMenu = () => {
     setFullScreenMenuOpen(!fullScreenMenuOpen);
   };
 
-  // Создаем массив элементов меню
-  const menuItems = [
-    { label: "О клинике", onClick: () => scrollToBlock("aboutUsBlock") },
-    {
-      label: "Наши специалисты",
-      onClick: () => scrollToBlock("ourSpecialists"),
-    },
-    { label: "Услуги", onClick: () => scrollToBlock("priceBlock") },
-    { label: "Где мы находимся", onClick: () => scrollToBlock("mapBlock") },
-    { label: "Контакты", onClick: () => scrollToBlock("ourContactsBlock") },
-  ];
-
-  // Обработчик открытия выпадающего меню
-  const handleMenu = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
+  // TODO: убирание мышки
+  const handleMouseLeave = (index: number) => {
+    setTimeout(() => {
+      setAnchorEls((prevAnchorEls) => ({ ...prevAnchorEls, [index]: null }));
+    }, 200); // Устанавливаем задержку в 200 миллисекунд перед закрытием SubMenu
   };
 
-  // Обработчик закрытия выпадающего меню
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  // Обработчик открытия/закрытия меню на мобильных устройствах
-  const toggleMenu = () => {
-    setMenuOpen(!menuOpen);
-  };
-
-  // Обработчик клика по элементу меню
-  const handleMenuClick = (label: string) => {
-    // Здесь можно добавить логику для обработки клика по элементу меню
-    // Например, можно перейти на соответствующую страницу
-    console.log(`Clicked on ${label}`);
-    handleClose(); // Закрываем меню
-  };
+  const navigate = useNavigate();
 
   const theme = useTheme();
   const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
 
+  // Создаем массив элементов меню
+  const menuItems = [
+    {
+      label: "О клинике",
+      onClick: () => {
+        navigate(routes.main);
+      },
+      subMenuItems: [
+        {
+          label: "Документы",
+          onClick: () => {
+            navigate(routes.docs);
+          },
+        },
+        {
+          label: "О нас",
+          onClick: async () => {
+            await navigate(routes.main);
+            scrollToBlock("aboutUsBlock");
+          },
+        },
+        {
+          label: "Политика конфиденциальности",
+          onClick: () => {
+            navigate(routes.privacyPolicy);
+          },
+        },
+      ],
+    },
+    {
+      label: "Наши специалисты",
+      onClick: async () => {
+        navigate(routes.main);
+        scrollToBlock("ourSpecialistsBlock");
+      },
+      // onClick: () => scrollToBlock("ourSpecialistsBlock"),
+    },
+    { label: "Услуги", onClick: () => scrollToBlock("priceBlock") },
+    { label: "Где мы находимся", onClick: () => scrollToBlock("mapBlock") },
+    {
+      label: "Контакты",
+      onClick: () => {
+        scrollToBlock("ourContactsBlock");
+      },
+      subMenuItems: [
+        {
+          label: "+7 (937) 097-12-12",
+          onClick: () => {
+            const phoneNumber = "+79370971212"; // The phone number you want to dial
+            window.open(`tel:${phoneNumber}`);
+          },
+        },
+        {
+          label: "(8442) 97-12-12",
+          onClick: () => {
+            const phoneNumber = "(8442) 97-12-12"; // The phone number you want to dial
+            window.open(`tel:${phoneNumber}`);
+          },
+        },
+      ],
+    },
+  ];
+
+  // Обработчик открытия выпадающего меню
+  // Обработчик открытия/закрытия меню на мобильных устройствах
+  // const toggleMenu = () => {
+  //   setMenuOpen(!menuOpen);
+  // };
+
+  // const toggleSubMenu = () => {
+  //   setSubMenuOpen(!subMenuOpen);
+  // };
+
+  // Обработчик клика по элементу меню
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar
-        position="fixed"
         sx={{
           width: isXsScreen ? "100%" : "80%", // 100% ширина на экранах xs, 80% на остальных
           left: "50%",
@@ -95,9 +152,9 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
               src="/logos/header_logo.svg"
               alt=""
               style={{ width: isXsScreen ? "40%" : "10em", margin: "10px 0px" }}
+              onClick={() => navigate(routes.main)}
             />
           </Typography>
-          {/* Навигационные кнопки для десктопа */}
           <Box
             sx={{ display: { xs: "none", sm: "flex" }, alignItems: "center" }}
           >
@@ -112,13 +169,38 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
                   padding: "8px 16px",
                   whiteSpace: "nowrap",
                 }}
-                onClick={item.onClick}
+                onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
+                  handleMenu(e, index)
+                }
               >
                 {item.label}
+                {item.subMenuItems && (
+                  <Menu
+                    anchorEl={anchorEls[index]}
+                    open={Boolean(anchorEls[index])}
+                    onClose={() => handleClose(index)}
+                    anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+                    transformOrigin={{ vertical: "top", horizontal: "center" }}
+                    MenuListProps={{
+                      onMouseLeave: (event) => handleClose(index),
+                    }}
+                  >
+                    {item.subMenuItems.map((subItem, subIndex) => (
+                      <MenuItem
+                        key={subIndex}
+                        onClick={() => subItem.onClick()}
+                      >
+                        {subItem.label}
+                      </MenuItem>
+                    ))}
+                  </Menu>
+                )}
               </Button>
             ))}
           </Box>
-          {/* Иконка меню для мобильных устройств */}
+          <Box sx={{ display: { xs: "none", sm: "flex" } }}>
+            <PrimaryButton buttonText="Записаться на прием"></PrimaryButton>
+          </Box>
           <Box sx={{ display: { xs: "flex", sm: "none" } }}>
             <IconButton
               size="large"
@@ -131,47 +213,6 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
               <MenuIcon />
             </IconButton>
           </Box>
-          <Box sx={{ display: { xs: "none", sm: "flex" } }}>
-            <Button
-              href={routes.appointment}
-              sx={{
-                color: "white",
-                backgroundColor: "#288e81",
-                borderRadius: "30px",
-                fontSize: "14px",
-                textTransform: "none",
-                padding: "8px 36px",
-                display: { xs: "flex", sm: "none", lg: "flex" },
-                whiteSpace: "nowrap",
-                "&:hover": {
-                  backgroundColor: "#1a665d",
-                },
-              }}
-            >
-              Записаться на прием
-            </Button>
-          </Box>
-          {/* Выпадающее меню на мобильных устройствах */}
-          <Menu
-            anchorEl={menuOpen ? anchorEl : null}
-            anchorOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            keepMounted
-            transformOrigin={{
-              vertical: "top",
-              horizontal: "right",
-            }}
-            open={menuOpen}
-            onClose={toggleMenu}
-          >
-            {menuItems.map((item, index) => (
-              <MenuItem key={index} onClick={item.onClick}>
-                {item.label}
-              </MenuItem>
-            ))}
-          </Menu>
         </Toolbar>
       </AppBar>
       {fullScreenMenuOpen && (
@@ -189,8 +230,6 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
           <FullScreenMobileHeader closeMenu={toggleFullScreenMenu} />
         </div>
       )}
-
-      {/* Отображение большого меню */}
     </Box>
   );
 };
