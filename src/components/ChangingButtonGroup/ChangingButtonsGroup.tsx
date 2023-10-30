@@ -15,7 +15,7 @@ export const ChangingButtons: React.FC<ChangingButtonsProps> = ({ id, handleOpen
     return (
         <ButtonGroup>
             <IconButton aria-label="edit"
-                onClick={() => handleOpen()}
+                onClick={() => handleOpen(id)}
                 sx={{ paddingY: 0 }}
             >
                 <EditOutlinedIcon />
@@ -48,7 +48,7 @@ export const ChangingButtonsEdit: React.FC<ChangingButtonsEditProps> = ({ id, ha
             </IconButton>
 
             <IconButton aria-label="close"
-            onClick={() => handleClose()}>
+            onClick={() => handleClose(id)}>
                 <CloseIcon />
             </IconButton>
         </ButtonGroup>
