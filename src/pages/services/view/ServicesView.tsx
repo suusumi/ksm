@@ -179,22 +179,23 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
                             key={"service_" + service.id}
                             marginY={"8px"}
                             marginLeft={"12px"}
+                            spacing={3}
                           >
                             {props.idChangeService !== service.id && (
                               <>
-                                <Grid item xs={3}>
+                                <Grid item xs={4}>
                                   <Typography>{service.name}</Typography>
                                 </Grid>
 
-                                <Grid item xs={3}>
+                                <Grid item xs={4}>
                                   <Typography>{service.description}</Typography>
                                 </Grid>
 
-                                <Grid item xs={3}>
-                                  <Typography>{service.price}</Typography>
+                                <Grid item xs={2}>
+                                  <Typography>{service.price + ' руб.'}</Typography>
                                 </Grid>
 
-                                <Grid item xs={3}>
+                                <Grid item xs={2}>
                                   <ChangingButtons
                                     id={service.id}
                                     handleOpen={props.openFormChangeServise}
@@ -205,11 +206,12 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
                             )}
                             {props.idChangeService === service.id && (
                               <>
-                                <Grid item xs={3}>
+                                <Grid item xs={4}>
                                   <TextField
                                     id="serviceNameInputText"
                                     variant="outlined"
                                     label="Введите наименование услуги"
+                                    fullWidth
                                     value={props.newService.name}
                                     onChange={(event) =>
                                       props.handleChangeService(event, "name")
@@ -217,11 +219,12 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
                                   />
                                 </Grid>
 
-                                <Grid item xs={3}>
+                                <Grid item xs={4}>
                                   <TextField
                                     id="serviceDescriptionInputText"
                                     variant="outlined"
                                     label="Введите описание услуги"
+                                    fullWidth
                                     value={props.newService.description}
                                     onChange={(event) =>
                                       props.handleChangeService(
@@ -232,12 +235,13 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
                                   />
                                 </Grid>
 
-                                <Grid item xs={3}>
+                                <Grid item xs={2}>
                                   <TextField
                                     id="servicePriceInputText"
                                     type="number"
                                     variant="outlined"
                                     label="Введите цену услуги"
+                                    fullWidth
                                     value={props.newService.price}
                                     onChange={(event) =>
                                       props.handleChangeService(event, "price")
@@ -245,7 +249,7 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
                                   />
                                 </Grid>
 
-                                <Grid item xs={3}>
+                                <Grid item xs={2}>
                                   <ChangingButtonsEdit
                                     id={service.id}
                                     handleUpdate={props.handleUpdateService}
