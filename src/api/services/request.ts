@@ -1,7 +1,5 @@
-import { json } from "stream/consumers";
 import { HttpClient } from "../../ky/HttpClient";
-import { HTTPError } from "ky";
-import { CategoryDto, CreateOrUpdateCategoryDto } from "./dto";
+import { CategoryDto, CreateOrUpdateCategoryDto, CreateOrUpdateSubcategoryDto, SubcategoryDto } from "./dto";
 
 /**
  * Получение всех услуг
@@ -20,6 +18,61 @@ export const fetchAllServices = async (): Promise<Response> => {
     throw new Error("Ошибка: " + error);
   }
 };
+
+export const  fetchAllSubcategories = async (): Promise<SubcategoryDto[]> => {
+  const response = await HttpClient.get("subcategories");
+  if (!response.ok) {
+    throw new Error(response.statusText + "-  Ошибка при получении подкатегории!");
+  }
+
+  return response.json();
+}
+
+/**
+ * Создание новой подкатегории
+ * 
+ * @param dto - новая подкатегория
+ * @returns {Promise<SubcategoryDto>} Promise -> Созданная Подкатегория
+ */
+export const createSubcategory = async (dto: CreateOrUpdateSubcategoryDto):Promise<SubcategoryDto> => {
+  const response = await HttpClient.post("subcategories", { json: dto });
+  if (!response.ok) {
+    throw new Error(response.statusText + " - Ошибка при создании подкатегории!");
+  }
+
+  return response.json();
+}
+
+/**
+ * Обновление подкатегории
+ * 
+ * @param id - идентфикатор подкатегории, которая будет обновлена
+ * @param dto - обновленнаня подкатегория
+ * @returns {Promise<SubcategoryDto>} Promise -> Обновленная подкатегория
+ */
+export const updateSubcategory = async (id: number, dto: CreateOrUpdateSubcategoryDto): Promise<SubcategoryDto> => {
+  const response = await HttpClient.patch(`subcategories/${id}`, { json: dto });
+  if (!response.ok) {
+    throw new Error(response.statusText + " - Ошибка при обновлении подкатегории!");
+  }
+
+  return response.json();
+}
+
+/**
+ * Удаление подкатегории
+ * 
+ * @param id - идентификатор удаляемой подкатегории
+ * @returns {Promise<SubategoryDto>} Promise -> удаленная подкатегории
+ */
+export const deleteSubcategory = async (id: number): Promise<SubcategoryDto> => {
+  const response = await HttpClient.delete(`subcategories/${id}`);
+  if (!response.ok) {
+    throw new Error(response.statusText + " - Ошибка при удалении подкатегории!");
+  }
+
+  return response.json();
+}
 
 /**
  * Получение всех категорий
