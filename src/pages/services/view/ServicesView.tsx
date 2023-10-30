@@ -56,10 +56,7 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
           <Button
             variant="outlined"
             size="large"
-            onClick={() => {
-              props.handleCreateCategory();
-              console.log("ADD CLICK!");
-            }}
+            onClick={() => props.handleCreateCategory()}
           >
             +
           </Button>
@@ -91,6 +88,13 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
                   handleOpen={props.openFormChangeCategory}
                   handleDelete={props.handleDeleteCategory}
                 />
+                <Button
+                  variant='outlined'
+                  size="small"
+                  onClick={() => props.handleCreateSubcategory()}
+                >
+                  + Добавить подкатегорию
+                </Button>
               </>
             )}
             {props.isOpenChangeCategory && (
@@ -101,7 +105,7 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
                   label="Введите наименование категории"
                   value={props.newCategory.name}
                   onChange={(event) => props.handleChangeCategory(event)}
-                  sx={{marginRight: 1}}
+                  sx={{ marginRight: 1 }}
                 />
                 <ChangingButtonsEdit
                   id={props.idButtonSelection}
@@ -110,6 +114,55 @@ export const ServicesView: React.FC<ServicesViewProps> = (props) => {
                 />
               </>
             )}
+          </Grid>
+
+          <Grid item xs={9}>
+            {props.subcategories
+              ?.filter((sub) => sub.category_id === props.idButtonSelection)
+              ?.map((subcategory) => {
+                return (
+                  <Grid
+                    container
+                    direction={"row"}
+                    key={"subcategory_" + subcategory.id}
+                  >
+                    {props.idChangeSubcategory !== subcategory.id && (
+                      <>
+                        <Typography
+                          style={styles.textCategoryTitle}
+                          marginRight={2}
+                        >
+                          {subcategory.name}
+                        </Typography>
+                        <ChangingButtons
+                          id={subcategory.id}
+                          handleOpen={props.openFormChangeSubcategory}
+                          handleDelete={props.handleDeleteSubcategory}
+                        />
+                      </>
+                    )}
+                    {props.idChangeSubcategory === subcategory.id && (
+                      <>
+                        <TextField
+                          id="subcategoryInputText"
+                          variant="outlined"
+                          label="Введите наименование подкатегории"
+                          value={props.newSubcategory.name}
+                          onChange={(event) =>
+                            props.handleChangeSubcategory(event)
+                          }
+                          sx={{ marginRight: 1 }}
+                        />
+                        <ChangingButtonsEdit
+                          id={subcategory.id}
+                          handleUpdate={props.handleUpdateSubcategory}
+                          handleClose={props.openFormChangeSubcategory}
+                        />
+                      </>
+                    )}
+                  </Grid>
+                );
+              })}
           </Grid>
         </Grid>
       )}
