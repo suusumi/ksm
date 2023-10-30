@@ -1,5 +1,5 @@
 import { HttpClient } from "../../ky/HttpClient";
-import { CategoryDto, CreateOrUpdateCategoryDto, CreateOrUpdateSubcategoryDto, SubcategoryDto } from "./dto";
+import { CategoryDto, CreateOrUpdateCategoryDto, CreateOrUpdateServiceDto, CreateOrUpdateSubcategoryDto, ServiceDto, SubcategoryDto } from "./dto";
 
 /**
  * Получение всех услуг
@@ -19,7 +19,53 @@ export const fetchAllServices = async (): Promise<Response> => {
   }
 };
 
-export const  fetchAllSubcategories = async (): Promise<SubcategoryDto[]> => {
+/**
+ * Создание новой услуги
+ * 
+ * @param dto - новая услуга
+ * @returns {Promise<ServiceDto>} Promise -> Созданная Услуга
+ */
+export const createService = async (dto: CreateOrUpdateServiceDto): Promise<ServiceDto> => {
+  const response = await HttpClient.post("services", { json: dto });
+  if (!response.ok) {
+    throw new Error(response.statusText + " - Ошибка при создании услуги!");
+  }
+
+  return response.json();
+}
+
+/**
+ * Обновление услуги
+ * 
+ * @param id - идентфикатор услуги, которая будет обновлена
+ * @param dto - обновленнаня услуга
+ * @returns {Promise<ServiceDto>} Promise -> Обновленная услуга
+ */
+export const updateService = async (id: number, dto: CreateOrUpdateServiceDto): Promise<ServiceDto> => {
+  const response = await HttpClient.patch(`services/${id}`, { json: dto });
+  if (!response.ok) {
+    throw new Error(response.statusText + " - Ошибка при обновлении подкатегории!");
+  }
+
+   return response.json(); 
+}
+
+/**
+ * Удаление услуги
+ * 
+ * @param id - идентификатор удаляемой услуги
+ * @returns {Promise<ServiceDto>} Promise -> удаленная услуги
+ */
+export const deleteService = async (id: number): Promise<ServiceDto> => {
+  const response = await HttpClient.delete(`services/${id}`);
+  if (!response.ok) {
+    throw new Error(response.statusText + " - Ошибка при удалении услуги!");
+  }
+
+  return response.json();
+}
+
+export const fetchAllSubcategories = async (): Promise<SubcategoryDto[]> => {
   const response = await HttpClient.get("subcategories");
   if (!response.ok) {
     throw new Error(response.statusText + "-  Ошибка при получении подкатегории!");
@@ -34,7 +80,7 @@ export const  fetchAllSubcategories = async (): Promise<SubcategoryDto[]> => {
  * @param dto - новая подкатегория
  * @returns {Promise<SubcategoryDto>} Promise -> Созданная Подкатегория
  */
-export const createSubcategory = async (dto: CreateOrUpdateSubcategoryDto):Promise<SubcategoryDto> => {
+export const createSubcategory = async (dto: CreateOrUpdateSubcategoryDto): Promise<SubcategoryDto> => {
   const response = await HttpClient.post("subcategories", { json: dto });
   if (!response.ok) {
     throw new Error(response.statusText + " - Ошибка при создании подкатегории!");
@@ -95,7 +141,7 @@ export const fetchAllCategories = async (): Promise<CategoryDto[]> => {
  * @returns {Promise<CategoryDto>} Promise -> Созданная Категория
  */
 export const createCategory = async (dto: CreateOrUpdateCategoryDto): Promise<CategoryDto> => {
-  const response = await HttpClient.post("categories", {json: dto});
+  const response = await HttpClient.post("categories", { json: dto });
   if (!response.ok) {
     throw new Error("Ошибка при создании новой категории");
   }
@@ -111,11 +157,11 @@ export const createCategory = async (dto: CreateOrUpdateCategoryDto): Promise<Ca
  * @returns {Promise<CategoryDto>} Promise -> обновленная категория
  */
 export const updateCategory = async (id: number, dto: CreateOrUpdateCategoryDto): Promise<CategoryDto> => {
-  const response = await HttpClient.patch(`categories/${id}`, {json: dto});
+  const response = await HttpClient.patch(`categories/${id}`, { json: dto });
   if (!response.ok) {
     throw new Error(response.statusText + " - Ошибка при обновлении категории!");
   }
-  
+
   return response.json();
 }
 
