@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useContext } from "react";
 import { AppBar, Box, Button, Toolbar, Typography } from "@mui/material";
 import logo from "../../assets/content/header-logo.svg";
 import PrimaryButton from "../primaryButton/PrimaryButton";
 import theme from "../../assets/theme/Theme";
 import { routes } from "../../assets/routes/routes";
+import { AuthContext } from "../../utils/context/AuthContext";
 
 const styles = {
     buttonExit: {
@@ -25,6 +26,11 @@ const styles = {
 }
 
 export const HeaderAdmin = () => {
+    const auth = useContext(AuthContext);
+    const handleLogin = () => {
+        auth.logout();
+        window.location.href = '/';
+    }
     return(
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static" sx={{ paddingY: '10px', borderRadius: '0 0 20px 20px', backgroundColor: 'white', boxShadow: '0 2px 4px rgba(0, 0, 0, 0.2)'}}>
@@ -40,7 +46,7 @@ export const HeaderAdmin = () => {
                         <Button href={routes.services} color="inherit" sx={styles.button}>Услуги</Button>
                     </Box>
 
-                    <Button color="inherit" href="/" sx={styles.buttonExit}>ВЫЙТИ</Button>
+                    <Button color="inherit" onClick={() => handleLogin()} sx={styles.buttonExit}>ВЫЙТИ</Button>
                 </Toolbar>
             </AppBar>
         </Box>

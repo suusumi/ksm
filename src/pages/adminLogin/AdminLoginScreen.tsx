@@ -1,10 +1,13 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { AdminLoginView } from "./view/AdminLoginView";
 import { routes } from "../../assets/routes/routes";
+import { AuthContext } from "../../utils/context/AuthContext";
 
 export const AdminLoginScreen = () => {
     const [authInfo, setAuthInfo] = useState({login: '', password: ''});
+    const auth = useContext(AuthContext);
+    const id = 1;
     const [authError, setAuthError] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const navigate = useNavigate();
@@ -19,9 +22,16 @@ export const AdminLoginScreen = () => {
         if(authInfo.login.length === 0 || authInfo.password.length === 0) {
             setAuthError(true);
             console.log("ERROR");
-        } else {
+        } else if (authInfo.login === 'admin' && authInfo.password === 'admin') {
+            setAuthError(false);
             console.log('Login: ' + authInfo.login, 'Password: ' + authInfo.password);
-            navigate(routes.infographics);
+            await auth.login(id);
+            navigate('redirect');
+        } else {
+            setAuthError(true);
+            console.log('Error');
+            // console.log('Login: ' + authInfo.login, 'Password: ' + authInfo.password);
+            // navigate(routes.infographics);
         }
         
         // Пока стоит заглушка, после создания запроса, будет кусок кода ниже
