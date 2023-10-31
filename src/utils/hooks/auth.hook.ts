@@ -8,7 +8,6 @@ export const useAuth = () => {
 
     const login = useCallback((id: number) => {
         setUserId(id);
-        console.log("login");
         localStorage.setItem(storageName, JSON.stringify({
             userId: id
         }));
@@ -16,8 +15,6 @@ export const useAuth = () => {
 
     const logout = useCallback(() => {
         setUserId(null);
-        console.log("logout");
-        
         localStorage.removeItem(storageName);
     }, []);
 
