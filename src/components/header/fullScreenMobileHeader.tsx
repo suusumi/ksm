@@ -4,6 +4,8 @@ import Typography from "@mui/material/Typography";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { routes } from "../../assets/routes/routes";
+import { Accordion, AccordionDetails, AccordionSummary } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const fullScreenStyles = {
   width: "100%",
@@ -20,7 +22,7 @@ const MobileMenu = {
   fontFamily: " PT-Sans, sans-serif",
   color: "black",
   textTransform: "none",
-  fontSize: "18px",
+  fontSize: "16px",
 };
 interface FullScreenMobileHeaderProps {
   closeMenu: () => void;
@@ -43,15 +45,34 @@ function FullScreenMobileHeader({ closeMenu }: FullScreenMobileHeaderProps) {
   const menuItems = [
     {
       label: "О клинике",
-      onClick: () => {
-        navigate(routes.main);
-      },
+      onClick: () => {},
+      subMenuItems: [
+        {
+          label: "Документы",
+          onClick: () => {
+            navigate(routes.docs);
+          },
+        },
+        {
+          label: "О нас",
+          onClick: async () => {
+            await navigate(routes.main);
+            scrollToBlock("aboutUsBlock");
+          },
+        },
+        {
+          label: "Политика конфиденциальности",
+          onClick: () => {
+            navigate(routes.privacyPolicy);
+          },
+        },
+      ],
     },
     {
       label: "Наши специалисты",
       onClick: async () => {
         navigate(routes.main);
-        scrollToBlock("ourSpecialistsBlock");
+        scrollToBlock("ourSpecialists");
       },
       // onClick: () => scrollToBlock("ourSpecialistsBlock"),
     },
@@ -67,7 +88,7 @@ function FullScreenMobileHeader({ closeMenu }: FullScreenMobileHeaderProps) {
       label: "Отзывы",
       onClick: async () => {
         navigate(routes.main);
-        scrollToBlock("reviewsBlock");
+        scrollToBlock("reviewsFromMapBlock");
       },
       // onClick: () => scrollToBlock("ourSpecialistsBlock"),
     },
@@ -82,7 +103,53 @@ function FullScreenMobileHeader({ closeMenu }: FullScreenMobileHeaderProps) {
   ];
   return (
     <Box sx={fullScreenStyles}>
-      {menuItems.map((item, index) => (
+      <Accordion
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          justifyContent: "center",
+          textAlign: "center",
+          boxShadow: "none", // Убираем тень
+          border: "none",
+        }}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon sx={{ color: "#288e81" }} />}
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            textAlign: "center",
+            fontSize: "18px",
+          }}
+        >
+          {menuItems[0].label}
+        </AccordionSummary>
+        <AccordionDetails>
+          {menuItems[0]?.subMenuItems?.map((item, index) => (
+            <Box
+              sx={{
+                display: "flex",
+                alignItems: "center",
+                flexDirection: "column",
+              }}
+            >
+              <Button
+                key={index}
+                onClick={(event) => {
+                  handleMenuClose();
+                  item.onClick();
+                }}
+                sx={MobileMenu}
+              >
+                {item.label}
+              </Button>
+            </Box>
+          ))}
+        </AccordionDetails>
+      </Accordion>
+      {menuItems.slice(1).map((item, index) => (
         <Button
           key={index}
           onClick={(event) => {
