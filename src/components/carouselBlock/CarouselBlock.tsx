@@ -43,17 +43,35 @@ const CarouselBlock: React.FC = () => {
           }
         `}
       </style>
-      <Carousel>
-        {data.map((banner, index) => (
-          <div key={index}>
-            <img
-              src={IMAGE_URL + banner.img_path}
-              alt={banner.title}
-              className="carousel-image"
-            />
-          </div>
-        ))}
-      </Carousel>
+      {isXsScreen ? (
+        <Carousel>
+          {data
+            .filter((banner) => banner.banner_type === "mobile")
+            .map((banner, index) => (
+              <div key={index}>
+                <img
+                  src={IMAGE_URL + banner.img_path}
+                  alt={banner.title}
+                  className="carousel-image"
+                />
+              </div>
+            ))}
+        </Carousel>
+      ) : (
+        <Carousel>
+          {data
+            .filter((banner) => banner.banner_type === "desktop")
+            .map((banner, index) => (
+              <div key={index}>
+                <img
+                  src={IMAGE_URL + banner.img_path}
+                  alt={banner.title}
+                  className="carousel-image"
+                />
+              </div>
+            ))}
+        </Carousel>
+      )}
     </div>
   );
 };

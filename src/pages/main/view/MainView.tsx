@@ -11,6 +11,7 @@ import ReviewsFromMapBlock from "../../../components/reviewsFromMapBlock/Reviews
 import OurSpecialists from "../../../components/ourSpecialists/OurSpecialists";
 import Price from "../../../components/priceBlock/PriceBlock";
 import MapBlock from "../../../components/mapBlock/MapBlock";
+import NewPrice from "../../../components/newPriceBlock/NewPriceScreen";
 
 function MainView() {
   const TitleText = {
@@ -42,6 +43,7 @@ function MainView() {
         <OurSpecialists id="ourSpecialists"></OurSpecialists>
         <ReviewsFromMapBlock id="reviewsFromMapBlock"></ReviewsFromMapBlock>
         <Price id="priceBlock"></Price>
+        <NewPrice></NewPrice>
         <MapBlock id="mapBlock" />
       </Container>
     </div>
