@@ -9,7 +9,9 @@ import zubWelcomeBlockMobile from "../../assets/content/main/welcomeBlock/zub_we
 import zubPngVectorMobile from "../../assets/content/main/welcomeBlock/zub_png_vector_mobile.png";
 import zubWelcomeBlock2 from "../../assets/content/main/welcomeBlock/zub_welcomeBlock2.png";
 import PrimaryButton from "../primaryButton/PrimaryButton";
-
+import { routes } from "../../assets/routes/routes";
+import Button from "@mui/material/Button";
+import { useNavigate } from "react-router-dom";
 /**
  * Данные по блоку приветствия
  * @interface
@@ -32,6 +34,8 @@ interface WelcomeBlockData {
 const WelcomeBlock: React.FC = () => {
   const [data, setData] = useState<WelcomeBlockData[]>([]);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const welcomeBlockData: WelcomeBlockData[] = [
       {
@@ -48,6 +52,13 @@ const WelcomeBlock: React.FC = () => {
   const theme = useTheme();
   const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
 
+  const scrollToBlock = (blockId: string) => {
+    const block = document.getElementById(blockId);
+    if (block) {
+      block.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
   const TitleText = {
     color: "#288e81",
     fontSize: isXsScreen ? 30 : 70,
@@ -63,6 +74,20 @@ const WelcomeBlock: React.FC = () => {
     maxWidth: isXsScreen ? 300 : 500,
     textAlign: isXsScreen ? "center" : "left",
     display: "flex",
+  };
+
+  const ButtonStyle = {
+    color: "white",
+    backgroundColor: "#288e81",
+    borderRadius: "30px",
+    fontSize: "14px",
+    textTransform: "none",
+    padding: "8px 36px",
+    display: { xs: "flex", sm: "none", lg: "flex" },
+    whiteSpace: "nowrap",
+    "&:hover": {
+      backgroundColor: "#1a665d",
+    },
   };
   return (
     <div>
@@ -124,8 +149,22 @@ const WelcomeBlock: React.FC = () => {
                 {data[0]?.subtitle || ""}
               </Typography>
               <div style={{ display: "flex", gap: "20px", marginTop: "40px" }}>
-                <PrimaryButton buttonText="Услуги" />
-                <PrimaryButton buttonText="Записаться на прием" />
+                <Button
+                  sx={ButtonStyle}
+                  onClick={() => {
+                    scrollToBlock("priceBlock");
+                  }}
+                >
+                  Услуги
+                </Button>
+                <Button
+                  sx={ButtonStyle}
+                  onClick={() => {
+                    navigate(routes.appointment);
+                  }}
+                >
+                  Записаться на прием
+                </Button>
               </div>
             </Grid>
             <Grid item xs={12} sm={6} md={6}>
