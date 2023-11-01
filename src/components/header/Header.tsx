@@ -59,13 +59,25 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
   const theme = useTheme();
   const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
 
+  const ButtonStyle = {
+    color: "white",
+    backgroundColor: "#288e81",
+    borderRadius: "30px",
+    fontSize: "14px",
+    textTransform: "none",
+    padding: "8px 36px",
+    display: { xs: "flex", sm: "none", lg: "flex" },
+    whiteSpace: "nowrap",
+    "&:hover": {
+      backgroundColor: "#1a665d",
+    },
+  };
+
   // Создаем массив элементов меню
   const menuItems = [
     {
       label: "О клинике",
-      onClick: () => {
-        navigate(routes.main);
-      },
+      onClick: () => {},
       subMenuItems: [
         {
           label: "Документы",
@@ -91,13 +103,29 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
     {
       label: "Наши специалисты",
       onClick: async () => {
-        navigate(routes.main);
-        scrollToBlock("ourSpecialistsBlock");
+        if (window.location.pathname === routes.main) {
+          scrollToBlock("ourSpecialists");
+        } else {
+          await navigate(routes.main);
+          scrollToBlock("ourSpecialists");
+        }
       },
       // onClick: () => scrollToBlock("ourSpecialistsBlock"),
     },
     { label: "Услуги", onClick: () => scrollToBlock("priceBlock") },
-    { label: "Где мы находимся", onClick: () => scrollToBlock("mapBlock") },
+    {
+      label: "Где мы находимся",
+      onClick: async () => {
+        console.log("Тестовый console log");
+
+        if (window.location.pathname === routes.main) {
+          scrollToBlock("mapBlock");
+        } else {
+          await navigate(routes.main);
+          scrollToBlock("mapBlock");
+        }
+      },
+    },
     {
       label: "Контакты",
       onClick: () => {
@@ -170,6 +198,7 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
                   padding: "8px 16px",
                   whiteSpace: "nowrap",
                 }}
+                onClick={() => item.onClick()}
                 onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
                   handleMenu(e, index)
                 }
@@ -189,7 +218,10 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
                     {item.subMenuItems.map((subItem, subIndex) => (
                       <MenuItem
                         key={subIndex}
-                        onClick={() => subItem.onClick()}
+                        onClick={() => {
+                          console.log("Тестовый console log");
+                          subItem.onClick();
+                        }}
                       >
                         {subItem.label}
                       </MenuItem>
@@ -200,7 +232,12 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
             ))}
           </Box>
           <Box sx={{ display: { xs: "none", sm: "flex" } }}>
-            <PrimaryButton buttonText="Записаться на прием"></PrimaryButton>
+            <Button
+              sx={ButtonStyle}
+              onClick={() => navigate(routes.appointment)}
+            >
+              Записаться на прием
+            </Button>
           </Box>
           <Box sx={{ display: { xs: "flex", sm: "none" } }}>
             <IconButton
