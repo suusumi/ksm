@@ -61,13 +61,13 @@ export const NewPriceView: React.FC<NewPriceProps> = (props) => {
           paddingLeft={0}
         >
           <Grid item xs={3} container direction={"row"} spacing={2}>
-            {props.categories
+            {/* {props.categories
               ?.filter((category) => category.id === props.idButtonSelection)
               .map((category) => (
                 <Typography key={"category_" + category.id} marginRight={1}>
                   {category.name}
                 </Typography>
-              ))}
+              ))} */}
           </Grid>
 
           <Grid item xs={9}>
@@ -77,9 +77,11 @@ export const NewPriceView: React.FC<NewPriceProps> = (props) => {
                 return (
                   <Accordion
                     key={"subcategory_" + subcategory.id}
-                    sx={{ marginBottom: "10px" }}
+                    sx={{ marginBottom: "10px", backgroundColor: "#F2F2F2" }}
                   >
-                    <AccordionSummary expandIcon={<ExpandMoreIcon />}>
+                    <AccordionSummary
+                      expandIcon={<ExpandMoreIcon sx={{ color: "#288e81" }} />}
+                    >
                       <Typography sx={{ fontSize: "20px" }}>
                         {subcategory.name}{" "}
                       </Typography>

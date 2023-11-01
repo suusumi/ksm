@@ -114,13 +114,13 @@ const Price: React.FC<PriceProps> = ({ id }) => {
       </Typography>
 
       {/* Кнопки/селектор категории */}
-      <PriceCategorySelector
+      {/* <PriceCategorySelector
         selectedCategory={selectedCategory}
         handleCategoryChange={handleCategoryChange}
         priceData={priceData}
         activeCategory={activeCategory}
         isXsScreen={isXsScreen}
-      />
+      /> */}
 
       {/* Поиск по прайсу */}
       <FormControl fullWidth sx={{ marginBottom: "15px" }}>
