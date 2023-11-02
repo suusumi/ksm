@@ -1,0 +1,55 @@
+version: "3.9"
+services:
+  postgres:
+    container_name: postgres_container
+    image: postgres:15.0
+    environment:
+      POSTGRES_DB: "clinic_server_db"
+      POSTGRES_USER: "postgres"
+      POSTGRES_PASSWORD: "ert123ert"
+      PGDATA: "/var/lib/postgresql/data/pgdata"
+    volumes:
+      - ./InitDb:/docker-entrypoint-initdb.d
+      - .:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d clinic_server_db"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    networks:
+      - clinic
+  backend:
+    image: suusumi/clinic_devversion-backend
+    build:
+      context: ./server/clinic_server # Путь к папке с бэкендом
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000 # Перенаправление портов (здесь 3000 - порт вашего бэкенда)
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: postgres://postgres:ert123ert@postgres:5432/clinic_server_db
+    networks:
+      - clinic
+  frontend:
+    image: suusumi/clinic_devversion-frontend
+    build:
+      context: . # Путь к папке с фронтендом
+      dockerfile: Dockerfile
+    ports:
+      - 80:80 # Перенаправление портов (здесь 80 - порт вашего фронтенда)
+    networks:
+      - clinic
+    environment:
+      BACKEND_URL: backend
+      IMAGE_URL: backend/images
+    depends_on:
+      - backend
+
+networks:
+  clinic:
+    driver: bridge

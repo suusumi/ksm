@@ -13,5 +13,9 @@ RUN npm install
 # Копируем остальные файлы проекта
 COPY . .
 
+ENV DATABASE_URL postgres://postgres:ert123ert@postgres:5432/clinic_server_db
+
+COPY migrate.sh .
+RUN chmod +x ./migrate.sh
 # Запускаем приложение
-CMD ["npm", "start prod"]
+CMD ["/app/migrate.sh"]
