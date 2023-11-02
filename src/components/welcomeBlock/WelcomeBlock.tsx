@@ -133,8 +133,22 @@ const WelcomeBlock: React.FC = () => {
                 marginTop: "40px",
               }}
             >
-              <PrimaryButton buttonText="Услуги" />
-              <PrimaryButton buttonText="Записаться на прием" />
+              <Button
+                sx={ButtonStyle}
+                onClick={() => {
+                  scrollToBlock("priceBlock");
+                }}
+              >
+                Услуги
+              </Button>
+              <Button
+                sx={ButtonStyle}
+                onClick={() => {
+                  navigate(routes.appointment);
+                }}
+              >
+                Записаться на прием
+              </Button>
             </div>
           </Grid>
         ) : (
