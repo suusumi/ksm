@@ -28,7 +28,7 @@ services:
       context: ./server/clinic_server # Путь к папке с бэкендом
       dockerfile: Dockerfile
     ports:
-      - 3000:3000 # Перенаправление портов (здесь 3000 - порт вашего бэкенда)
+      - 8080:8080 # Перенаправление портов (здесь 3000 - порт вашего бэкенда)
     depends_on:
       - postgres
     environment:
@@ -41,12 +41,12 @@ services:
       context: . # Путь к папке с фронтендом
       dockerfile: Dockerfile
     ports:
-      - 80:80 # Перенаправление портов (здесь 80 - порт вашего фронтенда)
+      - 3000:3000 # Перенаправление портов (здесь 80 - порт вашего фронтенда)
     networks:
       - clinic
     environment:
-      BACKEND_URL: backend
-      IMAGE_URL: backend/images
+      BACKEND_URL: localhost:3000
+      IMAGE_URL: localhost:3000/images
     depends_on:
       - backend
 
