@@ -16,6 +16,7 @@ export const NewPrice = () => {
   const [subcategories, setSubcategories] = useState<SubcategoryDto[]>();
   const [services, setServices] = useState<ServiceDto[]>();
   const [idButtonSelection, setIdButtonSelection] = useState<number>(-1);
+  const [selectedCategory, setSelectedCategory] = useState(-1);
   const [update, setUpdate] = useState({});
   const [idChangeService, setIdChangeService] = useState<number>(-1);
   const [isOpenChangeCategory, setIsOpenChangeCategory] =
@@ -43,6 +44,7 @@ export const NewPrice = () => {
 
   const handleChoise = (id: number) => {
     setIdButtonSelection(id);
+    setSelectedCategory(id);
     setIsOpenChangeCategory(false);
   };
 

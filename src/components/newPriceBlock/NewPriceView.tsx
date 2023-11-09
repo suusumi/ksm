@@ -90,8 +90,13 @@ export const NewPriceView: React.FC<NewPriceProps> = (props) => {
           {/* Раскрывающийся список */}
           <Grid item xs={9}>
             {props.subcategories
-              // TODO: отслеживать select
-              ?.filter((sub) => sub.category_id === props.idButtonSelection)
+              ?.filter(
+                (sub) =>
+                  sub.category_id ===
+                  (selectedCategory >= 0
+                    ? selectedCategory
+                    : props.idButtonSelection)
+              )
               .map((subcategory) => (
                 <Accordion
                   key={"subcategory_" + subcategory.id}
