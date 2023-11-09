@@ -43,10 +43,11 @@ export const NewPriceView: React.FC<NewPriceProps> = (props) => {
     >
       <Grid item xs={3} container direction="row" spacing={2}>
         {isXsScreen ? (
-          <Grid item paddingTop="14px">
+          <Grid item paddingTop="14px" sx={{ width: "100%" }}>
             <Select
               value={selectedCategory}
               onChange={(e) => handleCategoryClick(e.target.value as number)}
+              sx={{ width: "100%" }}
             >
               {props.categories?.map((category) => (
                 <MenuItem key={category.id} value={category.id}>
@@ -89,6 +90,7 @@ export const NewPriceView: React.FC<NewPriceProps> = (props) => {
           {/* Раскрывающийся список */}
           <Grid item xs={9}>
             {props.subcategories
+              // TODO: отслеживать select
               ?.filter((sub) => sub.category_id === props.idButtonSelection)
               .map((subcategory) => (
                 <Accordion
