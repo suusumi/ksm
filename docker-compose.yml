@@ -41,12 +41,12 @@ services:
       context: . # Путь к папке с фронтендом
       dockerfile: Dockerfile
     ports:
-      - 3000:3000 # Перенаправление портов (здесь 80 - порт вашего фронтенда)
+      - 80:80 # Перенаправление портов (здесь 80 - порт вашего фронтенда)
     networks:
       - clinic
     environment:
-      BACKEND_URL: localhost:3000
-      IMAGE_URL: localhost:3000/images
+      BACKEND_URL: localhost:8080
+      IMAGE_URL: localhost:8080/images
     depends_on:
       - backend
 
