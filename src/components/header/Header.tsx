@@ -197,6 +197,9 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
                   textTransform: "none",
                   padding: "8px 16px",
                   whiteSpace: "nowrap",
+                  "&:hover": {
+                    backgroundColor: "transparent", // Set the desired background color on hover
+                  },
                 }}
                 onClick={() => item.onClick()}
                 onMouseEnter={(e: React.MouseEvent<HTMLButtonElement>) =>
