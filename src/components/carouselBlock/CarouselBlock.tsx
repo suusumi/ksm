@@ -5,9 +5,11 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import { BannersDto } from "../../api/banners/dto";
 import { fetchAllBanners } from "../../api/banners/request";
 import { IMAGE_URL } from "../../utils/constants/url.constants";
+import theme from "../../assets/theme/Theme";
 
 const CarouselBlock: React.FC = () => {
   const [data, setData] = useState<BannersDto[]>([]);
+  const [value, setValue] = useState({});
 
   useEffect(() => {
     fetchAllBanners()
@@ -16,9 +18,7 @@ const CarouselBlock: React.FC = () => {
         setData(data); // Устанавливаем данные, полученные с сервера
       })
       .catch((error) => console.error("Ошибка при получении данных", error));
-
-    // Здесь больше не нужны фиктивные данные
-  }, []);
+  }, [, value]);
 
   // Проверяем размер экрана
   const theme = useTheme();
