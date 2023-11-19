@@ -12,6 +12,7 @@ import OurSpecialists from "../../../components/ourSpecialists/OurSpecialists";
 import Price from "../../../components/priceBlock/PriceBlock";
 import MapBlock from "../../../components/mapBlock/MapBlock";
 import NewPrice from "../../../components/newPriceBlock/NewPriceScreen";
+import Preloader from "../../../components/preloader/Preloader";
 
 function MainView() {
   const TitleText = {
@@ -32,6 +33,7 @@ function MainView() {
 
   return (
     <div>
+      <Preloader />
       <Container>
         <WelcomeBlock />
         <StatisticBar />
