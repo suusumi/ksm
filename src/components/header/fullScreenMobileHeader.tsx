@@ -210,7 +210,7 @@ function FullScreenMobileHeader({ closeMenu }: FullScreenMobileHeaderProps) {
         onClick={() => {
           navigate(routes.appointment);
           closeMenu(); // Закрывает основное меню
-          // Закрывает мобильное меню
+          window.scrollTo({ top: 0, behavior: "smooth" });
         }}
       >
         Записаться на прием
