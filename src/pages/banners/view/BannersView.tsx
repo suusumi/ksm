@@ -110,7 +110,7 @@ export const BannersView = () => {
     handleClose();
   };
   return (
-    <div>
+    <div style={{ marginBottom: "40px" }}>
       <style>
         {`
           /* Стили для изображений */
@@ -194,7 +194,13 @@ export const BannersView = () => {
           handleCreateBanner={handleCreateMobileBanner}
         />
       </Box>
-      <Carousel sx={{ overflow: "visible" }}>
+      <Carousel
+        sx={{
+          overflow: "visible",
+          maxWidth: "250px",
+          marginTop: "15px",
+        }}
+      >
         {banners
           ?.filter((banner) => banner.banner_type === "mobile")
           .map((banner, index) => (
@@ -203,7 +209,7 @@ export const BannersView = () => {
                 src={IMAGE_URL + banner.img_path}
                 alt={`Slide ${index}`}
                 className="carousel-image"
-                style={{ maxWidth: "200px" }}
+                style={{ maxWidth: "250px" }}
               />
               <Button
                 onClick={() => handleDeleteBanner(banner.id)}
