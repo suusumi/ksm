@@ -30,4 +30,5 @@ export type CreateBannersDto = {
   subtitle: string;
   text_content: string;
   img_path: string;
+  banner_type: string;
 };
