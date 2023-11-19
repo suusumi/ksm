@@ -207,6 +207,11 @@ function FullScreenMobileHeader({ closeMenu }: FullScreenMobileHeaderProps) {
           borderRadius: "30px",
           textTransform: "none",
         }}
+        onClick={() => {
+          navigate(routes.appointment);
+          closeMenu(); // Закрывает основное меню
+          // Закрывает мобильное меню
+        }}
       >
         Записаться на прием
       </Button>
