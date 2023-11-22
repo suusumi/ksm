@@ -8,11 +8,11 @@ async function bootstrap() {
   app.enableCors({
     origin: true,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    credentials: true
-  })
+    credentials: true,
+  });
 
-  await app.listen(8080);
+  await app.listen(8081);
 
-  app.enableShutdownHooks()
+  app.enableShutdownHooks();
 }
 bootstrap(); // монтируем приложение
