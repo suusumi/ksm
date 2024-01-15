@@ -15,8 +15,8 @@ export const NewPrice = () => {
   const [categories, setCategories] = useState<CategoryDto[]>();
   const [subcategories, setSubcategories] = useState<SubcategoryDto[]>();
   const [services, setServices] = useState<ServiceDto[]>();
-  const [idButtonSelection, setIdButtonSelection] = useState<number>(-1);
-  const [selectedCategory, setSelectedCategory] = useState(-1);
+  const [idButtonSelection, setIdButtonSelection] = useState<number>(1);
+  const [selectedCategory, setSelectedCategory] = useState(1);
   const [update, setUpdate] = useState({});
   const [idChangeService, setIdChangeService] = useState<number>(-1);
   const [isOpenChangeCategory, setIsOpenChangeCategory] =
