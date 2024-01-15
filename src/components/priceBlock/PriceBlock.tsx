@@ -32,14 +32,22 @@ interface Service {
 }
 
 const Price: React.FC<PriceProps> = ({ id }) => {
+  // состояние категории
   const [selectedCategory, setSelectedCategory] = useState<string>("");
+
+  // состояние подкатегории
   const [selectedSubcategory, setSelectedSubcategory] = useState<string>("");
 
+  // массив объектов Service (все услуги)
   const [priceData, setPriceData] = useState<Service[]>([]);
+
+  // активная (выбранная) категория
   const [activeCategory, setActiveCategory] = useState<string>("");
 
+  // текст поиска
   const [searchText, setSearchText] = useState<string>("");
 
+  // результаты поиска
   const [searchResults, setSearchResults] = useState<Service[]>([]);
 
   // дублирование type
@@ -83,6 +91,7 @@ const Price: React.FC<PriceProps> = ({ id }) => {
   const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
 
   const handleCategoryChange = (type: string) => {
+    console.log("handleCategoryChange called with type:", type);
     setActiveCategory(type);
     setSelectedCategory(type);
     setSelectedSubcategory("");
@@ -97,7 +106,7 @@ const Price: React.FC<PriceProps> = ({ id }) => {
   };
 
   return (
-    <Box sx={{ marginBottom: "50px" }} id={id}>
+    <Box sx={{ marginBottom: isXsScreen ? "25px" : "50px" }} id={id}>
       <Typography
         variant="h2"
         sx={{
