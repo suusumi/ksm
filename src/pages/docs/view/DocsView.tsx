@@ -1,9 +1,4 @@
-import {
-  Stack,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@mui/material";
+import { Stack, Typography, useMediaQuery, useTheme } from "@mui/material";
 
 const links = [
   {
@@ -113,7 +108,7 @@ function DocsView() {
       cursor: "pointer",
       display: "inline",
       marginX: isLgScreen ? "10px" : "20px",
-      maxWidth: isMdScreen ? "100%" : "220px",
+      maxWidth: isMdScreen ? "100%" : "240px",
       backgroundColor: "white",
       borderRadius: "5px",
       boxShadow: "rgba(0, 0, 0, 0.1) 0px 0px 10px 0px",
@@ -144,7 +139,7 @@ function DocsView() {
   };
 
   return (
-    <div>
+    <div style={{ marginBottom: "60px" }}>
       <div style={styles.titleBlock}>
         <Typography textAlign={"center"} style={styles.titleText}>
           Документы и важная информация
@@ -169,7 +164,9 @@ function DocsView() {
             <div style={styles.card}>
               <Typography style={styles.cardTitle}>{item.title}</Typography>
               <Typography style={styles.cardButton}>
-                <a style={styles.cardButton} href={item.link}>{"Перейти →"}</a>
+                <a style={styles.cardButton} href={item.link}>
+                  {"Перейти →"}
+                </a>
               </Typography>
             </div>
           </div>
