@@ -16,6 +16,7 @@ import {
 } from "@mui/material";
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import styled from "@emotion/styled";
 
 export const NewPriceView: React.FC<NewPriceProps> = (props) => {
   const [openCategories, setOpenCategories] = useState<number[]>([]);
@@ -100,7 +101,15 @@ export const NewPriceView: React.FC<NewPriceProps> = (props) => {
               .map((subcategory) => (
                 <Accordion
                   key={"subcategory_" + subcategory.id}
-                  sx={{ marginBottom: "10px", backgroundColor: "#F2F2F2" }}
+                  sx={{
+                    marginBottom: "10px",
+                    backgroundColor: "transparent",
+                    boxShadow: "none",
+                    borderBottom: "3px solid #288e81",
+                    "&:before": {
+                      display: "none",
+                    },
+                  }}
                 >
                   <AccordionSummary
                     expandIcon={<ExpandMoreIcon sx={{ color: "#288e81" }} />}
@@ -159,8 +168,12 @@ export const NewPriceView: React.FC<NewPriceProps> = (props) => {
                               }}
                             >
                               <Typography
-                                variant="h6"
-                                sx={{ maxWidth: "500px", minWidth: "500px" }}
+                                sx={{
+                                  maxWidth: "500px",
+                                  minWidth: "500px",
+                                  fontSize: "18px",
+                                  fontWeight: "500",
+                                }}
                               >
                                 {service.name}
                               </Typography>
@@ -170,7 +183,10 @@ export const NewPriceView: React.FC<NewPriceProps> = (props) => {
                               >
                                 {service.description}
                               </Typography>
-                              <Typography variant="body1">
+                              <Typography
+                                variant="body1"
+                                sx={{ fontWeight: "bold" }}
+                              >
                                 {service.price}Р
                               </Typography>
                               <a

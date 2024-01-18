@@ -186,7 +186,9 @@ const Price: React.FC<PriceProps> = ({ id }) => {
                     <Typography variant="body1">
                       {service.description}
                     </Typography>
-                    <Typography variant="body1">{service.price}Р</Typography>
+                    <Typography variant="body1" sx={{ fontWeight: "bold" }}>
+                      {service.price}Р
+                    </Typography>
                     <a
                       href="/appointment/"
                       style={{
