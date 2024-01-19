@@ -132,7 +132,7 @@ const Price: React.FC<PriceProps> = ({ id }) => {
       /> */}
 
       {/* Поиск по прайсу */}
-      <FormControl fullWidth sx={{ marginBottom: "15px" }}>
+      <FormControl fullWidth sx={{ marginBottom: "0px" }}>
         <PriceSearch searchText={searchText} onSearchChange={setSearchText} />
       </FormControl>
       {/* Результаты поиска */}
