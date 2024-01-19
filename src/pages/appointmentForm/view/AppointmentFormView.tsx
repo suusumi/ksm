@@ -247,7 +247,7 @@ export const AppointmentFormView: React.FC<AppointmentFormViewProps> = (
               backgroundColor: "white",
               padding: "20px",
               borderRadius: "10px",
-              maxHeight: isXsScreen ? "85vh" : "80vh",
+              maxHeight: isXsScreen ? "70vh" : "80vh",
             }}
           >
             <Typography
@@ -266,7 +266,7 @@ export const AppointmentFormView: React.FC<AppointmentFormViewProps> = (
             </Typography>
             <div
               style={{
-                maxHeight: "70vh", // устанавливаем максимальную высоту модального окна
+                maxHeight: isXsScreen ? "55vh" : "70vh", // устанавливаем максимальную высоту модального окна
                 overflowY: "auto",
               }}
             >
