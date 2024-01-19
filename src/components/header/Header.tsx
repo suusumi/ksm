@@ -180,7 +180,11 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
             <img
               src={logo}
               alt=""
-              style={{ width: isXsScreen ? "40%" : "10em", margin: "10px 0px" }}
+              style={{
+                width: isXsScreen ? "40%" : "10em",
+                margin: "10px 0px",
+                cursor: "pointer",
+              }}
               onClick={() => navigate(routes.main)}
             />
           </Typography>
