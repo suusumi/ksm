@@ -5,6 +5,7 @@ import {
   createService,
   createSubcategory,
   deleteCategory,
+  deleteService,
   deleteSubcategory,
   fetchAllCategories,
   fetchAllServices,
@@ -225,7 +226,8 @@ export const ServicesScreen = () => {
   };
 
   const handleDeleteService = (id: number) => {
-    console.log(`Delete service with ID: ${id}`);
+    deleteService(id).catch((error) => console.error(error));
+    setUpdate({});
   }
 
   return (
