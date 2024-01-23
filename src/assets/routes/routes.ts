@@ -5,7 +5,8 @@ export const routes = {
     services: '/services',
     specialists: '/specialists',
     banners: '/banners',
-    appointment: '/appointment',
+    goToAppointment: (category: string| undefined, service:string): string => `/appointment/${category}/${service}`,
+    appointment: '/appointment/:category/:service',
     privacyPolicy: '/privacypolicy',
     docs: '/docs',
 }

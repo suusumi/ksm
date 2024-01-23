@@ -241,7 +241,7 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
           <Box sx={{ display: { xs: "none", sm: "flex" } }}>
             <Button
               sx={ButtonStyle}
-              onClick={() => navigate(routes.appointment)}
+              onClick={() => navigate(routes.goToAppointment("null", "null"))}
             >
               Записаться на прием
             </Button>

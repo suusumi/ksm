@@ -4,6 +4,7 @@ import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import React from "react";
 import { Link } from "react-router-dom";
+import { routes } from "../../assets/routes/routes";
 
 /**
  * Контент карточки специалиста
@@ -140,7 +141,7 @@ const SpecialistCardSmall: React.FC<SpecialistCardContent> = ({
               }}
             >
               {/* Переход на страницу записи, необходимо передавать id специалиста, чтобы сразу заполнить часть полей формы */}
-              <Button href="/appointment" sx={buttonAppointment}>
+              <Button href={routes.goToAppointment(`${name}, ${speciality}`, "null")} sx={buttonAppointment}>
                 Записаться
               </Button>
 

@@ -17,6 +17,7 @@ import {
 
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import styled from "@emotion/styled";
+import { routes } from "../../assets/routes/routes";
 
 export const NewPriceView: React.FC<NewPriceProps> = (props) => {
   const [openCategories, setOpenCategories] = useState<number[]>([]);
@@ -147,7 +148,7 @@ export const NewPriceView: React.FC<NewPriceProps> = (props) => {
                                   </span>
                                 </Typography>
                                 <a
-                                  href="/appointment/"
+                                  href={routes.goToAppointment(props.categories?.filter((item) => item.id === selectedCategory).map((category) => category.name)[0], service.name)}
                                   style={{
                                     color: "#288e81",
                                     textDecoration: "none",
@@ -190,7 +191,7 @@ export const NewPriceView: React.FC<NewPriceProps> = (props) => {
                                 {service.price}Р
                               </Typography>
                               <a
-                                href="/appointment/"
+                                href={routes.goToAppointment(props.categories?.filter((item) => item.id === selectedCategory).map((category) => category.name)[0], service.name)}
                                 style={{
                                   color: "#288e81",
                                   textDecoration: "none",

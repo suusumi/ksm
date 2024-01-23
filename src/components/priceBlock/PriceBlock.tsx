@@ -17,6 +17,7 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { fetchAllServices } from "../../api/services/request";
 import PriceSearch from "./PriceSearch";
 import PriceCategorySelector from "./PriceCategorySelector";
+import { routes } from "../../assets/routes/routes";
 
 interface PriceProps {
   id: string;
@@ -158,7 +159,7 @@ const Price: React.FC<PriceProps> = ({ id }) => {
                         </span>
                       </Typography>
                       <a
-                        href="/appointment/"
+                        href={routes.goToAppointment(service.category, service.name)}
                         style={{
                           color: "#288e81",
                           textDecoration: "none",
@@ -190,7 +191,7 @@ const Price: React.FC<PriceProps> = ({ id }) => {
                       {service.price}Р
                     </Typography>
                     <a
-                      href="/appointment/"
+                      href={routes.goToAppointment(service.category, service.name)}
                       style={{
                         color: "#288e81",
                         textDecoration: "none",
@@ -240,7 +241,7 @@ const Price: React.FC<PriceProps> = ({ id }) => {
                                 </span>
                               </Typography>
                               <a
-                                href="/appointment/"
+                                href={routes.goToAppointment(service.category, service.name)}
                                 style={{
                                   color: "#288e81",
                                   textDecoration: "none",
@@ -272,7 +273,7 @@ const Price: React.FC<PriceProps> = ({ id }) => {
                               {service.price}Р
                             </Typography>
                             <a
-                              href="/appointment/"
+                              href={routes.goToAppointment(service.category, service.name)}
                               style={{
                                 color: "#288e81",
                                 textDecoration: "none",

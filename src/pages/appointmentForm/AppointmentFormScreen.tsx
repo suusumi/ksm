@@ -3,14 +3,30 @@ import AppointmentFormView from './view/AppointmentFormView'
 import { CreateRegistrationDto } from '../../api/registrations/dto'
 import Swal from 'sweetalert2';
 import { createRegistation } from '../../api/registrations/request';
+import { useParams } from "react-router-dom";
 
 function AppointmentFormScreen() {
+
+  let myService: string | undefined = useParams().service;
+  if (myService!== undefined && myService !== "null") {
+    var newService: string = myService; 
+  } else {
+    var newService: string = "";
+  }
+
+  let myCategory: string | undefined = useParams().category;
+  if (myCategory!== undefined && myCategory !== "null") {
+    var newCategory: string = myCategory; 
+  } else {
+    var newCategory: string = "";
+  }
+
   const [registrations, setRegistrations] = useState<CreateRegistrationDto>({
     fio: '',
     phone: '',
-    doctor: '',
+    doctor: newCategory,
     date: '',
-    comments: '',
+    comments: newService,
   });
   const [errorMessage, setErrorMessage] = useState<CreateRegistrationDto>({
     fio: '',
