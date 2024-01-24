@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import AppointmentFormView from './view/AppointmentFormView'
 import { CreateRegistrationDto } from '../../api/registrations/dto'
-import Swal from 'sweetalert2';
 import { createRegistation } from '../../api/registrations/request';
 import { useParams } from "react-router-dom";
 
@@ -38,6 +37,8 @@ function AppointmentFormScreen() {
   const [checked, setChecked] = useState<boolean>(false);
   const [errorCheck, setErrorCheck] = useState<string>('');
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [errorCreate, setErrorCreate] = useState<boolean>(false);
+  const [openAllert, setOpenAllert] = useState(false);
 
   const handleChecked = (event: React.ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked);
@@ -107,25 +108,11 @@ function AppointmentFormScreen() {
   }
 
   const handleCreateRegistration = () => {
+    setOpenAllert(true);
     if (validateForm() && checked) {
       createRegistation(registrations)
-        .catch((error) => {
-          console.error(error);
-          Swal.fire({
-            title: 'Opps...',
-            icon: 'error',
-            text: 'Что-то пошло не так, попробуйте позже',
-            confirmButtonColor: '#288e81'
-          });
-          return;
-        });
-
-      Swal.fire({
-        title: 'Good...',
-        icon: 'success',
-        text: 'Запись на прием зарегестрирована. Ожидайте звонка от регистратуры.',
-        confirmButtonColor: '#288e81'
-      })
+      .then((response) => {
+        setErrorCreate(false);
       setRegistrations({
         fio: '',
         phone: '',
@@ -134,15 +121,14 @@ function AppointmentFormScreen() {
         comments: '',
       });
       setSelectedDate(null);
-      setChecked(false);
+      setChecked(false);      })
+      .catch((error) => {
+        console.error(error);
+        setErrorCreate(true);
+      })
     } else {
       console.log('В данных есть ошибка', registrations);
-      Swal.fire({
-        title: 'Opps...',
-        icon: 'error',
-        text: 'Попробуйте перепроверить вводимые данные и попробовать снова!',
-        confirmButtonColor: '#288e81'
-      })
+      setErrorCreate(true);
     }
   }
 
@@ -167,6 +153,9 @@ function AppointmentFormScreen() {
       registrations={registrations}
       handleRegistrationsChange={handleRegistrationsChange}
       handleCreateRegistration={handleCreateRegistration}
+      errorCreate={errorCreate}
+      openAllert={openAllert}
+      setOpenAllert={setOpenAllert}
       checked={checked}
       handleChecked={handleChecked}
       errorCheck={errorCheck}

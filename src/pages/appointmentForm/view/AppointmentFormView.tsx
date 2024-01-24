@@ -17,14 +17,18 @@ import {
   Fade,
   useTheme,
   useMediaQuery,
+  Collapse,
+  Alert,
+  IconButton,
 } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { AppointmentFormViewProps } from "../model/AppointmentsFormModel";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import "dayjs/locale/de";
 import { TextMaskCustom } from "../../../components/TextMaskCustom/TextMaskCustom";
 import { routes } from "../../../assets/routes/routes";
+import CloseIcon from '@mui/icons-material/Close';
 
 const styles = {
   text: {
@@ -213,6 +217,48 @@ export const AppointmentFormView: React.FC<AppointmentFormViewProps> = (
                   </Typography>
                 </Grid>
               )}
+
+              <Grid item>
+                <Collapse in={props.openAllert}>
+                  {props.errorCreate && <Alert
+                    severity="error"
+                    action={
+                      <IconButton
+                        aria-label="close"
+                        color="inherit"
+                        size="small"
+                        onClick={() => {
+                          props.setOpenAllert(false);
+                        }}
+                      >
+                        <CloseIcon fontSize="inherit" />
+                      </IconButton>
+                    }
+                    sx={{ mb: 2 }}
+                  >
+                    Что-то пошло не так, проверьте что все обязательные поля заполнены, данные введены вверно, и попробуйте еще раз!
+                  </Alert>}
+                  {!props.errorCreate && <Alert
+                    severity="success"
+                    action={
+                      <IconButton
+                        aria-label="close"
+                        color="inherit"
+                        size="small"
+                        onClick={() => {
+                          props.setOpenAllert(false);
+                        }}
+                      >
+                        <CloseIcon fontSize="inherit" />
+                      </IconButton>
+                    }
+                    sx={{ mb: 2 }}
+                  >
+                    Запись на прием зарегестрирована. Ожидайте звонка от регистратуры.
+                  </Alert>}
+                  
+                </Collapse>
+              </Grid>
 
               <Grid item>
                 <Button
