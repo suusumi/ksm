@@ -3,7 +3,7 @@ import { CreateRegistrationDto } from "./dto";
 export const createRegistation = async (dto: CreateRegistrationDto): Promise<Response> => {
     try {
         const responce = await fetch(
-            "http://localhost:8082/api/v1/registrations/registration",
+            "http://feedback.visdom.tech/api/v1/registrations/registration",
             {
                 method: 'POST',
                 headers: {
