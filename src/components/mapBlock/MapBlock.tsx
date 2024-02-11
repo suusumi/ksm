@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 import OutlineButton from "../outlineButton/OutlineButton";
 
 // Виджет Яндекс.Карты с основным подразделением
-const yandexMapWidget = `<div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/org/klinika_semeynoy_meditsiny/1123002518/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Клиника семейной медицины</a><a href="https://yandex.ru/maps/38/volgograd/category/medical_center_clinic/184106108/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:14px;">Медцентр, клиника в Волгограде</a><iframe src="https://yandex.ru/map-widget/v1/?indoorLevel=1&ll=44.500105%2C48.699683&mode=search&oid=1123002518&ol=biz&z=16.64" width="100%" height=500px" frameborder="0" allowfullscreen="true" style="position:relative;border:1px solid #e6e6e6;border-radius:8px;"></iframe></div>`;
+const yandexMapWidget = `<div style="position:relative;overflow:hidden;"><a href="https://yandex.ru/maps/org/mnogoprofilnaya_klinika_1_volgogradskogo_gosudarstvennogo_meditsinskogo_universiteta/209406402506/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:0px;">Многопрофильная клиника № 1 Волгоградского государственного медицинского университета</a><a href="https://yandex.ru/maps/38/volgograd/category/hospital/184105956/?utm_medium=mapframe&utm_source=maps" style="color:#eee;font-size:12px;position:absolute;top:14px;">Больница для взрослых в Волгограде</a><iframe src="https://yandex.ru/map-widget/v1/org/mnogoprofilnaya_klinika_1_volgogradskogo_gosudarstvennogo_meditsinskogo_universiteta/209406402506/?ll=44.429227%2C48.619980&z=16" width="100%" height=500px" frameborder="0" allowfullscreen="true" style="position:relative;border:1px solid #e6e6e6;border-radius:8px;"></iframe></div>`;
 
 /**
  * Идентификатор для корректной навигации в шапке.
@@ -62,23 +62,8 @@ const MapBlock: React.FC<mapBlockProps> = ({ id }) => {
     const departmentsData: departmentsData[] = [
       {
         title: "Подразделение 1",
-        adress: "ул. КИМ, 20",
-        yamapLink: "https://yandex.ru/maps/-/CDUABFz1",
-      },
-      {
-        title: "Подразделение 2",
-        adress: "пл. Павших Борцов, 1",
-        yamapLink: "https://yandex.ru/maps/-/CDUgU4l4",
-      },
-      {
-        title: "Поразделение 3",
-        adress: "ул. Козловская, 45А",
-        yamapLink: "https://yandex.ru/maps/-/CDUgUBls",
-      },
-      {
-        title: "Поразделение 4",
-        adress: "ул. КИМ, 18А",
-        yamapLink: "https://yandex.ru/maps/-/CDUgUJzP",
+        adress: "ул. им. Никитина, 64",
+        yamapLink: "https://yandex.ru/maps/-/CDBrJA0E",
       },
     ];
     setData(departmentsData);
@@ -88,8 +73,8 @@ const MapBlock: React.FC<mapBlockProps> = ({ id }) => {
     // Заглушка с данными по часам работы
     const departmentHours: departmentHours[] = [
       {
-        workdays: "Понедельник - пятница 08:00-19:00",
-        weekends: "Суббота - 09:00-14:00",
+        workdays: "Понедельник - пятница круглосуточно",
+        weekends: "Суббота - круглосуточно",
       },
     ];
     setData2(departmentHours);
@@ -135,7 +120,7 @@ const MapBlock: React.FC<mapBlockProps> = ({ id }) => {
                 backgroundColor: "#1a665d",
               },
             }}
-            href="https://yandex.ru/maps/-/CDUABFz1"
+            href="https://yandex.ru/maps/-/CDBrJA0E"
           >
             Посмотреть на карте
           </Button>

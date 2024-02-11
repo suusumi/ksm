@@ -133,16 +133,16 @@ const ButtonAppBar: React.FC<ButtonAppBarProps> = () => {
       },
       subMenuItems: [
         {
-          label: "+7 (937) 097-12-12",
+          label: "(8442) 42-05-79",
           onClick: () => {
-            const phoneNumber = "+79370971212"; // The phone number you want to dial
+            const phoneNumber = "(8442) 42-05-79"; // The phone number you want to dial
             window.open(`tel:${phoneNumber}`);
           },
         },
         {
-          label: "(8442) 97-12-12",
+          label: "(8442) 42-17-39",
           onClick: () => {
-            const phoneNumber = "(8442) 97-12-12"; // The phone number you want to dial
+            const phoneNumber = "(8442) 42-17-39"; // The phone number you want to dial
             window.open(`tel:${phoneNumber}`);
           },
         },

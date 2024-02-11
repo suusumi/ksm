@@ -28,8 +28,8 @@ interface ReviewImage {
 // HTML код виджета отзывов
 const reviewsYandexMapLink = `
   <div style="width:100%;height:100%;min-height:300px;overflow:hidden;position:relative;">
-    <iframe style="width:100%;height:100%;min-height:600px;border:1px solid #e6e6e6;border-radius:8px;box-sizing:border-box" src="https://yandex.ru/maps-reviews-widget/1123002518?comments"></iframe>
-    <a href="https://yandex.ru/maps/org/klinika_semeynoy_meditsiny/1123002518/" target="_blank" style="box-sizing:border-box;text-decoration:none;color:#b3b3b3;font-size:10px;font-family:YS Text,sans-serif;padding:0 20px;position:absolute;bottom:8px;width:100%;text-align:center;left:0;overflow:hidden;text-overflow:ellipsis;display:block;max-height:14px;white-space:nowrap;padding:0 16px;box-sizing:border-box">Клиника семейной медицины на карте Волгограда — Яндекс Карты</a>
+    <iframe style="width:100%;height:100%;min-height:600px;border:1px solid #e6e6e6;border-radius:8px;box-sizing:border-box" src="https://yandex.ru/maps-reviews-widget/209406402506?comments"></iframe>
+    <a href="https://yandex.ru/maps/org/mnogoprofilnaya_klinika_1_volgogradskogo_gosudarstvennogo_meditsinskogo_universiteta/209406402506/" target="_blank" style="box-sizing:border-box;text-decoration:none;color:#b3b3b3;font-size:10px;font-family:YS Text,sans-serif;padding:0 20px;position:absolute;bottom:8px;width:100%;text-align:center;left:0;overflow:hidden;text-overflow:ellipsis;display:block;max-height:14px;white-space:nowrap;padding:0 16px;box-sizing:border-box">Многопрофильная клиника № 1 Волгоградского государственного медицинского университета на карте Волгограда — Яндекс Карты</a>
   </div>
 `;
 
