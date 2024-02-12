@@ -14,7 +14,7 @@ import PrimaryButton from "../primaryButton/PrimaryButton";
 import FullScreenMobileHeader from "./fullScreenMobileHeader";
 import { Link, useNavigate } from "react-router-dom";
 import { routes } from "../../assets/routes/routes";
-import logo from "../../assets/content/header-logo.svg";
+import logo from "../../assets/content/header-logo.png";
 
 interface ButtonAppBarProps {}
 

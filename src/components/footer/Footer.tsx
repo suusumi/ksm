@@ -39,7 +39,7 @@ const Footer: React.FC = () => {
         <Grid container spacing={5}>
           <Grid item xs={12} sm={4} md={7}>
             <img
-              src="/logos/footer_logo.svg"
+              src="/logos/footer_logo.png"
               style={{ maxWidth: "180px" }}
               alt="Клиника семейной медицины"
             />
@@ -164,8 +164,8 @@ const Footer: React.FC = () => {
               sx={{ color: "white", paddingTop: "5px" }}
               style={textStyle}
             >
-              <a href="tel:971212" style={linkStyle}>
-                (8442) 97-12-12
+              <a href="tel:420579" style={linkStyle}>
+                (8442) 42-05-79
               </a>
             </Typography>
             <Typography
@@ -173,8 +173,8 @@ const Footer: React.FC = () => {
               sx={{ color: "white" }}
               style={textStyle}
             >
-              <a href="tel:+79370971212" style={linkStyle}>
-                +7 (937) 097-12-12
+              <a href="tel:421739" style={linkStyle}>
+                (8442) 42-17-39
               </a>
             </Typography>
             <Typography
@@ -189,7 +189,7 @@ const Footer: React.FC = () => {
               sx={{ paddingTop: "5px" }}
               style={textStyle}
             >
-              <a href="https://vk.com/ksm_voggmu" style={linkStyle}>
+              <a href="https://vk.com/volggmu" style={linkStyle}>
                 VK
               </a>
             </Typography>

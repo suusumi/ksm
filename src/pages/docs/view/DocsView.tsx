@@ -5,10 +5,10 @@ const links = [
     title: "Правила предоставления платных медицинских услуг",
     link: "https://www.volgmed.ru/uploads/files/2022-11/161900-aeoomocsunulvmby35uvvoryyuuubsyr.pdf",
   },
-  {
-    title: "Положение о Клинике семейной медицины",
-    link: "https://www.volgmed.ru/uploads/files/2022-11/161902-ksm_polozhenie_o_kliniki.pdf",
-  },
+  // {
+  //   title: "Положение о Клинике семейной медицины",
+  //   link: "https://www.volgmed.ru/uploads/files/2022-11/161902-ksm_polozhenie_o_kliniki.pdf",
+  // },
   {
     title: "Анкета Минздрава",
     link: "https://minzdrav.gov.ru/open/supervision/format/nezavisimaya-sistema-otsenki-kachestva-okazaniya-uslug-meditsinskimi-organizatsiyami/nezavisimaya-otsenka-kachestva-okazaniya-uslug-meditsinskimi-organizatsiyami",
@@ -17,49 +17,37 @@ const links = [
     title: "Лицензия",
     link: "https://www.volgmed.ru/uploads/files/2023-7/176789-litsenziya_klinika_volggmu_l041_00110_34_00368034.pdf",
   },
-  {
-    title: "Сведения о сотрудниках",
-    link: "https://www.volgmed.ru/uploads/files/2023-9/185147-svedeniya_o_sotrudnikakh_sentyabr_2023.pdf",
-  },
+  // {
+  //   title: "Сведения о сотрудниках",
+  //   link: "https://www.volgmed.ru/uploads/files/2023-9/185147-svedeniya_o_sotrudnikakh_sentyabr_2023.pdf",
+  // },
   {
     title: "Внесение изменений в реестр лицензий",
     link: "https://www.volgmed.ru/uploads/files/2023-7/177857-vnesenie_izmeneniy_v_reestr_litsenziy_iyul_2023.pdf",
   },
-  {
-    title: "Информированные добровольные согласия",
-    link: "https://www.volgmed.ru/uploads/files/2022-11/161669-158350_informirovannye_soglasiya.pdf",
-  },
-  {
-    title: "Договор на оказание платных медицинских услуг",
-    link: "https://www.volgmed.ru/uploads/files/2023-8/181264-dogovor_okazaniya_med_uslugi_s_01_09_2023.pdf",
-  },
+  // {
+  //   title: "Информированные добровольные согласия",
+  //   link: "https://www.volgmed.ru/uploads/files/2022-11/161669-158350_informirovannye_soglasiya.pdf",
+  // },
+  // {
+  //   title: "Договор на оказание платных медицинских услуг",
+  //   link: "https://www.volgmed.ru/uploads/files/2023-8/181264-dogovor_okazaniya_med_uslugi_s_01_09_2023.pdf",
+  // },
   {
     title: "Календарь профилактических прививок",
     link: "https://www.volgmed.ru/uploads/files/2022-9/158343-prmz_1122_06122021.pdf",
   },
-  {
-    title: "Прейскурант цен на платные медицинские услуги",
-    link: "https://www.volgmed.ru/uploads/files/2023-9/184591-prays_na_15_09_2023.pdf",
-  },
-  {
-    title: "Подразделение, ул. КИМ, 20",
-    link: "https://www.volgmed.ru/uploads/files/2022-11/161729-kim_20_na_08noyabrya_22.pdf",
-  },
-  {
-    title: "Подразделение, пл. Павших Борцов, 1",
-    link: "https://www.volgmed.ru/uploads/files/2022-11/161674-zdravpunkt_2022_noyabr_07.pdf",
-  },
-  {
-    title: "Подразделение, Козловская, 45А",
-    link: "https://www.volgmed.ru/uploads/files/2022-11/161672-kozlovskaya_na07_noyabr_22.pdf",
-  },
-  {
-    title: "Подразделение, ул. КИМ, 18А",
-    link: "https://www.volgmed.ru/uploads/files/2022-11/161670-fok_na_07_noyabr_22.pdf",
-  },
+  // {
+  //   title: "Прейскурант цен на платные медицинские услуги",
+  //   link: "https://www.volgmed.ru/uploads/files/2023-9/184591-prays_na_15_09_2023.pdf",
+  // },
+  // {
+  //   title: "Подразделение, ул. КИМ, 20",
+  //   link: "https://www.volgmed.ru/uploads/files/2022-11/161729-kim_20_na_08noyabrya_22.pdf",
+  // },
   {
     title: "Файловое хранилище",
-    link: "https://www.volgmed.ru/medicine/family-medicine-clinic/faylovyy-menedzher/",
+    link: "https://www.volgmed.ru/medicine/clinic/faylovyy-menedzher/",
   },
 ];
 
@@ -146,7 +134,7 @@ function DocsView() {
         </Typography>
 
         <Typography textAlign={"center"} style={styles.titleSubText}>
-          Для уточнения другой информации звоните в регистратуру <br /> 97-12-12
+          Для уточнения другой информации звоните в приемный покой <br /> 42-17-39
         </Typography>
       </div>
 
