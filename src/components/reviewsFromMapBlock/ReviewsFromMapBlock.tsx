@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
+import mrtImage from "../../assets/content/main/reviewsMapBlock/mrt.png"
+import operationImage from "../../assets/content/main/reviewsMapBlock/operation_2.png"
+import mrtViewImage from "../../assets/content/main/reviewsMapBlock/mrt_image.png"
 
 /**
  * Идентификатор для корректной навигации в шапке.
@@ -49,15 +52,18 @@ const ReviewsFromMapBlock: React.FC<reviewsFromMapBlockProps> = ({ id }) => {
     const loadedReviewsImages: ReviewImage[] = [
       {
         title: "Image 1",
-        image: "https://i.ibb.co/F703W2g/reviews-image-3.png",
+        // image: "https://i.ibb.co/F703W2g/reviews-image-3.png",
+        image: operationImage,
       },
       {
         title: "Image 2",
-        image: "https://i.ibb.co/jVc79XQ/reviews-image-2.png",
+        // image: "https://i.ibb.co/jVc79XQ/reviews-image-2.png",
+        image: mrtViewImage,
       },
       {
         title: "Image 3",
-        image: "https://i.ibb.co/pRGKsK1/reviews-image-1.png",
+        // image: "https://i.ibb.co/pRGKsK1/reviews-image-1.png",
+        image: mrtImage,
       },
     ];
 
@@ -80,9 +86,11 @@ const ReviewsFromMapBlock: React.FC<reviewsFromMapBlockProps> = ({ id }) => {
                 alt={reviewsImages[0].title}
                 style={{
                   position: "relative",
-                  left: "30%",
-                  top: "45%",
+                  left: "50%",
+                  top: "35%",
                   zIndex: "2",
+                  width:'60%',
+                  borderRadius: '15px'
                 }}
               />
             )}
@@ -96,6 +104,8 @@ const ReviewsFromMapBlock: React.FC<reviewsFromMapBlockProps> = ({ id }) => {
                   left: "0",
                   top: "20%",
                   zIndex: "3",
+                  width:'60%',
+                  borderRadius: '15px'
                 }}
               />
             )}
@@ -104,7 +114,10 @@ const ReviewsFromMapBlock: React.FC<reviewsFromMapBlockProps> = ({ id }) => {
               <img
                 src={reviewsImages[2].image}
                 alt={reviewsImages[2].title}
-                style={{ position: "relative", left: "10%", bottom: "40%" }}
+                style={{ position: "relative", left: "10%", bottom: "40%",
+                 width: '50%',
+                 borderRadius: '15px'
+                }}
               />
             )}
             {/* <img src={reviewsImages[0].image} alt={reviewsImages[0].title} style={{position:'relative', left:'30%', top:'45%', zIndex:'2'}}/> */}
