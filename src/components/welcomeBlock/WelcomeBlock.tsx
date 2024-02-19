@@ -5,9 +5,9 @@ import Grid from "@mui/material/Grid";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { ThemeProvider, useTheme } from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import zubWelcomeBlockMobile from "../../assets/content/main/welcomeBlock/zub_welcomeBlock_mobile.png";
-import zubPngVectorMobile from "../../assets/content/main/welcomeBlock/zub_png_vector_mobile.png";
-import zubWelcomeBlock2 from "../../assets/content/main/welcomeBlock/zub_welcomeBlock2.png";
+import iconsWelcomeBlockMobile from "../../assets/content/main/welcomeBlock/icons.png";
+import vectorMobile from "../../assets/content/main/welcomeBlock/vector_mobile.png";
+import iconsWelcomeBlock from "../../assets/content/main/welcomeBlock/icons_with_vector.png";
 import PrimaryButton from "../primaryButton/PrimaryButton";
 import { routes } from "../../assets/routes/routes";
 import Button from "@mui/material/Button";
@@ -113,13 +113,13 @@ const WelcomeBlock: React.FC = () => {
                 left: "54%",
                 zIndex: 1,
               }}
-              src={zubPngVectorMobile}
+              src={vectorMobile}
             ></Box>
             <Box
               component="img"
-              sx={{ width: "80%" }}
-              alt="Зуб Андрей Владимирович"
-              src={zubWelcomeBlockMobile}
+              sx={{ width: "50%" }}
+              alt="Иконка Блок Приветствия"
+              src={iconsWelcomeBlockMobile}
             ></Box>
             <Typography sx={{ ...TitleText, zIndex: 2 }}>
               {data[0]?.title || ""}
@@ -185,8 +185,8 @@ const WelcomeBlock: React.FC = () => {
               <Box
                 component="img"
                 sx={{ width: "100%" }}
-                alt="Зуб Андрей Владимирович"
-                src={zubWelcomeBlock2}
+                alt="Иконка Блок Приветствия"
+                src={iconsWelcomeBlock}
               ></Box>
             </Grid>
           </>

@@ -81,7 +81,7 @@ const AboutUsBlock: React.FC<AboutUsBlockProps> = ({ id }) => {
             <Typography sx={Text}>{data[0]?.text || ""}</Typography>
             <Box
               component="img"
-              sx={{ width: "80%", paddingTop: "30px" }}
+              sx={{ width: "80%", marginTop: "30px", borderRadius: '10px'}}
               src={PlacePhoto}
             ></Box>
           </Grid>
@@ -90,7 +90,7 @@ const AboutUsBlock: React.FC<AboutUsBlockProps> = ({ id }) => {
             <Grid item xs={12} sm={6} md={6}>
               <Box
                 component="img"
-                sx={{ width: "100%" }}
+                sx={{ width: "80%", borderRadius: '10px' }}
                 alt="Здание Клиника № 1"
                 src={PlacePhoto}
               ></Box>
