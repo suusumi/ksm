@@ -57,16 +57,21 @@ export const BannersView = () => {
     setOpenDesktopBanner(false);
   };
 
+  const setBannerLink = (link: string) => {
+    setNewBanner((prev) => ({ ...prev, text_content: link }));
+    setNewMobileBanner((prev) => ({ ...prev, text_content: link }));
+  };
+
   useEffect(() => {
     fetchAllBanners()
-      .then((response) => response.json())
-      .then((data) => {
-        setBanners(data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [, value]);
+        .then((response) => response.json())
+        .then((data) => {
+          setBanners(data);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+  }, [value]);
 
   const handleDeleteBanner: any = async (id: number) => {
     console.log(`Удалил: ${id}`);
@@ -78,148 +83,151 @@ export const BannersView = () => {
     }
   };
 
-  const handleCreateBanner: any = async () => {
-    const formData = new FormData();
-    formData.append("bodyData", JSON.stringify(newBanner));
-    if (selectedImage !== null) {
-      formData.append("image", selectedImage);
-    } else {
-      console.log("Картинка не выбрана!");
-      return;
+  const handleCreateBanner: any = async (formData: FormData) => {
+    try {
+      const response = await createBanners(formData);
+      if (response.ok) {
+        console.log("СОЗДАЛ");
+        setValue({});
+        return response;
+      } else {
+        console.error('Ошибка при создании баннера');
+        return response;
+      }
+    } catch (error) {
+      console.error('Ошибка при создании баннера:', error);
+      throw error;
     }
-
-    await createBanners(formData).catch((error) => console.error(error));
-    console.log("СОЗДАЛ");
-    setValue({});
-    handleClose();
   };
 
-  const handleCreateMobileBanner: any = async () => {
-    const formData = new FormData();
-    formData.append("bodyData", JSON.stringify(newMobileBanner));
-    if (selectedImage !== null) {
-      formData.append("image", selectedImage);
-    } else {
-      console.log("Картинка не выбрана!");
-      return;
+  const handleCreateMobileBanner: any = async (formData: FormData) => {
+    try {
+      const response = await createBanners(formData);
+      if (response.ok) {
+        console.log("СОЗДАЛ МОБИЛЬНЫЙ БАННЕР");
+        setValue({});
+        return response;
+      } else {
+        console.error('Ошибка при создании баннера');
+        return response;
+      }
+    } catch (error) {
+      console.error('Ошибка при создании мобильного баннера:', error);
+      throw error;
     }
-
-    await createBanners(formData).catch((error) => console.error(error));
-    console.log("СОЗДАЛ МОБИЛЬНЫЙ БАННЕР");
-    setValue({});
-    handleClose();
   };
+
   return (
-    <div style={{ marginBottom: "40px" }}>
-      <style>
-        {`
+      <div style={{ marginBottom: "40px" }}>
+        <style>
+          {`
           /* Стили для изображений */
           .carousel-image {
-            width: 100%; /* Ширина изображения на всех экранах 
-            height: auto; /* Автоматическая высота, чтобы сохранить пропорции 
+            width: 100%; /* Ширина изображения на всех экранах */
+            height: auto; /* Автоматическая высота, чтобы сохранить пропорции */
           }
 
           /* Стили для десктопных экранов (пример) */
           @media (min-width: 1280px) {
             .carousel-image {
-              max-width: 100%; /* Ограничение ширины на десктопных экранах 
+              max-width: 100%; /* Ограничение ширины на десктопных экранах */
             }
           }
         `}
-      </style>
-      <Box sx={{ marginTop: "15px" }}>
-        <Typography
-          style={styles.TitleText}
-          sx={{ marginBottom: 2, spacing: 3 }}
+        </style>
+        <Box sx={{ marginTop: "15px" }}>
+          <Typography
+              style={styles.TitleText}
+              sx={{ marginBottom: 2, spacing: 3 }}
+          >
+            НАСТРОЙКА БАННЕРОВ
+          </Typography>
+          <Typography style={styles.TitleText} sx={{ marginY: 2 }}>
+            СТАНДАРТНЫЕ БАННЕРЫ</Typography>
+            <Button variant="contained" onClick={handleClickOpenDesktopBanner}>
+              Создать новый баннер
+            </Button>
+
+            <DialogCreateBanner
+                open={openDesktopBanner}
+                handleClickOpen={handleClickOpenDesktopBanner}
+                handleClose={handleClose}
+                createBanner={newBanner}
+                selectedImage={selectedImage}
+                setSelectedImage={setSelectedImage}
+                handleCreateBanner={handleCreateBanner}
+                setBannerLink={setBannerLink} // передаем функцию для обновления ссылки
+            />
+
+            <Carousel sx={{ overflow: "visible" }}>
+              {banners
+                  ?.filter((banner) => banner.banner_type === "desktop")
+                  .map((banner, index) => (
+                      <div key={index}>
+                        <img
+                            src={IMAGE_URL + banner.img_path}
+                            alt={`Slide ${index}`}
+                            className="carousel-image"
+                        />
+                        <Button
+                            onClick={() => handleDeleteBanner(banner.id)}
+                            sx={{ marginTop: "25px" }}
+                        >
+                          Удалить баннер
+                        </Button>
+                      </div>
+                  ))}
+            </Carousel>
+        </Box>
+        <Box sx={{ marginTop: "15px" }}>
+          <Typography style={styles.TitleText} sx={{ marginTop: "50px" }}>
+            МОБИЛЬНЫЕ БАННЕРЫ
+          </Typography>
+
+          <Button
+              variant="contained"
+              onClick={handleClickOpenMobileBanner}
+              sx={{ marginTop: "15px" }}
+          >
+            Создать новый мобильный баннер
+          </Button>
+          <DialogCreateBanner
+              open={openMobileBanner}
+              handleClickOpen={handleClickOpenMobileBanner}
+              handleClose={handleClose}
+              createBanner={newMobileBanner}
+              selectedImage={selectedImage}
+              setSelectedImage={setSelectedImage}
+              handleCreateBanner={handleCreateMobileBanner}
+              setBannerLink={setBannerLink} // передаем функцию для обновления ссылки
+          />
+        </Box>
+        <Carousel
+            sx={{
+              overflow: "visible",
+              maxWidth: "250px",
+              marginTop: "15px",
+            }}
         >
-          НАСТРОЙКА БАННЕРОВ
-        </Typography>
-        <Typography style={styles.TitleText} sx={{ marginY: 2 }}>
-          СТАНДАРТНЫЕ БАННЕРЫ
-        </Typography>
-
-        <Button variant="contained" onClick={handleClickOpenDesktopBanner}>
-          Создать новый баннер
-        </Button>
-
-        <DialogCreateBanner
-          open={openDesktopBanner}
-          handleClickOpen={handleClickOpenDesktopBanner}
-          handleClose={handleClose}
-          createBanner={newBanner}
-          selectedImage={selectedImage}
-          setSelectedImage={setSelectedImage}
-          handleCreateBanner={handleCreateBanner}
-        />
-
-        <Carousel sx={{ overflow: "visible" }}>
           {banners
-            ?.filter((banner) => banner.banner_type === "desktop")
-            .map((banner, index) => (
-              <div key={index}>
-                <img
-                  src={IMAGE_URL + banner.img_path}
-                  alt={`Slide ${index}`}
-                  className="carousel-image"
-                />
-                <Button
-                  onClick={() => handleDeleteBanner(banner.id)}
-                  sx={{ marginTop: "25px" }}
-                >
-                  Удалить баннер
-                </Button>
-              </div>
-            ))}
+              ?.filter((banner) => banner.banner_type === "mobile")
+              .map((banner, index) => (
+                  <div key={index}>
+                    <img
+                        src={IMAGE_URL + banner.img_path}
+                        alt={`Slide ${index}`}
+                        className="carousel-image"
+                        style={{ maxWidth: "250px" }}
+                    />
+                    <Button
+                        onClick={() => handleDeleteBanner(banner.id)}
+                        sx={{ marginTop: "35px" }}
+                    >
+                      Удалить баннер
+                    </Button>
+                  </div>
+              ))}
         </Carousel>
-      </Box>
-      <Box sx={{ marginTop: "15px" }}>
-        <Typography style={styles.TitleText} sx={{ marginTop: "50px" }}>
-          МОБИЛЬНЫЕ БАННЕРЫ
-        </Typography>
-
-        <Button
-          variant="contained"
-          onClick={handleClickOpenMobileBanner}
-          sx={{ marginTop: "15px" }}
-        >
-          Создать новый мобильный баннер
-        </Button>
-        <DialogCreateBanner
-          open={openMobileBanner}
-          handleClickOpen={handleClickOpenMobileBanner}
-          handleClose={handleClose}
-          createBanner={newBanner}
-          selectedImage={selectedImage}
-          setSelectedImage={setSelectedImage}
-          handleCreateBanner={handleCreateMobileBanner}
-        />
-      </Box>
-      <Carousel
-        sx={{
-          overflow: "visible",
-          maxWidth: "250px",
-          marginTop: "15px",
-        }}
-      >
-        {banners
-          ?.filter((banner) => banner.banner_type === "mobile")
-          .map((banner, index) => (
-            <div key={index}>
-              <img
-                src={IMAGE_URL + banner.img_path}
-                alt={`Slide ${index}`}
-                className="carousel-image"
-                style={{ maxWidth: "250px" }}
-              />
-              <Button
-                onClick={() => handleDeleteBanner(banner.id)}
-                sx={{ marginTop: "35px" }}
-              >
-                Удалить баннер
-              </Button>
-            </div>
-          ))}
-      </Carousel>
-    </div>
+      </div>
   );
 };
