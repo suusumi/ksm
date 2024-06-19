@@ -8,27 +8,27 @@ import { IMAGE_URL } from "../../utils/constants/url.constants";
 import theme from "../../assets/theme/Theme";
 
 const CarouselBlock: React.FC = () => {
-  const [data, setData] = useState<BannersDto[]>([]);
-  const [value, setValue] = useState({});
+    const [data, setData] = useState<BannersDto[]>([]);
+    const [value, setValue] = useState({});
 
-  useEffect(() => {
-    fetchAllBanners()
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data); // Устанавливаем данные, полученные с сервера
-      })
-      .catch((error) => console.error("Ошибка при получении данных", error));
-  }, [, value]);
+    useEffect(() => {
+        fetchAllBanners()
+            .then((response) => response.json())
+            .then((data) => {
+                setData(data); // Устанавливаем данные, полученные с сервера
+            })
+            .catch((error) => console.error("Ошибка при получении данных", error));
+    }, [, value]);
 
-  // Проверяем размер экрана
-  const theme = useTheme();
-  const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
-  const isDesktopScreen = useMediaQuery(theme.breakpoints.up("lg")); // Десктопный размер экрана, возможно надо поменять на md
+    // Проверяем размер экрана
+    const theme = useTheme();
+    const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
+    const isDesktopScreen = useMediaQuery(theme.breakpoints.up("lg")); // Десктопный размер экрана, возможно надо поменять на md
 
-  return (
-    <div>
-      <style>
-        {`
+    return (
+        <div>
+            <style>
+                {`
           /* Стили для изображений */
           .carousel-image {
             width: 100%; /* Ширина изображения на всех экранах */
@@ -42,38 +42,42 @@ const CarouselBlock: React.FC = () => {
             }
           }
         `}
-      </style>
-      {isXsScreen ? (
-        <Carousel>
-          {data
-            .filter((banner) => banner.banner_type === "mobile")
-            .map((banner, index) => (
-              <div key={index}>
-                <img
-                  src={IMAGE_URL + banner.img_path}
-                  alt={banner.title}
-                  className="carousel-image"
-                />
-              </div>
-            ))}
-        </Carousel>
-      ) : (
-        <Carousel>
-          {data
-            .filter((banner) => banner.banner_type === "desktop")
-            .map((banner, index) => (
-              <div key={index}>
-                <img
-                  src={IMAGE_URL + banner.img_path}
-                  alt={banner.title}
-                  className="carousel-image"
-                />
-              </div>
-            ))}
-        </Carousel>
-      )}
-    </div>
-  );
+            </style>
+            {isXsScreen ? (
+                <Carousel>
+                    {data
+                        .filter((banner) => banner.banner_type === "mobile")
+                        .map((banner, index) => (
+                            <div key={index}>
+                                <a href={banner.text_content} target="_blank" rel="noopener noreferrer">
+                                    <img
+                                        src={IMAGE_URL + banner.img_path}
+                                        alt={banner.title}
+                                        className="carousel-image"
+                                    />
+                                </a>
+                            </div>
+                        ))}
+                </Carousel>
+            ) : (
+                <Carousel>
+                    {data
+                        .filter((banner) => banner.banner_type === "desktop")
+                        .map((banner, index) => (
+                            <div key={index}>
+                                <a href={banner.text_content} target="_blank" rel="noopener noreferrer">
+                                    <img
+                                        src={IMAGE_URL + banner.img_path}
+                                        alt={banner.title}
+                                        className="carousel-image"
+                                    />
+                                </a>
+                            </div>
+                        ))}
+                </Carousel>
+            )}
+        </div>
+    );
 };
 
 export default CarouselBlock;
