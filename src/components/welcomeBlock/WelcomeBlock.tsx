@@ -144,7 +144,7 @@ const WelcomeBlock: React.FC = () => {
               <Button
                 sx={ButtonStyle}
                 onClick={() => {
-                  navigate(routes.appointment);
+                  navigate(routes.goToAppointment('null', 'null'));
                 }}
               >
                 Записаться на прием
@@ -174,7 +174,7 @@ const WelcomeBlock: React.FC = () => {
                 <Button
                   sx={ButtonStyle}
                   onClick={() => {
-                    navigate(routes.appointment);
+                    navigate(routes.goToAppointment('null', 'null'));
                   }}
                 >
                   Записаться на прием
