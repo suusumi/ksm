@@ -1,9 +1,10 @@
+import { BACKEND_REGISTRATIONS_URL } from "../../utils/constants/url.constants";
 import { CreateRegistrationDto } from "./dto";
 
 export const createRegistation = async (dto: CreateRegistrationDto): Promise<Response> => {
     try {
         const responce = await fetch(
-            "http://feedback.visdom.tech/api/v1/registrations/registration",
+            `${BACKEND_REGISTRATIONS_URL}registrations/registration`,
             {
                 method: 'POST',
                 headers: {
