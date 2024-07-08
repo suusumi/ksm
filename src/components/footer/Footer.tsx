@@ -71,7 +71,7 @@ const Footer: React.FC = () => {
               color="lightgrey"
               style={textStyle}
               onClick={async () => {
-                await navigate(routes.appointment);
+                await navigate(routes.goToAppointment("null", "null"));
                 window.scrollTo(0, 0);
               }}
             >

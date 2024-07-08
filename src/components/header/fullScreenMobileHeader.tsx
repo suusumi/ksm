@@ -208,7 +208,7 @@ function FullScreenMobileHeader({ closeMenu }: FullScreenMobileHeaderProps) {
           textTransform: "none",
         }}
         onClick={() => {
-          navigate(routes.appointment);
+          navigate(routes.goToAppointment('null', 'null'));
           closeMenu(); // Закрывает основное меню
           window.scrollTo({ top: 0, behavior: "smooth" });
         }}
