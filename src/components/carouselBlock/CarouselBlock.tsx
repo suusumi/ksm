@@ -49,11 +49,17 @@ const CarouselBlock: React.FC = () => {
             .filter((banner) => banner.banner_type === "mobile")
             .map((banner, index) => (
               <div key={index}>
-                <img
-                  src={IMAGE_URL + banner.img_path}
-                  alt={banner.title}
-                  className="carousel-image"
-                />
+                <a
+                  href={banner.text_content}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src={IMAGE_URL + banner.img_path}
+                    alt={banner.title}
+                    className="carousel-image"
+                  />
+                </a>
               </div>
             ))}
         </Carousel>
@@ -63,11 +69,17 @@ const CarouselBlock: React.FC = () => {
             .filter((banner) => banner.banner_type === "desktop")
             .map((banner, index) => (
               <div key={index}>
-                <img
-                  src={IMAGE_URL + banner.img_path}
-                  alt={banner.title}
-                  className="carousel-image"
-                />
+                <a
+                  href={banner.text_content}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src={IMAGE_URL + banner.img_path}
+                    alt={banner.title}
+                    className="carousel-image"
+                  />
+                </a>
               </div>
             ))}
         </Carousel>
