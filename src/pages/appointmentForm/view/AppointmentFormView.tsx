@@ -70,8 +70,11 @@ export const AppointmentFormView: React.FC<AppointmentFormViewProps> = (
     const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
 
     return (
-        <Grid container direction="row" justifyContent="center" marginBottom={3}>
-            <Grid item xs={12} md={8} lg={6}>
+        <Grid container direction="row" justifyContent="center" alignItems="center" sx={{
+            minHeight: "100vh",
+            px: 2, // добавляем отступы для мобильных экранов
+        }}>
+            <Grid item xs={12} md={12} lg={12}>
                 <Grid container direction="column" spacing={3} marginBottom={2}>
                     <Grid container item spacing={2} justifyContent="center">
                         <Grid item xs={12} sm="auto">
@@ -95,9 +98,10 @@ export const AppointmentFormView: React.FC<AppointmentFormViewProps> = (
                     </Grid>
 
 
-                    {/* По-умолчанию выбран основной способ записи*/}
+                    {/* По-умолчанию выбран основной способ записи */}
+                    {/* TODO: сделать основной запись через yclients (должна открываться по-умолчанию) */}
                     {selectedForm === "main" ? (
-                        <Grid container direction={"column"} spacing={3} marginBottom={2}>
+                        <Grid container direction={"column"} spacing={3} marginBottom={2} marginTop={1}>
 
 
                             <Grid item xs={12}>
