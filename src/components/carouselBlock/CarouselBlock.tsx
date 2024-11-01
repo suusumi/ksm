@@ -58,7 +58,7 @@ const CarouselBlock: React.FC = () => {
             ))}
         </Carousel>
       ) : (
-        <Carousel sx={{minHeight:'650px'}}>
+        <Carousel sx={{minHeight:'690px'}}>
           {data
             .filter((banner) => banner.banner_type === "desktop")
             .map((banner, index) => (
