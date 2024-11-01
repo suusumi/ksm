@@ -29,6 +29,7 @@ import "dayjs/locale/de";
 import {TextMaskCustom} from "../../../components/TextMaskCustom/TextMaskCustom";
 import {routes} from "../../../assets/routes/routes";
 import CloseIcon from '@mui/icons-material/Close';
+import {useLocation} from "react-router-dom";
 
 const styles = {
     text: {
@@ -60,11 +61,16 @@ const styles = {
 export const AppointmentFormView: React.FC<AppointmentFormViewProps> = (
     props
 ) => {
+    // проверяем параметр form=main при переходе из прайса
+    const location = useLocation();
+    const queryParams = new URLSearchParams(location.search);
+    const formType = queryParams.get("form");
+
     // Модальное окно политики конфиденциальности
     const [isPrivacyPolicyOpen, setIsPrivacyPolicyOpen] = React.useState(false);
 
     // 2 формы записи: стандартная и YCLIENTS
-    const [selectedForm, setSelectedForm] = useState("main")
+    const [selectedForm, setSelectedForm] = useState(formType === "main" ? "main" : "yclients");
 
     const theme = useTheme();
     const isXsScreen = useMediaQuery(theme.breakpoints.only("xs"));
@@ -80,19 +86,19 @@ export const AppointmentFormView: React.FC<AppointmentFormViewProps> = (
                         <Grid item xs={12} sm="auto">
                             <Button
                                 fullWidth
-                                variant={selectedForm === "main" ? "contained" : "outlined"}
-                                onClick={() => setSelectedForm("main")}
+                                variant={selectedForm === "yclients" ? "contained" : "outlined"}
+                                onClick={() => setSelectedForm("yclients")}
                             >
-                                Основная форма
+                                Запись через YCLIENTS
                             </Button>
                         </Grid>
                         <Grid item xs={12} sm="auto">
                             <Button
                                 fullWidth
-                                variant={selectedForm === "yclients" ? "contained" : "outlined"}
-                                onClick={() => setSelectedForm("yclients")}
+                                variant={selectedForm === "main" ? "contained" : "outlined"}
+                                onClick={() => setSelectedForm("main")}
                             >
-                                Запись через YCLIENTS
+                                Основная форма
                             </Button>
                         </Grid>
                     </Grid>
