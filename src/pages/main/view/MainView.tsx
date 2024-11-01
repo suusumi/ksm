@@ -13,6 +13,7 @@ import Price from "../../../components/priceBlock/PriceBlock";
 import MapBlock from "../../../components/mapBlock/MapBlock";
 import NewPrice from "../../../components/newPriceBlock/NewPriceScreen";
 import Preloader from "../../../components/preloader/Preloader";
+import {Yclient} from "../../../components/yclient/Yclient";
 
 function MainView() {
   const TitleText = {
@@ -31,6 +32,7 @@ function MainView() {
     maxWidth: "250px",
   };
 
+  // TODO:написать и перенести компонент yclient
   return (
     <div>
       <Preloader />
@@ -47,6 +49,7 @@ function MainView() {
         <Price id="priceBlock"></Price>
         <NewPrice></NewPrice>
         <MapBlock id="mapBlock" />
+        {/*<Yclient/>*/}
       </Container>
     </div>
   );
