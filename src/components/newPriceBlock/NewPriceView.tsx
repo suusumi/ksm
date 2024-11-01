@@ -190,15 +190,15 @@ export const NewPriceView: React.FC<NewPriceProps> = (props) => {
                               >
                                 {service.price}Р
                               </Typography>
-                              <a
-                                href={routes.goToAppointment(props.categories?.filter((item) => item.id === selectedCategory).map((category) => category.name)[0], service.name)}
-                                style={{
-                                  color: "#288e81",
-                                  textDecoration: "none",
-                                }}
-                              >
-                                Записаться
-                              </a>
+                              {/*<a*/}
+                              {/*  href={routes.goToAppointment(props.categories?.filter((item) => item.id === selectedCategory).map((category) => category.name)[0], service.name)}*/}
+                              {/*  style={{*/}
+                              {/*    color: "#288e81",*/}
+                              {/*    textDecoration: "none",*/}
+                              {/*  }}*/}
+                              {/*>*/}
+                              {/*  Записаться*/}
+                              {/*</a>*/}
                             </Box>
                           )}
                         </Box>
