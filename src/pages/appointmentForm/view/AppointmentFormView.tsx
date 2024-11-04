@@ -82,32 +82,32 @@ export const AppointmentFormView: React.FC<AppointmentFormViewProps> = (
         }}>
             <Grid item xs={12} md={12} lg={12}>
                 <Grid container direction="column" spacing={3} marginBottom={2}>
-                    <Grid container item spacing={2} justifyContent="center">
-                        <Grid item xs={12} sm="auto">
-                            <Button
-                                fullWidth
-                                variant={selectedForm === "yclients" ? "contained" : "outlined"}
-                                onClick={() => setSelectedForm("yclients")}
-                            >
-                                Запись через YCLIENTS
-                            </Button>
-                        </Grid>
-                        <Grid item xs={12} sm="auto">
-                            <Button
-                                fullWidth
-                                variant={selectedForm === "main" ? "contained" : "outlined"}
-                                onClick={() => setSelectedForm("main")}
-                            >
-                                Основная форма
-                            </Button>
-                        </Grid>
-                    </Grid>
+                    {/*<Grid container item spacing={2} justifyContent="center">*/}
+                    {/*    <Grid item xs={12} sm="auto">*/}
+                    {/*        <Button*/}
+                    {/*            fullWidth*/}
+                    {/*            variant={selectedForm === "yclients" ? "contained" : "outlined"}*/}
+                    {/*            onClick={() => setSelectedForm("yclients")}*/}
+                    {/*        >*/}
+                    {/*            Запись через YCLIENTS*/}
+                    {/*        </Button>*/}
+                    {/*    </Grid>*/}
+                    {/*    <Grid item xs={12} sm="auto">*/}
+                    {/*        <Button*/}
+                    {/*            fullWidth*/}
+                    {/*            variant={selectedForm === "main" ? "contained" : "outlined"}*/}
+                    {/*            onClick={() => setSelectedForm("main")}*/}
+                    {/*        >*/}
+                    {/*            Основная форма*/}
+                    {/*        </Button>*/}
+                    {/*    </Grid>*/}
+                    {/*</Grid>*/}
 
 
                     {/* По-умолчанию выбран основной способ записи */}
                     {/* TODO: сделать основной запись через yclients (должна открываться по-умолчанию) */}
                     {selectedForm === "main" ? (
-                        <Grid container direction={"column"} spacing={3} marginBottom={2} marginTop={1}>
+                        <Grid container direction={"column"} spacing={3}>
 
 
                             <Grid item xs={12}>
@@ -312,9 +312,9 @@ export const AppointmentFormView: React.FC<AppointmentFormViewProps> = (
                             </Grid>
                         </Grid>
                     ) : (
-                        <Grid item xs={12} display="flex" justifyContent="center">
+                        <Grid item xs={12} display="flex" justifyContent="center" padding={0}>
                             <iframe
-                                height="745px"
+                                height="620px"
                                 width="100%"
                                 // scrolling="no"
                                 frameBorder="0"
