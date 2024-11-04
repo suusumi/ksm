@@ -171,24 +171,29 @@ const OurContactsBlock: React.FC<OurContactsBlockProps> = ({ id }) => {
             }}
           >
             {data &&
-              data.map((item, index) => (
-                <div key={`social-${index}`}>
-                  {item.socialLinks.length > 0 && // Проверка на наличие социальных ссылок в массиве
-                    item.socialLinks.map((socialLink, socialIndex) => {
-                      if (socialLink.url && socialLink.url.trim() !== "") {
-                        return (
-                          <OutlineButton
-                            key={`social-${socialIndex}`}
-                            buttonText={socialLink.name}
-                            buttonLink={socialLink.url}
-                          />
-                        );
-                      } else {
-                        return null; // Если ссылка пуста, вернуть null, чтобы её не отображать
-                      }
-                    })}
-                </div>
-              ))}
+                data.map((item, index) => (
+                    <div key={`social-${index}`}>
+                      {item.socialLinks.length > 0 &&
+                          item.socialLinks.map((socialLink, socialIndex) => {
+                            if (socialLink.url && socialLink.url.trim() !== "") {
+                              // Проверяем, является ли ссылка электронной почтой
+                              const link =
+                                  socialLink.name.toLowerCase() === "email"
+                                      ? `mailto:${socialLink.url}`
+                                      : socialLink.url;
+                              return (
+                                  <OutlineButton
+                                      key={`social-${socialIndex}`}
+                                      buttonText={socialLink.name}
+                                      buttonLink={link}
+                                  />
+                              );
+                            } else {
+                              return null;
+                            }
+                          })}
+                    </div>
+                ))}
           </div>
         </Grid>
         <Grid
