@@ -11,7 +11,7 @@ import zubWelcomeBlock2 from "../../assets/content/main/welcomeBlock/zub_welcome
 import PrimaryButton from "../primaryButton/PrimaryButton";
 import { routes } from "../../assets/routes/routes";
 import Button from "@mui/material/Button";
-import { useNavigate } from "react-router-dom";
+import {useLocation, useNavigate} from "react-router-dom";
 /**
  * Данные по блоку приветствия
  * @interface
@@ -89,6 +89,10 @@ const WelcomeBlock: React.FC = () => {
       backgroundColor: "#1a665d",
     },
   };
+
+  // Модалка с записью
+  let location = useLocation();
+
   return (
     <div>
       <Grid container spacing={5}>
@@ -173,9 +177,7 @@ const WelcomeBlock: React.FC = () => {
                 </Button>
                 <Button
                   sx={ButtonStyle}
-                  onClick={() => {
-                    navigate(routes.appointment);
-                  }}
+                  onClick={() => navigate("appointment-button", {state: {backgroundLocation: location}})}
                 >
                   Записаться на прием
                 </Button>
