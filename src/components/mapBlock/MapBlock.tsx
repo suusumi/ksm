@@ -172,23 +172,64 @@ const MapBlock: React.FC<mapBlockProps> = ({ id }) => {
                 marginTop: "15px",
               }}
             >
-              {data.map((item, index) => (
-                <div key={index}>
-                  <OutlineButton
-                    buttonText={`${item.title} ${item.adress}`}
-                    buttonLink={item.yamapLink}
-                  />
-                </div>
-              ))}
+              {/*{data.map((item, index) => (*/}
+              {/*  <div key={index}>*/}
+              {/*    <OutlineButton*/}
+              {/*      buttonText={`${item.title} ${item.adress}`}*/}
+              {/*      buttonLink={item.yamapLink}*/}
+              {/*    />*/}
+              {/*  </div>*/}
+              {/*))}*/}
             </Box>
             <Box sx={{ marginTop: "15px" }}>
               <Typography sx={TitleText}>График работы клиники</Typography>
-              {data2.map((item, index) => (
-                <div key={index}>
-                  <Typography>{item.workdays}</Typography>
-                  <Typography>{item.weekends}</Typography>
-                </div>
-              ))}
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: { xs: "column", md: "row" },
+                  gap: "10px",
+                  marginTop: "10px",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Button
+                  variant="outlined"
+                  sx={{
+                    color: "#288e81",
+                    borderColor: "#288e81",
+                    borderRadius: "20px",
+                    textTransform: "none",
+                    fontSize: "16px",
+                    padding: "8px 20px",
+                    width: { xs: "100%", md: "calc(50% - 5px)" }, // Равномерное распределение на десктопе
+                    "&:hover": {
+                      borderColor: "#1a665d",
+                      backgroundColor: "rgba(40, 142, 129, 0.1)",
+                    },
+                  }}
+                >
+                  Понедельник - пятница: 08:00-19:00
+                </Button>
+                <Button
+                  variant="outlined"
+                  sx={{
+                    color: "#288e81",
+                    borderColor: "#288e81",
+                    borderRadius: "20px",
+                    textTransform: "none",
+                    fontSize: "16px",
+                    padding: "8px 20px",
+                    width: { xs: "100%", md: "calc(50% - 5px)" }, // Равномерное распределение на десктопе
+                    "&:hover": {
+                      borderColor: "#1a665d",
+                      backgroundColor: "rgba(40, 142, 129, 0.1)",
+                    },
+                  }}
+                >
+                  Суббота: 09:00-14:00
+                </Button>
+              </Box>
             </Box>
           </Box>
         </Grid>
