@@ -12,11 +12,11 @@ export const MainPanelContainer: React.FC<IMainPanelContainer> = ({
 }) => {
   return (
     <>
-      <Container>
+      {/*<Container>*/}
         <Header />
         <div style={{ marginBottom: "140px" }}></div>
         {children}
-      </Container>
+      {/*</Container>*/}
       <Footer />
     </>
   );

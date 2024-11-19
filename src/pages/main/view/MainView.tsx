@@ -32,15 +32,14 @@ function MainView() {
     maxWidth: "250px",
   };
 
-  // TODO:написать и перенести компонент yclient
   return (
     <div>
       <Preloader />
+      <WelcomeBlock />
       <Container>
-        <WelcomeBlock />
         <StatisticBar />
+        <CarouselBlock></CarouselBlock>
       </Container>
-      <CarouselBlock></CarouselBlock>
       <Container>
         <AboutUsBlock id="aboutUsBlock" />
         <OurContactsBlock id="ourContactsBlock"></OurContactsBlock>
@@ -49,7 +48,6 @@ function MainView() {
         <Price id="priceBlock"></Price>
         <NewPrice></NewPrice>
         <MapBlock id="mapBlock" />
-        {/*<Yclient/>*/}
       </Container>
     </div>
   );
