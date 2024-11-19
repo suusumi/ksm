@@ -11,7 +11,10 @@ import zubWelcomeBlock2 from "../../assets/content/main/welcomeBlock/zub_welcome
 import PrimaryButton from "../primaryButton/PrimaryButton";
 import { routes } from "../../assets/routes/routes";
 import Button from "@mui/material/Button";
-import {useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import { Container } from "@mui/material";
+import mainBackground from "../../assets/content/main/welcomeBlock/main_background.png";
+
 /**
  * Данные по блоку приветствия
  * @interface
@@ -60,7 +63,7 @@ const WelcomeBlock: React.FC = () => {
   };
 
   const TitleText = {
-    color: "#288e81",
+    color: isXsScreen ? "#288e81" : "#FFFFFF",
     fontSize: isXsScreen ? 30 : 70,
     lineHeight: " 1.2 ",
     fontFamily: "Austin, sans-serif",
@@ -74,6 +77,7 @@ const WelcomeBlock: React.FC = () => {
     maxWidth: isXsScreen ? 300 : 500,
     textAlign: isXsScreen ? "center" : "left",
     display: "flex",
+    color: isXsScreen ? "#00000" : "#FFFFFF",
   };
 
   const ButtonStyle = {
@@ -94,7 +98,7 @@ const WelcomeBlock: React.FC = () => {
   let location = useLocation();
 
   return (
-    <div>
+    <div >
       <Grid container spacing={5}>
         {isXsScreen ? (
           <Grid
@@ -156,42 +160,59 @@ const WelcomeBlock: React.FC = () => {
             </div>
           </Grid>
         ) : (
-          <>
-            <Grid item xs={12} sm={6} md={6}>
-              {/* TODO: необходимо добавить отступ для WelcomePhraseButton */}
-              <div style={{ marginBottom: "20px" }}>
-                <WelcomePhraseButton slogan={data[0]?.slogan || ""} />
-              </div>
-              <Typography sx={TitleText}>{data[0]?.title || ""}</Typography>
-              <Typography sx={SubtitleText}>
-                {data[0]?.subtitle || ""}
-              </Typography>
-              <div style={{ display: "flex", gap: "20px", marginTop: "40px" }}>
-                <Button
-                  sx={ButtonStyle}
-                  onClick={() => {
-                    scrollToBlock("priceBlock");
+            <Box
+                sx={{
+                  position: "relative",
+                  backgroundImage: `url(${mainBackground})`,
+                  backgroundSize: "cover",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "top center", // Выровнять по верхнему краю
+                  width: "100%",
+                  height: "80vh",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+
+                }}
+            >
+              <Grid
+                  container
+                  sx={{
+                    maxWidth: "1200px", // Ограничение ширины текста
+                    margin: "0 auto", // Центрирование по горизонтали
                   }}
-                >
-                  Услуги
-                </Button>
-                <Button
-                  sx={ButtonStyle}
-                  onClick={() => navigate("appointment-button", {state: {backgroundLocation: location}})}
-                >
-                  Записаться на прием
-                </Button>
-              </div>
-            </Grid>
-            <Grid item xs={12} sm={6} md={6}>
-              <Box
-                component="img"
-                sx={{ width: "100%" }}
-                alt="Зуб Андрей Владимирович"
-                src={zubWelcomeBlock2}
-              ></Box>
-            </Grid>
-          </>
+              >
+                <Grid item xs={12} sm={6}>
+                  {/* Слоган */}
+                  <div style={{ marginBottom: "20px" }}>
+                    <WelcomePhraseButton slogan={data[0]?.slogan || ""} />
+                  </div>
+                  {/* Заголовок */}
+                  <Typography sx={TitleText}>{data[0]?.title || ""}</Typography>
+                  {/* Подзаголовок */}
+                  <Typography sx={SubtitleText}>{data[0]?.subtitle || ""}</Typography>
+                  {/* Кнопки */}
+                  <div style={{ display: "flex", gap: "20px", marginTop: "40px" }}>
+                    <Button
+                        sx={ButtonStyle}
+                        onClick={() => {
+                          scrollToBlock("priceBlock");
+                        }}
+                    >
+                      Услуги
+                    </Button>
+                    <Button
+                        sx={ButtonStyle}
+                        onClick={() => {
+                          scrollToBlock("ourContactsBlock");
+                        }}
+                    >
+                      Записаться на прием
+                    </Button>
+                  </div>
+                </Grid>
+              </Grid>
+            </Box>
         )}
       </Grid>
     </div>
