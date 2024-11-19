@@ -15,13 +15,13 @@ const WelcomePhraseButton: React.FC<WelcomePhraseButtonProps> = (props) => {
             color: isXsScreen ? '#288e81' : '#ffffff',
             backgroundColor: '#white',
             border: isXsScreen ? '1px solid #288e81' : '1px solid #ffffff',
-
             borderRadius: '30px',
             fontSize: '15px',
             textTransform: 'none',
             padding: '8px 20px',
             display: {xs: 'flex', sm: 'none', lg: 'flex'},
-            whiteSpace: 'nowrap'
+            whiteSpace: 'nowrap',
+            marginTop:'250px'
         }}>
 
             {props.slogan}</Button>
