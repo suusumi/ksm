@@ -51,18 +51,29 @@ export const AdminDocsScreen = () => {
         setIsDialogOpen(false);
     };
 
+    const normalizeLink = (link: string): string => {
+        if (!/^https?:\/\//i.test(link)) {
+            return `http://${link}`; // Добавляем `http://` по умолчанию
+        }
+        return link;
+    };
+
     const handleSaveDocument = async () => {
         if (!currentDocument) return;
 
         try {
-            if (currentDocument.id) {
-                // Обновление документа
-                await updateDocById(currentDocument.id, currentDocument);
-                console.log("Документ обновлен:", currentDocument);
+            // Нормализация ссылки перед сохранением
+            const normalizedDocument = {
+                ...currentDocument,
+                file_name: normalizeLink(currentDocument.file_name),
+            };
+
+            if (normalizedDocument.id) {
+                await updateDocById(normalizedDocument.id, normalizedDocument);
+                console.log("Документ обновлен:", normalizedDocument);
             } else {
-                // Создание нового документа
-                await createDoc(currentDocument);
-                console.log("Документ создан:", currentDocument);
+                await createDoc(normalizedDocument);
+                console.log("Документ создан:", normalizedDocument);
             }
 
             setIsDialogOpen(false);
@@ -90,7 +101,6 @@ export const AdminDocsScreen = () => {
         }
     };
 
-    // TODO: исправить Model (- не должно быть undefined)
     return (
         <>
             <AdminDocsView

@@ -40,9 +40,11 @@ export const DialogCreateDocument: React.FC<IDialogCreateDocument> = (props) => 
     };
 
     const validateLink = (link: string): boolean => {
-        const urlPattern = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+        const urlPattern = /^(https?:\/\/|www\.|[a-z0-9]+\.[a-z]{2,}|\/).+/i;
         return urlPattern.test(link);
     };
+
+
 
     return (
         <Dialog open={props.open} onClose={props.handleClose}>
