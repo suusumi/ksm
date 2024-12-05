@@ -9,4 +9,5 @@ export const routes = {
     appointment: '/appointment/:category/:service',
     privacyPolicy: '/privacypolicy',
     docs: '/docs',
+    adminDocs: '/admin-docs',
 }

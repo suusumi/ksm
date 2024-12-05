@@ -15,11 +15,12 @@ import {BannersScreen} from "./pages/banners/BannersScreen";
 import AppointmentFormScreen from "./pages/appointmentForm/AppointmentFormScreen";
 import PrivacyPolicyScreen from "./pages/privacyPolicy/PrivacyPolicyScreen";
 import SpecialistScreen from "./pages/specialist/SpecialistScreen";
-import DocsScreen from "./pages/docs/DocsScreen";
+import {DocsScreen} from "./pages/docs/DocsScreen";
 import {useAuth} from "./utils/hooks/auth.hook";
 import {AuthContext} from "./utils/context/AuthContext";
 import {Yclient} from "./components/yclient/Yclient";
 import {Modal} from "@mui/material";
+import {AdminDocsScreen} from "./pages/adminDocs/AdminDocsScreen";
 
 function App() {
     const {userId, login, logout, ready} = useAuth();
@@ -52,6 +53,11 @@ function App() {
                             path={routes.specialists}
                             element={<AdminPanelContainer children={<SpecialistsScreen/>}/>}
                         />
+                        <Route
+                            path={routes.adminDocs}
+                            element={<AdminPanelContainer children={<AdminDocsScreen/>}/>}
+                        />
+
                         <Route path="*" element={<Navigate replace to={routes.infographics}/>}/>
                     </Routes>
                 )}
