@@ -27,6 +27,22 @@ const styles = {
 
 export const DialogCreateDocument: React.FC<IDialogCreateDocument> = (props) => {
     const [errorMessage, setErrorMessage] = useState<string | null>(null);
+    const [isNameValid, setIsNameValid] = useState<boolean>(true);
+
+    // Проверка наличия названия при создании документа
+    const handleNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const name = event.target.value.trim();
+        props.handleChangeDocumentForm(event, "name");
+
+        // Валидация поля "Название"
+        if (!name) {
+            setErrorMessage("Название документа обязательно.");
+            setIsNameValid(false);
+        } else {
+            setErrorMessage(null);
+            setIsNameValid(true);
+        }
+    };
 
     // Обработка изменения ссылки с валидацией
     const handleLinkChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -44,8 +60,6 @@ export const DialogCreateDocument: React.FC<IDialogCreateDocument> = (props) => 
         return urlPattern.test(link);
     };
 
-
-
     return (
         <Dialog open={props.open} onClose={props.handleClose}>
             <DialogTitle style={styles.TitleText}>
@@ -60,7 +74,9 @@ export const DialogCreateDocument: React.FC<IDialogCreateDocument> = (props) => 
                             variant="outlined"
                             label="Название документа"
                             value={props.createDocument.name}
-                            onChange={(event) => props.handleChangeDocumentForm(event, "name")}
+                            onChange={handleNameChange} // Используем функцию с валидацией
+                            error={!isNameValid} // Если название некорректное, подсвечиваем поле
+                            helperText={!isNameValid ? "Название документа обязательно." : ""} // Сообщение об ошибке
                         />
                     </Grid>
                     {/* Поле Описание */}
@@ -83,7 +99,7 @@ export const DialogCreateDocument: React.FC<IDialogCreateDocument> = (props) => 
                             label="Ссылка на файл"
                             value={props.createDocument.file_name}
                             onChange={handleLinkChange}
-                            error={!!errorMessage}
+                            error={!!errorMessage && !isNameValid} // Показываем ошибку только если она относится к ссылке
                             helperText={errorMessage}
                         />
                     </Grid>
@@ -95,7 +111,12 @@ export const DialogCreateDocument: React.FC<IDialogCreateDocument> = (props) => 
                     Отмена
                 </Button>
                 {/* Кнопка Сохранить */}
-                <Button onClick={props.handleCreateDocument} color="primary" variant="contained">
+                <Button
+                    onClick={props.handleCreateDocument}
+                    color="primary"
+                    variant="contained"
+                    disabled={!isNameValid || !props.createDocument.name.trim()} // Отключаем кнопку, если название некорректное
+                >
                     Сохранить
                 </Button>
             </DialogActions>
