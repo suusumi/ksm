@@ -14,6 +14,9 @@ export const AdminAboutUsScreen: React.FC = () => {
         const loadAboutUs = async () => {
             try {
                 const data = await fetchAboutUs();
+                console.log(aboutUs?.imageUrl);
+                console.log("Данные о нас:", data); // Выводим все данные
+
                 setAboutUs(data);
             } catch (err) {
                 console.error("Ошибка при загрузке информации О НАС:", err);
