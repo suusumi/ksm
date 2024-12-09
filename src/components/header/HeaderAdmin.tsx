@@ -45,6 +45,7 @@ export const HeaderAdmin = () => {
                         <Button href={routes.specialists} color="inherit" sx={styles.button}>Специалисты</Button>
                         <Button href={routes.services} color="inherit" sx={styles.button}>Услуги</Button>
                         <Button href={routes.adminDocs} color="inherit" sx={styles.button}>Документы</Button>
+                        <Button href={routes.adminAboutUs} color="inherit" sx={styles.button}>О нас</Button>
                     </Box>
 
                     <Button color="inherit" onClick={() => handleLogin()} sx={styles.buttonExit}>ВЫЙТИ</Button>
