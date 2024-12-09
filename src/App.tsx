@@ -21,6 +21,7 @@ import {AuthContext} from "./utils/context/AuthContext";
 import {Yclient} from "./components/yclient/Yclient";
 import {Modal} from "@mui/material";
 import {AdminDocsScreen} from "./pages/adminDocs/AdminDocsScreen";
+import {AdminAboutUsScreen} from "./pages/adminAboutUs/AdminAboutUsScreen";
 
 function App() {
     const {userId, login, logout, ready} = useAuth();
@@ -56,6 +57,10 @@ function App() {
                         <Route
                             path={routes.adminDocs}
                             element={<AdminPanelContainer children={<AdminDocsScreen/>}/>}
+                        />
+                        <Route
+                            path={routes.adminAboutUs}
+                            element={<AdminPanelContainer children={<AdminAboutUsScreen/>}/>}
                         />
 
                         <Route path="*" element={<Navigate replace to={routes.infographics}/>}/>
