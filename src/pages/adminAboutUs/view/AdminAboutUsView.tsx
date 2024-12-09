@@ -18,6 +18,7 @@ export const AdminAboutUsView: React.FC<AdminAboutUsModel & {
           onSaveChanges,
       }) => {
     const [previewImage, setPreviewImage] = useState<string | null>(null);
+    const [contentError, setContentError] = useState<string | null>(null);
 
     if (loading) {
         return <CircularProgress />;
@@ -34,6 +35,15 @@ export const AdminAboutUsView: React.FC<AdminAboutUsModel & {
             onUpdateImage(file); // Сохраняем файл в локальном состоянии
         }
     };
+
+    const handleSave = () => {
+        if (!localContent.trim()) {
+            setContentError("Поле не может быть пустым.");
+            return;
+        }
+        setContentError(null);
+        onSaveChanges();
+    }
 
     return (
         <div>
@@ -100,6 +110,7 @@ export const AdminAboutUsView: React.FC<AdminAboutUsModel & {
                 color="primary"
                 onClick={onSaveChanges} // Сохраняем данные только при нажатии
                 style={{ marginTop: "16px" }}
+                disabled={!localContent.trim()}
             >
                 Сохранить изменения
             </Button>
