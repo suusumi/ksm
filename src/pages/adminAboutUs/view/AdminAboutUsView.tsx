@@ -2,13 +2,21 @@ import React, { useState } from "react";
 import { Typography, TextField, Button, CircularProgress, Box } from "@mui/material";
 import { AdminAboutUsModel } from "../model/AdminAboutUsModel";
 
-export const AdminAboutUsView: React.FC<AdminAboutUsModel> = ({
-                                                                  aboutUs,
-                                                                  loading,
-                                                                  error,
-                                                                  onUpdate,
-                                                                  onUpdateImage,
-                                                              }) => {
+const BASE_URL = "http://localhost:8081/images";
+
+export const AdminAboutUsView: React.FC<AdminAboutUsModel & {
+    localContent: string;
+    onUpdateContent: (content: string) => void;
+    onSaveChanges: () => void;
+}> = ({
+          aboutUs,
+          loading,
+          error,
+          localContent,
+          onUpdateContent,
+          onUpdateImage,
+          onSaveChanges,
+      }) => {
     const [previewImage, setPreviewImage] = useState<string | null>(null);
 
     if (loading) {
@@ -22,16 +30,10 @@ export const AdminAboutUsView: React.FC<AdminAboutUsModel> = ({
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         if (event.target.files && event.target.files[0]) {
             const file = event.target.files[0];
-            setPreviewImage(URL.createObjectURL(file)); // Создаем URL для предварительного просмотра
-            onUpdateImage(file); // Вызываем функцию обновления изображения
+            setPreviewImage(URL.createObjectURL(file)); // Предпросмотр
+            onUpdateImage(file); // Сохраняем файл в локальном состоянии
         }
     };
-
-    const getFullImageUrl = (fileName: string): string => {
-        const baseUrl = "http://localhost:8081/images"; // Используем базовый путь, где раздаются изображения
-        return `${baseUrl}/${fileName}`;
-    };
-
 
     return (
         <div>
@@ -45,8 +47,8 @@ export const AdminAboutUsView: React.FC<AdminAboutUsModel> = ({
                 fullWidth
                 multiline
                 rows={4}
-                value={aboutUs?.content || ""}
-                onChange={(e) => onUpdate({ content: e.target.value })}
+                value={localContent} // Используем локальное состояние
+                onChange={(e) => onUpdateContent(e.target.value)} // Обновляем локальное состояние
                 margin="normal"
             />
 
@@ -55,9 +57,15 @@ export const AdminAboutUsView: React.FC<AdminAboutUsModel> = ({
                 <Typography>Текущее изображение:</Typography>
                 {aboutUs?.imageUrl && (
                     <img
-                        src={getFullImageUrl(aboutUs.imageUrl)} // Формируем полный URL
+                        src={`${BASE_URL}/${aboutUs.imageUrl}`} // Текущее изображение
                         alt="Текущее изображение"
-                        style={{ maxWidth: "100%", maxHeight: "200px", objectFit: "contain", border: "1px solid #ccc", borderRadius: "4px" }}
+                        style={{
+                            maxWidth: "100%",
+                            maxHeight: "200px",
+                            objectFit: "contain",
+                            border: "1px solid #ccc",
+                            borderRadius: "4px",
+                        }}
                     />
                 )}
 
@@ -66,7 +74,13 @@ export const AdminAboutUsView: React.FC<AdminAboutUsModel> = ({
                     <img
                         src={previewImage}
                         alt="Новое изображение"
-                        style={{ maxWidth: "100%", maxHeight: "200px", objectFit: "contain", border: "1px solid #ccc", borderRadius: "4px" }}
+                        style={{
+                            maxWidth: "100%",
+                            maxHeight: "200px",
+                            objectFit: "contain",
+                            border: "1px solid #ccc",
+                            borderRadius: "4px",
+                        }}
                     />
                 )}
 
@@ -84,12 +98,11 @@ export const AdminAboutUsView: React.FC<AdminAboutUsModel> = ({
             <Button
                 variant="contained"
                 color="primary"
-                onClick={() => onUpdate({ content: aboutUs?.content || "" })}
+                onClick={onSaveChanges} // Сохраняем данные только при нажатии
                 style={{ marginTop: "16px" }}
             >
                 Сохранить изменения
             </Button>
         </div>
-
     );
 };

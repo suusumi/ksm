@@ -1,23 +1,24 @@
 import React, { useEffect, useState } from "react";
 
 import { AdminAboutUsModel } from "./model/AdminAboutUsModel";
-import {AboutUs} from "../../api/aboutUs/dto";
-import {fetchAboutUs, updateAboutUs, updateAboutUsImage} from "../../api/aboutUs/request";
-import {AdminAboutUsView} from "./view/AdminAboutUsView";
+import { AboutUs } from "../../api/aboutUs/dto";
+import { fetchAboutUs, updateAboutUs, updateAboutUsImage } from "../../api/aboutUs/request";
+import { AdminAboutUsView } from "./view/AdminAboutUsView";
 
 export const AdminAboutUsScreen: React.FC = () => {
     const [aboutUs, setAboutUs] = useState<AboutUs | null>(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState<string | null>(null);
 
+    const [localContent, setLocalContent] = useState<string>(""); // Локальное состояние для текста
+    const [localImage, setLocalImage] = useState<File | null>(null); // Локальное состояние для файла
+
     useEffect(() => {
         const loadAboutUs = async () => {
             try {
                 const data = await fetchAboutUs();
-                console.log(aboutUs?.imageUrl);
-                console.log("Данные о нас:", data); // Выводим все данные
-
                 setAboutUs(data);
+                setLocalContent(data.content); // Инициализируем локальное состояние
             } catch (err) {
                 console.error("Ошибка при загрузке информации О НАС:", err);
                 setError("Не удалось загрузить информацию О НАС. Попробуйте позже.");
@@ -29,24 +30,35 @@ export const AdminAboutUsScreen: React.FC = () => {
         loadAboutUs();
     }, []);
 
-    const handleUpdateAboutUs: AdminAboutUsModel["onUpdate"] = async (updateData) => {
-        try {
-            await updateAboutUs(updateData);
-            setAboutUs((prev) => ({ ...prev, ...updateData } as AboutUs));
-        } catch (err) {
-            console.error("Ошибка при обновлении информации О НАС:", err);
-        }
+    const handleUpdateContent = (content: string) => {
+        setLocalContent(content); // Обновляем только локальное состояние
     };
 
-    const handleUpdateImage: AdminAboutUsModel["onUpdateImage"] = async (file) => {
-        const formData = new FormData();
-        formData.append("image", file);
+    const handleUpdateImage = (file: File) => {
+        setLocalImage(file); // Сохраняем выбранное изображение в локальном состоянии
+    };
 
+    const handleSaveChanges = async () => {
         try {
-            const { imageUrl } = await updateAboutUsImage(formData);
-            setAboutUs((prev) => (prev ? { ...prev, imageUrl } : null));
+            // Обновляем текст
+            if (localContent !== aboutUs?.content) {
+                await updateAboutUs({ content: localContent });
+            }
+
+            // Обновляем изображение, если оно выбрано
+            if (localImage) {
+                const formData = new FormData();
+                formData.append("image", localImage);
+                const { imageUrl } = await updateAboutUsImage(formData);
+                setAboutUs((prev) => (prev ? { ...prev, imageUrl } : null)); // Обновляем URL изображения
+            }
+
+            // Обновляем состояние
+            setAboutUs((prev) => (prev ? { ...prev, content: localContent } : null));
+            alert("Изменения успешно сохранены!");
         } catch (err) {
-            console.error("Ошибка при обновлении изображения О НАС:", err);
+            console.error("Ошибка при сохранении изменений:", err);
+            setError("Не удалось сохранить изменения. Попробуйте позже.");
         }
     };
 
@@ -55,8 +67,11 @@ export const AdminAboutUsScreen: React.FC = () => {
             aboutUs={aboutUs}
             loading={loading}
             error={error}
-            onUpdate={handleUpdateAboutUs}
+            localContent={localContent}
+            onUpdateContent={handleUpdateContent}
             onUpdateImage={handleUpdateImage}
+            onSaveChanges={handleSaveChanges}
+            onUpdate={() => {}}
         />
     );
 };
