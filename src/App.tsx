@@ -22,6 +22,7 @@ import {Yclient} from "./components/yclient/Yclient";
 import {Modal} from "@mui/material";
 import {AdminDocsScreen} from "./pages/adminDocs/AdminDocsScreen";
 import {AdminAboutUsScreen} from "./pages/adminAboutUs/AdminAboutUsScreen";
+import {AdminReviewsScreen} from "./pages/adminReviews/AdminReviewsScreen";
 
 function App() {
     const {userId, login, logout, ready} = useAuth();
@@ -61,6 +62,10 @@ function App() {
                         <Route
                             path={routes.adminAboutUs}
                             element={<AdminPanelContainer children={<AdminAboutUsScreen/>}/>}
+                        />
+                        <Route
+                            path={routes.adminReviews}
+                            element={<AdminPanelContainer children={<AdminReviewsScreen/>}/>}
                         />
 
                         <Route path="*" element={<Navigate replace to={routes.infographics}/>}/>

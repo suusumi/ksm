@@ -10,4 +10,6 @@ export const routes = {
     privacyPolicy: '/privacypolicy',
     docs: '/docs',
     adminDocs: '/admin-docs',
+    adminAboutUs: '/admin-about-us',
+    adminReviews: '/admin-reviews',
 }
