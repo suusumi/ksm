@@ -14,6 +14,7 @@ import MapBlock from "../../../components/mapBlock/MapBlock";
 import NewPrice from "../../../components/newPriceBlock/NewPriceScreen";
 import Preloader from "../../../components/preloader/Preloader";
 import {Yclient} from "../../../components/yclient/Yclient";
+import {ReviewsBlockScreen} from "../../../components/reviewsBlock/ReviewsBlockScreen";
 
 function MainView() {
   const TitleText = {
@@ -44,7 +45,7 @@ function MainView() {
         <AboutUsBlock id="aboutUsBlock" />
         <OurContactsBlock id="ourContactsBlock"></OurContactsBlock>
         <OurSpecialists id="ourSpecialists"></OurSpecialists>
-        <ReviewsFromMapBlock id="reviewsFromMapBlock"></ReviewsFromMapBlock>
+        <ReviewsBlockScreen id="reviewsFromMapBlock"></ReviewsBlockScreen>
         <Price id="priceBlock"></Price>
         <NewPrice></NewPrice>
         <MapBlock id="mapBlock" />
